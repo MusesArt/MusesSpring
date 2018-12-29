@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="muses" />
+        <module name="MusesSpring" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="muses" target="1.7" />
+      <module name="MusesSpring" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
