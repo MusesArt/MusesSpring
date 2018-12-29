@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "filter_category")
+@Table(name = "filter")
 public class Filter {
 
     @Id
