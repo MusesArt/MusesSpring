@@ -17,12 +17,34 @@ public class OrderCommodity { // 订购的商品
     private Date addTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
+    @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
+
+    @Column(name = "order_id")
+    private int orderId;
+
+    @Column(name = "commodity_id")
+    private int commodityId;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
 
     public int getId() {
         return id;

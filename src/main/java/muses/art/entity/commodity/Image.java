@@ -16,12 +16,34 @@ public class Image {
     private String imageUrl; // 图像url
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
+    @Column(name = "commodity_id")
+    private int commodityId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    private Comment comment;
+    @JoinColumn(name = "comment_id", insertable = false, updatable = false)
+    private Comment comment; // 评论对象 多对一
+
+    @Column(name = "comment_id")
+    private int commentId;
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
 
     public int getId() {
         return id;

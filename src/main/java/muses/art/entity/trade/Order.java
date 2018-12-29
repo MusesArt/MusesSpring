@@ -32,12 +32,34 @@ public class Order { // 订单
     private Date payTime; // 支付时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 订单用户对象 多对一
 
+    @Column(name = "user_id")
+    private int userId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", insertable = false, updatable = false)
     private Address address; // 订单地址对象 多对一
+
+    @Column(name = "address_id")
+    private int addressId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
 
     public int getId() {
         return id;

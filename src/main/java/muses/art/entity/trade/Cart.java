@@ -21,12 +21,34 @@ public class Cart { // 购物车
     private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
+    @Column(name = "user_id")
+    private int userId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
+    @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
+
+    @Column(name = "commodity_id")
+    private int commodityId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
 
     public int getId() {
         return id;
