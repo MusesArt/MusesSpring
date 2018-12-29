@@ -1,14 +1,14 @@
-package muses.art.model;
+package muses.art.model.base;
 
 import java.util.List;
 
-public class PageModel<T> {
+public class PageModel<E> {
 
     private int currentPage;
     private int pageSize;
     private int pageCount;
     private int totalNum;
-    private List<T> dataList;
+    private List<E> dataList;
 
     public int getCurrentPage() {
         return currentPage;
@@ -42,11 +42,11 @@ public class PageModel<T> {
         this.totalNum = totalNum;
     }
 
-    public List<T> getDataList() {
+    public List<E> getDataList() {
         return dataList;
     }
 
-    public void setDataList(List<T> dataList) {
+    public void setDataList(List<E> dataList) {
         this.dataList = dataList;
     }
 }

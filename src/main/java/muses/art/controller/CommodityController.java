@@ -1,8 +1,8 @@
 package muses.art.controller;
 
 import muses.art.entity.commodity.Commodity;
-import muses.art.model.PageModel;
-import muses.art.model.StatusModel;
+import muses.art.model.base.PageModel;
+import muses.art.model.base.StatusModel;
 import muses.art.service.commodity.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +20,10 @@ public class CommodityController {
     @Autowired
     private CommodityService commodityService;
 
-    @RequestMapping(value = "/id", method = RequestMethod.GET)
-    public @ResponseBody StatusModel<PageModel<Commodity>> get(HttpSession session) {
+    @RequestMapping(value = "/list/{page}/{size}/json", method = RequestMethod.GET)
+    public @ResponseBody StatusModel<PageModel<Commodity>> getCommoditiesByPage(int page, int size) {
 
+//        commodityService;
         List<Commodity> commodities = new ArrayList<>();
         for (int i = 0; i < 10; i++ ) {
             Commodity commodity = new Commodity();

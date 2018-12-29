@@ -1,10 +1,10 @@
-package muses.art.model;
+package muses.art.model.base;
 
-public class StatusModel<T> {
+public class StatusModel<E> {
 
     private int errorCode;
     private String errorMsg;
-    private T data;
+    private E data;
 
     public int getErrorCode() {
         return errorCode;
@@ -22,11 +22,11 @@ public class StatusModel<T> {
         this.errorMsg = errorMsg;
     }
 
-    public T getData() {
+    public E getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(E data) {
         this.data = data;
     }
 }
