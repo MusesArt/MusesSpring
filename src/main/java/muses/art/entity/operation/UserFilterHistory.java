@@ -13,12 +13,6 @@ public class UserFilterHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "filter_id")
-    private int filterId; // 滤镜id(外键)
-
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
-
     @Column(name = "output_size")
     private int outputSize; // 输出图像大小
 
@@ -39,22 +33,6 @@ public class UserFilterHistory {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getFilterId() {
-        return filterId;
-    }
-
-    public void setFilterId(int filterId) {
-        this.filterId = filterId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getOutputSize() {
@@ -89,16 +67,4 @@ public class UserFilterHistory {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "UserFilterHistory{" +
-                "id=" + id +
-                ", filterId=" + filterId +
-                ", userId=" + userId +
-                ", outputSize=" + outputSize +
-                ", operateTime=" + operateTime +
-                ", filter=" + filter +
-                ", user=" + user +
-                '}';
-    }
 }

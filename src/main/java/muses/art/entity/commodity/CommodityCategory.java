@@ -26,14 +26,11 @@ public class CommodityCategory { // 商品类别
     @Column(name = "add_time")
     private Timestamp addTime; // 添加时间
 
-    @Column(name = "parent_category_id")
-    private int parentCategoryId; // 父类别Id(外键)
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id", referencedColumnName = "id")
     private CommodityCategory parentCategory; // 父类别对象 多对一
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity_category")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<CommodityCategory> subCategories; // 子类别列表 一对多
 
     public int getId() {
@@ -84,34 +81,12 @@ public class CommodityCategory { // 商品类别
         this.addTime = addTime;
     }
 
-    public int getParentCategoryId() {
-        return parentCategoryId;
-    }
-
-    public void setParentCategoryId(int parentCategoryId) {
-        this.parentCategoryId = parentCategoryId;
-    }
-
     public CommodityCategory getParentCategory() {
         return parentCategory;
     }
 
     public void setParentCategory(CommodityCategory parentCategory) {
         this.parentCategory = parentCategory;
-    }
-
-    @Override
-    public String toString() {
-        return "CommodityCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", description='" + description + '\'' +
-                ", isTab=" + isTab +
-                ", addTime=" + addTime +
-                ", parentCategoryId=" + parentCategoryId +
-                ", parentCategory=" + parentCategory +
-                '}';
     }
 
     public List<CommodityCategory> getSubCategories() {

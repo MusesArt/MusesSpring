@@ -30,15 +30,9 @@ public class Order { // 订单
     @Column(name = "pay_time")
     private Timestamp payTime; // 支付时间
 
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 订单用户对象 多对一
-
-    @Column(name = "address_id")
-    private int addressId; // 订单地址信息id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -100,28 +94,12 @@ public class Order { // 订单
         this.payTime = payTime;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
     }
 
     public Address getAddress() {
@@ -132,20 +110,4 @@ public class Order { // 订单
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderSN='" + orderSN + '\'' +
-                ", tradeNo='" + tradeNo + '\'' +
-                ", payStatus='" + payStatus + '\'' +
-                ", postScript='" + postScript + '\'' +
-                ", orderAmount=" + orderAmount +
-                ", payTime=" + payTime +
-                ", userId=" + userId +
-                ", user=" + user +
-                ", addressId=" + addressId +
-                ", address=" + address +
-                '}';
-    }
 }

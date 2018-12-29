@@ -56,10 +56,7 @@ public class Commodity {
     @Column(name = "cover_image")
     private String coverImage; // 封面图片地址
 
-    @Column(name = "category_id")
-    private int categoryId; // 所属类别Id(外键)
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -194,14 +191,6 @@ public class Commodity {
         this.coverImage = coverImage;
     }
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public List<Image> getImages() {
         return images;
     }
@@ -218,28 +207,5 @@ public class Commodity {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return "Commodity{" +
-                "id=" + id +
-                ", commoditySN='" + commoditySN + '\'' +
-                ", name='" + name + '\'' +
-                ", clickNum=" + clickNum +
-                ", soldNum=" + soldNum +
-                ", favoriteNum=" + favoriteNum +
-                ", goodsNum=" + goodsNum +
-                ", originalPrice=" + originalPrice +
-                ", discountPrice=" + discountPrice +
-                ", brief='" + brief + '\'' +
-                ", description='" + description + '\'' +
-                ", shipFree=" + shipFree +
-                ", isNew=" + isNew +
-                ", isHot=" + isHot +
-                ", addTime=" + addTime +
-                ", coverImage='" + coverImage + '\'' +
-                ", categoryId=" + categoryId +
-                ", images=" + images +
-                ", category=" + category +
-                '}';
-    }
+
 }

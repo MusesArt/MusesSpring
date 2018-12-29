@@ -14,12 +14,6 @@ public class Cart { // 购物车
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
-
-    @Column(name = "commodity_id")
-    private int commodityId; // 商品id(外键)
-
     @Column(name = "number")
     private int number; // 数量
 
@@ -40,22 +34,6 @@ public class Cart { // 购物车
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getCommodityId() {
-        return commodityId;
-    }
-
-    public void setCommodityId(int commodityId) {
-        this.commodityId = commodityId;
     }
 
     public int getNumber() {
@@ -90,16 +68,4 @@ public class Cart { // 购物车
         this.commodity = commodity;
     }
 
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", commodityId=" + commodityId +
-                ", number=" + number +
-                ", addTime=" + addTime +
-                ", user=" + user +
-                ", commodity=" + commodity +
-                '}';
-    }
 }

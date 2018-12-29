@@ -14,12 +14,6 @@ public class UserFavCommodity { // 用户收藏商品
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "user_id")
-    private int userId; // 用户id
-
-    @Column(name = "commodity_id")
-    private int commodityId; // 商品id
-
     @Column(name = "add_time")
     private Timestamp addTime; // 添加时间
 
@@ -37,22 +31,6 @@ public class UserFavCommodity { // 用户收藏商品
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getCommodityId() {
-        return commodityId;
-    }
-
-    public void setCommodityId(int commodityId) {
-        this.commodityId = commodityId;
     }
 
     public Timestamp getAddTime() {
@@ -79,15 +57,4 @@ public class UserFavCommodity { // 用户收藏商品
         this.commodity = commodity;
     }
 
-    @Override
-    public String toString() {
-        return "UserFavCommodity{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", commodityId=" + commodityId +
-                ", addTime=" + addTime +
-                ", user=" + user +
-                ", commodity=" + commodity +
-                '}';
-    }
 }

@@ -34,9 +34,6 @@ public class Address { // 收货地址
     @Column(name = "add_time")
     private Timestamp addTime; // 添加时间
 
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 用户对象 多对一
@@ -105,14 +102,6 @@ public class Address { // 收货地址
         this.addTime = addTime;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public User getUser() {
         return user;
     }
@@ -121,16 +110,5 @@ public class Address { // 收货地址
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                ", signerName='" + signerName + '\'' +
-                ", signerMobile='" + signerMobile + '\'' +
-                ", addTime=" + addTime +
-                ", userId=" + userId +
-                ", user=" + user +
-                '}';
-    }
+
 }
