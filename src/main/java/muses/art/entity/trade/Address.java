@@ -4,7 +4,8 @@ package muses.art.entity.trade;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "address")
@@ -32,7 +33,7 @@ public class Address { // 收货地址
     private String signerMobile; // 签收人手机
 
     @Column(name = "add_time")
-    private Timestamp addTime; // 添加时间
+    private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -94,11 +95,11 @@ public class Address { // 收货地址
         this.signerMobile = signerMobile;
     }
 
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 

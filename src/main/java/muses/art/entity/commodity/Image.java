@@ -16,11 +16,11 @@ public class Image {
     private String imageUrl; // 图像url
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
+    @JoinColumn(name = "commodity_id")
     private Commodity commodity; // 商品对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id", referencedColumnName = "id")
+    @JoinColumn(name = "comment_id")
     private Comment comment;
 
     public int getId() {

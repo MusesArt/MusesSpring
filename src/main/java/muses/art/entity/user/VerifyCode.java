@@ -1,7 +1,7 @@
 package muses.art.entity.user;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 
 @Entity
@@ -18,7 +18,7 @@ public class VerifyCode { // 短信验证码
     private String mobile; // 申请的手机号
 
     @Column(name = "add_time")
-    private Timestamp addTime; // 申请时间，有效期5分钟
+    private Date addTime; // 申请时间，有效期5分钟
 
     public int getId() {
         return id;
@@ -44,11 +44,11 @@ public class VerifyCode { // 短信验证码
         this.mobile = mobile;
     }
 
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 

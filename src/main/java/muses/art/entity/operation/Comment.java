@@ -6,6 +6,7 @@ import muses.art.entity.commodity.Image;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -30,8 +31,11 @@ public class Comment {
     @JoinColumn(name = "commodity_id", referencedColumnName = "id")
     private Commodity commodity; // 商品对象 多对一
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
     private List<Image> images; // 图像列表 一对多
+
+    @Column(name = "add_time")
+    private Date addTime;
 
     public int getId() {
         return id;

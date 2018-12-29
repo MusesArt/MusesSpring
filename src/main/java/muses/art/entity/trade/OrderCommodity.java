@@ -3,7 +3,8 @@ package muses.art.entity.trade;
 import muses.art.entity.commodity.Commodity;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "order_commodity")
@@ -13,7 +14,7 @@ public class OrderCommodity { // 订购的商品
     private int id;
 
     @Column(name = "add_time")
-    private Timestamp addTime;
+    private Date addTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
@@ -31,11 +32,11 @@ public class OrderCommodity { // 订购的商品
         this.id = id;
     }
 
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 

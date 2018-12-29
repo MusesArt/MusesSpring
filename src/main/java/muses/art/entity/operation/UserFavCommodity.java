@@ -5,7 +5,8 @@ import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "user_fav_commodity")
@@ -15,7 +16,7 @@ public class UserFavCommodity { // 用户收藏商品
     private int id;
 
     @Column(name = "add_time")
-    private Timestamp addTime; // 添加时间
+    private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -33,11 +34,11 @@ public class UserFavCommodity { // 用户收藏商品
         this.id = id;
     }
 
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 

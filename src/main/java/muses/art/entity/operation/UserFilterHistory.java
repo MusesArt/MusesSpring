@@ -4,7 +4,8 @@ import muses.art.entity.filter.Filter;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "user_filter_history")
@@ -17,7 +18,7 @@ public class UserFilterHistory {
     private int outputSize; // 输出图像大小
 
     @Column(name = "operate_time")
-    private Timestamp operateTime; // 使用时间
+    private Date operateTime; // 使用时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "filter_id", referencedColumnName = "id")
@@ -43,11 +44,11 @@ public class UserFilterHistory {
         this.outputSize = outputSize;
     }
 
-    public Timestamp getOperateTime() {
+    public Date getOperateTime() {
         return operateTime;
     }
 
-    public void setOperateTime(Timestamp operateTime) {
+    public void setOperateTime(Date operateTime) {
         this.operateTime = operateTime;
     }
 

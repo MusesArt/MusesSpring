@@ -3,10 +3,11 @@ package muses.art.entity.trade;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
-@Table(name = "order")
+@Table(name = "torder")
 public class Order { // 订单
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +29,7 @@ public class Order { // 订单
     private Float orderAmount; // 订单金额
 
     @Column(name = "pay_time")
-    private Timestamp payTime; // 支付时间
+    private Date payTime; // 支付时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -86,11 +87,11 @@ public class Order { // 订单
         this.orderAmount = orderAmount;
     }
 
-    public Timestamp getPayTime() {
+    public Date getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(Timestamp payTime) {
+    public void setPayTime(Date payTime) {
         this.payTime = payTime;
     }
 

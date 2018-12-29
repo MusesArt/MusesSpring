@@ -1,7 +1,7 @@
 package muses.art.entity.commodity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -51,12 +51,12 @@ public class Commodity {
     private boolean isHot; // 是否热门
 
     @Column(name = "add_time")
-    private Timestamp addTime; // 添加时间
+    private Date addTime; // 添加时间
 
     @Column(name = "cover_image")
     private String coverImage; // 封面图片地址
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity")
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -175,11 +175,11 @@ public class Commodity {
         isHot = hot;
     }
 
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
