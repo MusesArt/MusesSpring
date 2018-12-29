@@ -1,7 +1,7 @@
 package muses.art.entity.commodity;
 
 
-import muses.art.operation.entity.Comment;
+import muses.art.entity.operation.Comment;
 
 import javax.persistence.*;
 

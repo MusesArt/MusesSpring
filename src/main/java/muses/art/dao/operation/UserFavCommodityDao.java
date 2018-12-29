@@ -1,4 +1,7 @@
 package muses.art.dao.operation;
 
-public interface UserFavCommodityDao {
+import muses.art.dao.common.BaseDao;
+import muses.art.entity.operation.UserFavCommodity;
+
+public interface UserFavCommodityDao extends BaseDao<UserFavCommodity> {
 }
