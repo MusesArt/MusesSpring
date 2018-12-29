@@ -36,11 +36,11 @@ public class Filter {
     private int ownerId; // 滤镜发布作者（外键）
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private FilterCategory category; // 滤镜所属类别对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner; // 滤镜作者对象 多对一
 
     public int getId() {

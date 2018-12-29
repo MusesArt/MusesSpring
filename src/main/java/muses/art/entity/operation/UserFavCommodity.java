@@ -24,11 +24,11 @@ public class UserFavCommodity { // 用户收藏商品
     private Timestamp addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 用户对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
     private Commodity commodity; // 商品对象 多对一
 
     public int getId() {

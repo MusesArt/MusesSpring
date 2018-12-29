@@ -22,7 +22,7 @@ public class Comment {
     private int userId; // 用户id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 用户对象 多对一
 
     @Column(name = "order_id")
@@ -36,10 +36,10 @@ public class Comment {
     private int commodityId; // 商品id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
     private Commodity commodity; // 商品对象 多对一
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
     private List<Image> images; // 图像列表 一对多
 
     public int getId() {

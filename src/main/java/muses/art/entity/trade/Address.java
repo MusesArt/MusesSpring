@@ -38,7 +38,7 @@ public class Address { // 收货地址
     private int userId; // 用户id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 用户对象 多对一
 
     public int getId() {

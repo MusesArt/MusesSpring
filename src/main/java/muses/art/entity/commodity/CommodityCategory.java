@@ -30,7 +30,7 @@ public class CommodityCategory { // 商品类别
     private int parentCategoryId; // 父类别Id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_category_id")
+    @JoinColumn(name = "parent_category_id", referencedColumnName = "id")
     private CommodityCategory parentCategory; // 父类别对象 多对一
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity_category")

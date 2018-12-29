@@ -26,11 +26,11 @@ public class UserFilterHistory {
     private Timestamp operateTime; // 使用时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filter_id")
+    @JoinColumn(name = "filter_id", referencedColumnName = "id")
     private Filter filter; // 滤镜对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 用户对象 多对一
 
     public int getId() {

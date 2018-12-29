@@ -25,7 +25,7 @@ public class ImageSlider { // 滑动栏
     private int manager_id; // 管理员id（外键）
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_id")
+    @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private User manager; // 管理员对象 多对一
 
     public int getId() {

@@ -40,13 +40,13 @@ public class User { // 用户个人信息
     @Column(name = "level")
     private String level; // 用户等级
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "filter")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Filter> filters; // 用户制作的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user_fav_filter")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Filter> favFilters; // 用户喜欢的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user_fav_commodity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Filter> favCommodities; // 用户喜欢的所有商品 一对多
 
     public int getId() {

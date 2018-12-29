@@ -19,14 +19,14 @@ public class Image {
     private int commodityId;  // 商品id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "comment_id")
     private int commentId; // 评论id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
     private Comment comment;
 
     public int getId() {

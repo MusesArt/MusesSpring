@@ -34,14 +34,14 @@ public class Order { // 订单
     private int userId; // 用户id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 订单用户对象 多对一
 
     @Column(name = "address_id")
     private int addressId; // 订单地址信息id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address; // 订单地址对象 多对一
 
     public int getId() {

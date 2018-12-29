@@ -59,11 +59,11 @@ public class Commodity {
     @Column(name = "category_id")
     private int categoryId; // 所属类别Id(外键)
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity")
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private CommodityCategory category; // 所属类别对象 多对一
 
     public int getId() {
