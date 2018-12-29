@@ -6,6 +6,7 @@ import muses.art.entity.commodity.Image;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -18,29 +19,64 @@ public class Comment {
     @Column(name = "comment")
     private String comment; // 评论内容
 
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
-    @Column(name = "order_id")
-    private int orderId; // 订单id(外键)
+    @Column(name = "user_id")
+    private int userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
-    @Column(name = "commodity_id")
-    private int commodityId; // 商品id(外键)
+    @Column(name = "order_id")
+    private int orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+    @Column(name = "commodity_id")
+    private int commodityId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
     private List<Image> images; // 图像列表 一对多
+
+    @Column(name = "add_time")
+    private Date addTime;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
 
     public int getId() {
         return id;
@@ -58,14 +94,6 @@ public class Comment {
         this.comment = comment;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public User getUser() {
         return user;
     }
@@ -74,28 +102,12 @@ public class Comment {
         this.user = user;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
     public Order getOrder() {
         return order;
     }
 
     public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public int getCommodityId() {
-        return commodityId;
-    }
-
-    public void setCommodityId(int commodityId) {
-        this.commodityId = commodityId;
     }
 
     public Commodity getCommodity() {
@@ -114,18 +126,4 @@ public class Comment {
         this.images = images;
     }
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", comment='" + comment + '\'' +
-                ", userId=" + userId +
-                ", user=" + user +
-                ", orderId=" + orderId +
-                ", order=" + order +
-                ", commodityId=" + commodityId +
-                ", commodity=" + commodity +
-                ", images=" + images +
-                '}';
-    }
 }

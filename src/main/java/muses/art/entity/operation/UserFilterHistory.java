@@ -4,7 +4,8 @@ import muses.art.entity.filter.Filter;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "user_filter_history")
@@ -13,33 +14,25 @@ public class UserFilterHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "filter_id")
-    private int filterId; // 滤镜id(外键)
-
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
-
     @Column(name = "output_size")
     private int outputSize; // 输出图像大小
 
     @Column(name = "operate_time")
-    private Timestamp operateTime; // 使用时间
+    private Date operateTime; // 使用时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filter_id")
+    @JoinColumn(name = "filter_id", insertable = false, updatable = false)
     private Filter filter; // 滤镜对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "filter_id")
+    private int filterId;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "user_id")
+    private int userId;
 
     public int getFilterId() {
         return filterId;
@@ -57,6 +50,14 @@ public class UserFilterHistory {
         this.userId = userId;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getOutputSize() {
         return outputSize;
     }
@@ -65,11 +66,11 @@ public class UserFilterHistory {
         this.outputSize = outputSize;
     }
 
-    public Timestamp getOperateTime() {
+    public Date getOperateTime() {
         return operateTime;
     }
 
-    public void setOperateTime(Timestamp operateTime) {
+    public void setOperateTime(Date operateTime) {
         this.operateTime = operateTime;
     }
 
@@ -89,16 +90,4 @@ public class UserFilterHistory {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "UserFilterHistory{" +
-                "id=" + id +
-                ", filterId=" + filterId +
-                ", userId=" + userId +
-                ", outputSize=" + outputSize +
-                ", operateTime=" + operateTime +
-                ", filter=" + filter +
-                ", user=" + user +
-                '}';
-    }
 }

@@ -1,7 +1,7 @@
 package muses.art.entity.commodity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -24,17 +24,25 @@ public class CommodityCategory { // 商品类别
     private boolean isTab; // 是否导航
 
     @Column(name = "add_time")
-    private Timestamp addTime; // 添加时间
-
-    @Column(name = "parent_category_id")
-    private int parentCategoryId; // 父类别Id(外键)
+    private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_category_id")
+    @JoinColumn(name = "parent_category_id", insertable = false, updatable = false)
     private CommodityCategory parentCategory; // 父类别对象 多对一
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity_category")
+    @Column(name = "parent_category_id")
+    private int parentCategoryId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCategory")
     private List<CommodityCategory> subCategories; // 子类别列表 一对多
+
+    public int getParentCategoryId() {
+        return parentCategoryId;
+    }
+
+    public void setParentCategoryId(int parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
+    }
 
     public int getId() {
         return id;
@@ -76,20 +84,12 @@ public class CommodityCategory { // 商品类别
         isTab = tab;
     }
 
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
-    }
-
-    public int getParentCategoryId() {
-        return parentCategoryId;
-    }
-
-    public void setParentCategoryId(int parentCategoryId) {
-        this.parentCategoryId = parentCategoryId;
     }
 
     public CommodityCategory getParentCategory() {
@@ -98,20 +98,6 @@ public class CommodityCategory { // 商品类别
 
     public void setParentCategory(CommodityCategory parentCategory) {
         this.parentCategory = parentCategory;
-    }
-
-    @Override
-    public String toString() {
-        return "CommodityCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", description='" + description + '\'' +
-                ", isTab=" + isTab +
-                ", addTime=" + addTime +
-                ", parentCategoryId=" + parentCategoryId +
-                ", parentCategory=" + parentCategory +
-                '}';
     }
 
     public List<CommodityCategory> getSubCategories() {

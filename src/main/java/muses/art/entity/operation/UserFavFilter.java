@@ -5,7 +5,8 @@ import muses.art.entity.filter.Filter;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "user_fav_filter")
@@ -15,30 +16,22 @@ public class UserFavFilter {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
-
-    @Column(name = "filter_id")
-    private int filterId; // 滤镜id(外键)
-
     @Column(name = "add_time")
-    private Timestamp addTime; // 添加时间
+    private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
+    @Column(name = "user_id")
+    private int userId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filter_id")
+    @JoinColumn(name = "filter_id", insertable = false, updatable = false)
     private Filter filter; // 滤镜对象 多对一
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "filter_id")
+    private int filterId;
 
     public int getUserId() {
         return userId;
@@ -56,11 +49,19 @@ public class UserFavFilter {
         this.filterId = filterId;
     }
 
-    public Timestamp getAddTime() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
@@ -80,15 +81,4 @@ public class UserFavFilter {
         this.filter = filter;
     }
 
-    @Override
-    public String toString() {
-        return "UserFavFilter{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", filterId=" + filterId +
-                ", addTime=" + addTime +
-                ", user=" + user +
-                ", filter=" + filter +
-                '}';
-    }
 }

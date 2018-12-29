@@ -3,7 +3,8 @@ package muses.art.entity.trade;
 import muses.art.entity.commodity.Commodity;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "order_commodity")
@@ -12,30 +13,22 @@ public class OrderCommodity { // 订购的商品
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "order_id")
-    private int orderId; // 订单id(外键)
-
-    @Column(name = "commodity_id")
-    private int commodityId; // 商品id(外键)
-
     @Column(name = "add_time")
-    private Timestamp addTime;
+    private Date addTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "order_id")
+    private int orderId;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "commodity_id")
+    private int commodityId;
 
     public int getOrderId() {
         return orderId;
@@ -53,11 +46,19 @@ public class OrderCommodity { // 订购的商品
         this.commodityId = commodityId;
     }
 
-    public Timestamp getAddTime() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
@@ -77,15 +78,4 @@ public class OrderCommodity { // 订购的商品
         this.commodity = commodity;
     }
 
-    @Override
-    public String toString() {
-        return "OrderCommodity{" +
-                "id=" + id +
-                ", orderId=" + orderId +
-                ", commodityId=" + commodityId +
-                ", addTime=" + addTime +
-                ", order=" + order +
-                ", commodity=" + commodity +
-                '}';
-    }
 }
