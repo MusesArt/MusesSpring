@@ -28,12 +28,15 @@
         <!--配置容器在启动的时候就加载这个servlet并实例化-->
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>spring</servlet-name>-->
+        <!--<url-pattern>*.html</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!-- spring MVC config end-->
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <!-- spring MVC config end-->
-
 
     <!-- Spring监听器 -->
     <listener>
