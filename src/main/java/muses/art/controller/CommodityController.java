@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping(value = "/api/commodity")
+@RequestMapping("api/commodity")
 public class CommodityController {
 
     @Autowired
@@ -20,9 +20,7 @@ public class CommodityController {
     @RequestMapping(value = "/id", method = RequestMethod.GET)
     public @ResponseBody Commodity get(HttpSession session) {
         Commodity commodity = new Commodity();
-        commodity.setId(0);
-        commodity.setBrief("123");
-        System.out.println("123456");
+        commodity.setId(1234124);
         return commodity;
     }
 }
