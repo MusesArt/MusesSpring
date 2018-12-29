@@ -6,6 +6,7 @@ import muses.art.model.base.StatusModel;
 import muses.art.service.commodity.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +22,7 @@ public class CommodityController {
     private CommodityService commodityService;
 
     @RequestMapping(value = "/list/{page}/{size}/json", method = RequestMethod.GET)
-    public @ResponseBody StatusModel<PageModel<Commodity>> getCommoditiesByPage(int page, int size) {
+    public @ResponseBody StatusModel<PageModel<Commodity>> getCommoditiesByPage(@PathVariable int page, @PathVariable int size) {
 
 //        commodityService;
         List<Commodity> commodities = new ArrayList<>();
