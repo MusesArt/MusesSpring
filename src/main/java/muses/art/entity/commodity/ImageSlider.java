@@ -1,6 +1,6 @@
-package muses.art.model.commodity;
+package muses.art.entity.commodity;
 
-import muses.art.model.user.User;
+import muses.art.entity.user.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

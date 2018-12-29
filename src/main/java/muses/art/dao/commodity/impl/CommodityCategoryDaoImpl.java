@@ -3,7 +3,7 @@ package muses.art.dao.commodity.impl;
 
 import muses.art.dao.commodity.CommodityCategoryDao;
 import muses.art.dao.common.impl.BaseDaoImpl;
-import muses.art.model.commodity.CommodityCategory;
+import muses.art.entity.commodity.CommodityCategory;
 import org.springframework.stereotype.Repository;
 
 @Repository

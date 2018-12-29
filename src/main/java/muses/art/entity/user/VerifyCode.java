@@ -1,4 +1,4 @@
-package muses.art.model.user;
+package muses.art.entity.user;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

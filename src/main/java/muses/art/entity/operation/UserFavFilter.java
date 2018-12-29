@@ -2,7 +2,7 @@ package muses.art.entity.operation;
 
 
 import muses.art.entity.filter.Filter;
-import muses.art.model.user.User;
+import muses.art.entity.user.User;
 
 import javax.persistence.*;
 import java.security.Timestamp;

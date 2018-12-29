@@ -1,4 +1,4 @@
-package muses.art.model.commodity;
+package muses.art.entity.commodity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

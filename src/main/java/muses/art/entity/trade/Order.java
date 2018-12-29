@@ -1,6 +1,6 @@
 package muses.art.entity.trade;
 
-import muses.art.model.user.User;
+import muses.art.entity.user.User;
 
 import javax.persistence.*;
 import java.security.Timestamp;

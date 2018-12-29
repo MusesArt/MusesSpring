@@ -1,7 +1,7 @@
 package muses.art.entity.filter;
 
 
-import muses.art.model.user.User;
+import muses.art.entity.user.User;
 
 import javax.persistence.*;
 import java.util.Date;

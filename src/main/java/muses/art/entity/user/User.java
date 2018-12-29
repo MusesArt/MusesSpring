@@ -1,4 +1,4 @@
-package muses.art.model.user;
+package muses.art.entity.user;
 
 import muses.art.entity.filter.Filter;
 

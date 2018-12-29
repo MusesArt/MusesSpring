@@ -1,6 +1,6 @@
 package muses.art.entity.trade;
 
-import muses.art.model.commodity.Commodity;
+import muses.art.entity.commodity.Commodity;
 
 import javax.persistence.*;
 import java.security.Timestamp;
