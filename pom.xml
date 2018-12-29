@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>${springVersion}</version>
+            <version>4.3.1.RELEASE</version>
         </dependency>
 
         <!-- spring web + spring MVC-->
