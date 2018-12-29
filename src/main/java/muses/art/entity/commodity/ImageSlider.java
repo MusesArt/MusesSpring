@@ -22,8 +22,19 @@ public class ImageSlider { // 滑动栏
     private String linkUrl; // 链接地址
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_id", referencedColumnName = "id")
+    @JoinColumn(name = "manager_id", insertable = false, updatable = false)
     private User manager; // 管理员对象 多对一
+
+    @Column(name = "manager_id")
+    private int managerId;
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
 
     public int getId() {
         return id;
