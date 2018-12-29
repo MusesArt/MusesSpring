@@ -5,7 +5,8 @@ import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "user_fav_commodity")
@@ -14,21 +15,15 @@ public class UserFavCommodity { // 用户收藏商品
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "user_id")
-    private int userId; // 用户id
-
-    @Column(name = "commodity_id")
-    private int commodityId; // 商品id
-
     @Column(name = "add_time")
-    private Timestamp addTime; // 添加时间
+    private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 用户对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
     private Commodity commodity; // 商品对象 多对一
 
     public int getId() {
@@ -39,27 +34,11 @@ public class UserFavCommodity { // 用户收藏商品
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getCommodityId() {
-        return commodityId;
-    }
-
-    public void setCommodityId(int commodityId) {
-        this.commodityId = commodityId;
-    }
-
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
@@ -79,15 +58,4 @@ public class UserFavCommodity { // 用户收藏商品
         this.commodity = commodity;
     }
 
-    @Override
-    public String toString() {
-        return "UserFavCommodity{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", commodityId=" + commodityId +
-                ", addTime=" + addTime +
-                ", user=" + user +
-                ", commodity=" + commodity +
-                '}';
-    }
 }

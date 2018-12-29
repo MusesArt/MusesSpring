@@ -3,7 +3,7 @@ package muses.art.entity.user;
 import muses.art.entity.filter.Filter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -26,7 +26,7 @@ public class User { // 用户个人信息
     private String nickname; // 昵称
 
     @Column(name = "birthday")
-    private Timestamp birthday; // 生日
+    private Date birthday; // 生日
 
     @Column(name = "gender")
     private int gender;  // 性别 0-男 1-女
@@ -40,13 +40,13 @@ public class User { // 用户个人信息
     @Column(name = "level")
     private String level; // 用户等级
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "filter")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Filter> filters; // 用户制作的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user_fav_filter")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Filter> favFilters; // 用户喜欢的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user_fav_commodity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Filter> favCommodities; // 用户喜欢的所有商品 一对多
 
     public int getId() {
@@ -105,11 +105,11 @@ public class User { // 用户个人信息
         this.nickname = nickname;
     }
 
-    public Timestamp getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

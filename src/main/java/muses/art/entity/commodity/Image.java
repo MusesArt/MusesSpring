@@ -15,15 +15,9 @@ public class Image {
     @Column(name = "image_url")
     private String imageUrl; // 图像url
 
-    @Column(name = "commodity_id")
-    private int commodityId;  // 商品id(外键)
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id")
     private Commodity commodity; // 商品对象 多对一
-
-    @Column(name = "comment_id")
-    private int commentId; // 评论id(外键)
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
@@ -45,28 +39,12 @@ public class Image {
         this.imageUrl = imageUrl;
     }
 
-    public int getCommodityId() {
-        return commodityId;
-    }
-
-    public void setCommodityId(int commodityId) {
-        this.commodityId = commodityId;
-    }
-
     public Commodity getCommodity() {
         return commodity;
     }
 
     public void setCommodity(Commodity commodity) {
         this.commodity = commodity;
-    }
-
-    public int getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
     }
 
     public Comment getComment() {
@@ -77,15 +55,4 @@ public class Image {
         this.comment = comment;
     }
 
-    @Override
-    public String toString() {
-        return "Image{" +
-                "id=" + id +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", commodityId=" + commodityId +
-                ", commodity=" + commodity +
-                ", commentId=" + commentId +
-                ", comment=" + comment +
-                '}';
-    }
 }

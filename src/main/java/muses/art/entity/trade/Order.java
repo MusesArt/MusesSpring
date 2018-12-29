@@ -3,10 +3,11 @@ package muses.art.entity.trade;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
-@Table(name = "order")
+@Table(name = "torder")
 public class Order { // 订单
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,20 +29,14 @@ public class Order { // 订单
     private Float orderAmount; // 订单金额
 
     @Column(name = "pay_time")
-    private Timestamp payTime; // 支付时间
-
-    @Column(name = "user_id")
-    private int userId; // 用户id(外键)
+    private Date payTime; // 支付时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user; // 订单用户对象 多对一
 
-    @Column(name = "address_id")
-    private int addressId; // 订单地址信息id(外键)
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address; // 订单地址对象 多对一
 
     public int getId() {
@@ -92,20 +87,12 @@ public class Order { // 订单
         this.orderAmount = orderAmount;
     }
 
-    public Timestamp getPayTime() {
+    public Date getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(Timestamp payTime) {
+    public void setPayTime(Date payTime) {
         this.payTime = payTime;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public User getUser() {
@@ -116,14 +103,6 @@ public class Order { // 订单
         this.user = user;
     }
 
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -132,20 +111,4 @@ public class Order { // 订单
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderSN='" + orderSN + '\'' +
-                ", tradeNo='" + tradeNo + '\'' +
-                ", payStatus='" + payStatus + '\'' +
-                ", postScript='" + postScript + '\'' +
-                ", orderAmount=" + orderAmount +
-                ", payTime=" + payTime +
-                ", userId=" + userId +
-                ", user=" + user +
-                ", addressId=" + addressId +
-                ", address=" + address +
-                '}';
-    }
 }

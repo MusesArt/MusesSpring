@@ -3,7 +3,8 @@ package muses.art.entity.trade;
 import muses.art.entity.commodity.Commodity;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "order_commodity")
@@ -12,21 +13,15 @@ public class OrderCommodity { // 订购的商品
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "order_id")
-    private int orderId; // 订单id(外键)
-
-    @Column(name = "commodity_id")
-    private int commodityId; // 商品id(外键)
-
     @Column(name = "add_time")
-    private Timestamp addTime;
+    private Date addTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order; // 订单对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id")
+    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
     private Commodity commodity; // 商品对象 多对一
 
     public int getId() {
@@ -37,27 +32,11 @@ public class OrderCommodity { // 订购的商品
         this.id = id;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getCommodityId() {
-        return commodityId;
-    }
-
-    public void setCommodityId(int commodityId) {
-        this.commodityId = commodityId;
-    }
-
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
@@ -77,15 +56,4 @@ public class OrderCommodity { // 订购的商品
         this.commodity = commodity;
     }
 
-    @Override
-    public String toString() {
-        return "OrderCommodity{" +
-                "id=" + id +
-                ", orderId=" + orderId +
-                ", commodityId=" + commodityId +
-                ", addTime=" + addTime +
-                ", order=" + order +
-                ", commodity=" + commodity +
-                '}';
-    }
 }

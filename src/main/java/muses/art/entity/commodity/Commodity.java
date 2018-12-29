@@ -1,7 +1,7 @@
 package muses.art.entity.commodity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -51,19 +51,16 @@ public class Commodity {
     private boolean isHot; // 是否热门
 
     @Column(name = "add_time")
-    private Timestamp addTime; // 添加时间
+    private Date addTime; // 添加时间
 
     @Column(name = "cover_image")
     private String coverImage; // 封面图片地址
 
-    @Column(name = "category_id")
-    private int categoryId; // 所属类别Id(外键)
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity")
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private CommodityCategory category; // 所属类别对象 多对一
 
     public int getId() {
@@ -178,11 +175,11 @@ public class Commodity {
         isHot = hot;
     }
 
-    public Timestamp getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Timestamp addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
@@ -192,14 +189,6 @@ public class Commodity {
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     public List<Image> getImages() {
@@ -218,28 +207,5 @@ public class Commodity {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return "Commodity{" +
-                "id=" + id +
-                ", commoditySN='" + commoditySN + '\'' +
-                ", name='" + name + '\'' +
-                ", clickNum=" + clickNum +
-                ", soldNum=" + soldNum +
-                ", favoriteNum=" + favoriteNum +
-                ", goodsNum=" + goodsNum +
-                ", originalPrice=" + originalPrice +
-                ", discountPrice=" + discountPrice +
-                ", brief='" + brief + '\'' +
-                ", description='" + description + '\'' +
-                ", shipFree=" + shipFree +
-                ", isNew=" + isNew +
-                ", isHot=" + isHot +
-                ", addTime=" + addTime +
-                ", coverImage='" + coverImage + '\'' +
-                ", categoryId=" + categoryId +
-                ", images=" + images +
-                ", category=" + category +
-                '}';
-    }
+
 }

@@ -29,18 +29,12 @@ public class Filter {
     @Column(name = "description")
     private String description; // 滤镜描述
 
-    @Column(name = "category_id")
-    private int categorId; // 滤镜所属类别（外键）
-
-    @Column(name = "owner_id")
-    private int ownerId; // 滤镜发布作者（外键）
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private FilterCategory category; // 滤镜所属类别对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner; // 滤镜作者对象 多对一
 
     public int getId() {
@@ -91,22 +85,6 @@ public class Filter {
         this.description = description;
     }
 
-    public int getCategorId() {
-        return categorId;
-    }
-
-    public void setCategorId(int categorId) {
-        this.categorId = categorId;
-    }
-
-    public int getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
-    }
-
     public FilterCategory getCategory() {
         return category;
     }
@@ -123,19 +101,5 @@ public class Filter {
         this.owner = owner;
     }
 
-    @Override
-    public String toString() {
-        return "Filter{" +
-                "id=" + id +
-                ", filterName='" + filterName + '\'' +
-                ", coverImage='" + coverImage + '\'' +
-                ", VipOnly=" + VipOnly +
-                ", publishData=" + publishData +
-                ", description='" + description + '\'' +
-                ", categorId=" + categorId +
-                ", ownerId=" + ownerId +
-                ", category=" + category +
-                ", owner=" + owner +
-                '}';
-    }
+
 }
