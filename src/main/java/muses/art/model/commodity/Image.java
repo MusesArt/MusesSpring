@@ -1,6 +1,8 @@
 package muses.art.model.commodity;
 
 
+import muses.art.operation.entity.Comment;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,13 @@ public class Image {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id")
     private Commodity commodity; // 商品对象 多对一
+
+    @Column(name = "comment_id")
+    private int commentId; // 评论id(外键)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
     public int getId() {
         return id;
@@ -52,6 +61,22 @@ public class Image {
         this.commodity = commodity;
     }
 
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
@@ -59,6 +84,8 @@ public class Image {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", commodityId=" + commodityId +
                 ", commodity=" + commodity +
+                ", commentId=" + commentId +
+                ", comment=" + comment +
                 '}';
     }
 }
