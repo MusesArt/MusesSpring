@@ -1,21 +1,19 @@
 package muses.art.model.operation;
 
+import muses.art.entity.commodity.Image;
 
 import java.sql.Date;
 import java.util.List;
 
-
 public class CommentModel {
 
     private int id;
-    private String head; // 头像地址
-    private String username; // 用户名
-    private Date date; // 填写日期
-    private int praise; // 点赞数
-    private int message; // 评论数
-    private String content; // 评论内容
-    private String commodityInfo; // 订单信息
-    private List<String> images; // 图像列表 一对多
+    private String head;
+    private String username;
+    private Date date;
+    private int message;
+    private String content;
+    private List<Image> images;
     private int star;
 
     public int getId() {
@@ -50,14 +48,6 @@ public class CommentModel {
         this.date = date;
     }
 
-    public int getPraise() {
-        return praise;
-    }
-
-    public void setPraise(int praise) {
-        this.praise = praise;
-    }
-
     public int getMessage() {
         return message;
     }
@@ -74,19 +64,11 @@ public class CommentModel {
         this.content = content;
     }
 
-    public String getCommodityInfo() {
-        return commodityInfo;
-    }
-
-    public void setCommodityInfo(String commodityInfo) {
-        this.commodityInfo = commodityInfo;
-    }
-
-    public List<String> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
@@ -96,21 +78,5 @@ public class CommentModel {
 
     public void setStar(int star) {
         this.star = star;
-    }
-
-    @Override
-    public String toString() {
-        return "CommentModel{" +
-                "id=" + id +
-                ", head='" + head + '\'' +
-                ", username='" + username + '\'' +
-                ", date=" + date +
-                ", praise=" + praise +
-                ", message=" + message +
-                ", content='" + content + '\'' +
-                ", commodityInfo='" + commodityInfo + '\'' +
-                ", images=" + images +
-                ", star=" + star +
-                '}';
     }
 }
