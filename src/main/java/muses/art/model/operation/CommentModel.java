@@ -13,7 +13,7 @@ public class CommentModel {
     private Date date;
     private int message;
     private String content;
-    private List<Image> images;
+    private List<String> images;
     private int star;
 
     public int getId() {
@@ -64,11 +64,11 @@ public class CommentModel {
         this.content = content;
     }
 
-    public List<Image> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 

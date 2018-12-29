@@ -46,6 +46,30 @@ public class Comment {
     @Column(name = "add_time")
     private Date addTime;
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
+
     public Date getAddTime() {
         return addTime;
     }
