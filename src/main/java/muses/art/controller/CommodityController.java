@@ -3,13 +3,11 @@ package muses.art.controller;
 import muses.art.entity.commodity.Commodity;
 import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
+import muses.art.model.operation.CommentModel;
 import muses.art.service.commodity.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +42,11 @@ public class CommodityController {
         commodityPageModel.setDataList(new ArrayList<Commodity>());
         statusModel.setData(commodityPageModel);
         return statusModel;
+    }
+
+    @RequestMapping(value = "/comment", method = RequestMethod.GET)
+    public @ResponseBody CommentModel getComment() {
+        CommentModel commentModel = new CommentModel();
+        return commentModel;
     }
 }
