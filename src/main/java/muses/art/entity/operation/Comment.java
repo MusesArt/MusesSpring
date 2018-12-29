@@ -1,9 +1,9 @@
-package muses.art.operation.entity;
+package muses.art.entity.operation;
 
-import muses.art.commodity.model.Commodity;
-import muses.art.commodity.model.Image;
-import muses.art.trade.entity.Order;
-import muses.art.user.model.User;
+import muses.art.entity.trade.Order;
+import muses.art.model.commodity.Commodity;
+import muses.art.model.commodity.Image;
+import muses.art.model.user.User;
 
 import javax.persistence.*;
 import java.util.List;
