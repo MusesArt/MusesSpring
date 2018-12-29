@@ -30,12 +30,34 @@ public class Filter {
     private String description; // 滤镜描述
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private FilterCategory category; // 滤镜所属类别对象 多对一
 
+    @Column(name = "category_id")
+    private int categoryId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    @JoinColumn(name = "owner_id", insertable = false, updatable = false)
     private User owner; // 滤镜作者对象 多对一
+
+    @Column(name = "owner_id")
+    private int owner_id;
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public int getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(int owner_id) {
+        this.owner_id = owner_id;
+    }
 
     public int getId() {
         return id;

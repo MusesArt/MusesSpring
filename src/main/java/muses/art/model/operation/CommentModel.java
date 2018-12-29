@@ -7,14 +7,16 @@ import java.util.List;
 
 public class CommentModel {
 
-    private int id;
-    private String head;
-    private String username;
-    private Date date;
-    private int message;
-    private String content;
-    private List<Image> images;
-    private int star;
+    private int id; // 评论id
+    private String head; // 头像地址
+    private String username; // 用户名
+    private Date date; // 填写日期
+    private int praise; // 点赞数
+    private int message; // 评论数
+    private String content; // 评论内容
+    private String commodityInfo; // 订单信息
+    private List<String> images; // 图像列表 一对多
+    private int star; // 评分
 
     public int getId() {
         return id;
@@ -64,11 +66,11 @@ public class CommentModel {
         this.content = content;
     }
 
-    public List<Image> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 
@@ -78,5 +80,21 @@ public class CommentModel {
 
     public void setStar(int star) {
         this.star = star;
+    }
+
+    public int getPraise() {
+        return praise;
+    }
+
+    public void setPraise(int praise) {
+        this.praise = praise;
+    }
+
+    public String getCommodityInfo() {
+        return commodityInfo;
+    }
+
+    public void setCommodityInfo(String commodityInfo) {
+        this.commodityInfo = commodityInfo;
     }
 }
