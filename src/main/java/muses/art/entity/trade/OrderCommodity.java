@@ -11,10 +11,10 @@ import java.sql.Date;
 public class OrderCommodity { // 订购的商品
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "add_time")
-    private Date addTime;
+    private Date addTime; // 下单时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
@@ -25,32 +25,54 @@ public class OrderCommodity { // 订购的商品
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "order_id")
-    private int orderId;
+    private Integer orderId; // 订单ip
 
     @Column(name = "commodity_id")
-    private int commodityId;
+    private Integer commodityId; // 商品id
 
-    public int getOrderId() {
+    @Column(name = "price")
+    private float price; // 成交价
+
+    @Column(name = "brief")
+    private String brief; // 简介
+
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    public int getCommodityId() {
+    public Integer getCommodityId() {
         return commodityId;
     }
 
-    public void setCommodityId(int commodityId) {
+    public void setCommodityId(Integer commodityId) {
         this.commodityId = commodityId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

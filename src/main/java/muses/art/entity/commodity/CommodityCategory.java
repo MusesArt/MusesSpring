@@ -9,7 +9,7 @@ import java.util.List;
 public class CommodityCategory { // 商品类别
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name; // 类别名称
@@ -31,24 +31,24 @@ public class CommodityCategory { // 商品类别
     private CommodityCategory parentCategory; // 父类别对象 多对一
 
     @Column(name = "parent_category_id")
-    private int parentCategoryId;
+    private Integer parentCategoryId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCategory")
     private List<CommodityCategory> subCategories; // 子类别列表 一对多
 
-    public int getParentCategoryId() {
+    public Integer getParentCategoryId() {
         return parentCategoryId;
     }
 
-    public void setParentCategoryId(int parentCategoryId) {
+    public void setParentCategoryId(Integer parentCategoryId) {
         this.parentCategoryId = parentCategoryId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

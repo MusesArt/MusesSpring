@@ -6,5 +6,7 @@ import muses.art.model.base.StatusModel;
 
 public interface CommodityService {
 
-//    StatusModel<PageModel<CommodityModel>> getCommoditiesByPageAndSize();
+    PageModel<CommodityModel> findCommoditiesByPageAndSize();
+
+
 }
