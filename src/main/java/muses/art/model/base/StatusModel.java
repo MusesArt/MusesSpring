@@ -23,6 +23,12 @@ public class StatusModel<E> {
         this.errorCode = ERROR;
     }
 
+    public StatusModel(String errorMsg, int errorCode) {
+        this.data = null;
+        this.errorMsg = errorMsg;
+        this.errorCode = ERROR;
+    }
+
     public StatusModel(int errorCode, String errorMsg, E data) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;

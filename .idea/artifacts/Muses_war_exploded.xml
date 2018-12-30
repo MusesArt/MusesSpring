@@ -7,9 +7,12 @@
           <element id="module-output" name="Muses" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.6" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.10" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.1.RELEASE" />
-          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.1.RELEASE" />
