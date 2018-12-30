@@ -11,9 +11,10 @@ public interface CommentService {
      * @param commodityId 商品id
      * @param orderId 订单id
      * @param userId 用户id
+     * @param orderCommodityId 订单商品id
      * @return
      */
-    boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId);
+    boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId);
 
     /**
      *
@@ -52,10 +53,10 @@ public interface CommentService {
     List<CommentModel> findCommentByCommodityId(Integer commodityId);
 
     /**
-     * 查找用户是否给某个商品进行评论
+     * 查找用户是否给某个订单商品进行评论
      * @param commodityId 商品id
      * @param userId 用户id
      * @return
      */
-    CommentModel findCommentByCommodityIdAndUserID(Integer commodityId, Integer userId);
+    CommentModel findCommentByOrderCommodityIdAndUserID(Integer commodityId, Integer userId);
 }

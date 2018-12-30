@@ -3,6 +3,7 @@ package muses.art.entity.operation;
 import muses.art.entity.trade.Order;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.commodity.Image;
+import muses.art.entity.trade.OrderCommodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "comment", uniqueConstraints = {@UniqueConstraint(columnNames={"user_id", "order_commodity_id"})})
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +38,13 @@ public class Comment {
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_commodity_id", insertable = false, updatable = false)
+    private OrderCommodity orderCommodity;
+
+    @Column(name = "order_commodity_id")
+    private Integer orderCommodityId;
+
     @Column(name = "commodity_id")
     private Integer commodityId;
 
@@ -45,6 +53,22 @@ public class Comment {
 
     @Column(name = "add_time")
     private Date addTime;
+
+    public OrderCommodity getOrderCommodity() {
+        return orderCommodity;
+    }
+
+    public void setOrderCommodity(OrderCommodity orderCommodity) {
+        this.orderCommodity = orderCommodity;
+    }
+
+    public Integer getOrderCommodityId() {
+        return orderCommodityId;
+    }
+
+    public void setOrderCommodityId(Integer orderCommodityId) {
+        this.orderCommodityId = orderCommodityId;
+    }
 
     public Integer getUserId() {
         return userId;
