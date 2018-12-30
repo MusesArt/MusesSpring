@@ -73,7 +73,7 @@ public class Cart { // 购物车
     }
 
     public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+        this.addTime = new Date();
     }
 
     public User getUser() {

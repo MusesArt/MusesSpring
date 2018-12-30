@@ -4,7 +4,6 @@ import muses.art.model.base.StatusModel;
 import muses.art.model.trade.CartModel;
 import muses.art.service.trade.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,15 +35,31 @@ public class CartController {
 
     @RequestMapping(value = "/{cart_id}", method = RequestMethod.PUT)
     public @ResponseBody
-    ResponseEntity<?> updateCart(@RequestBody CartModel cartModel, @PathVariable int cart_id) {
-        cartService.UpdateCart(cart_id, cartModel.getNumber());
-        return ResponseEntity.ok("Cart updated");
+    StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cart_id) {
+        StatusModel statusModel = new StatusModel();
+        Boolean status = cartService.UpdateCart(cart_id, cartModel.getNumber());
+        if (status == false) {
+            statusModel.setErrorCode(-1);
+            statusModel.setErrorMsg("购物车内无此商品");
+        } else {
+            statusModel.setErrorCode(0);
+            statusModel.setErrorMsg("购物车数据更新成功");
+        }
+        return statusModel;
     }
 
     @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
     public @ResponseBody
-    ResponseEntity<?> addToCart(@RequestBody CartModel cartModel, @PathVariable int user_id) {
+    StatusModel addToCart(@RequestBody CartModel cartModel, @PathVariable int user_id) {
+        StatusModel statusModel = new StatusModel();
         Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getNumber());
-        return ResponseEntity.ok("Cart saved");
+        if (status == false) {
+            statusModel.setErrorCode(-1);
+            statusModel.setErrorMsg("购物车内已有此商品");
+        } else {
+            statusModel.setErrorCode(0);
+            statusModel.setErrorMsg("购物车数据更新成功");
+        }
+        return statusModel;
     }
 }
