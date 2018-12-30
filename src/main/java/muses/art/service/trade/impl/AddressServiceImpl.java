@@ -56,6 +56,7 @@ public class AddressServiceImpl implements AddressService {
         return addressModel;
     }
 
+
     @Override
     public List<AddressModel> getAllAddress(int id) {
         String hql = "from Address add where add.userId = :userId";
