@@ -14,7 +14,7 @@ public class UserFavFilter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "add_time")
     private Date addTime; // 添加时间
@@ -24,36 +24,36 @@ public class UserFavFilter {
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "filter_id", insertable = false, updatable = false)
     private Filter filter; // 滤镜对象 多对一
 
     @Column(name = "filter_id")
-    private int filterId;
+    private Integer filterId;
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getFilterId() {
+    public Integer getFilterId() {
         return filterId;
     }
 
-    public void setFilterId(int filterId) {
+    public void setFilterId(Integer filterId) {
         this.filterId = filterId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

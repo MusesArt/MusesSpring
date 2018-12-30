@@ -10,7 +10,7 @@ import java.sql.Date;
 public class ImageSlider { // 滑动栏
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl; // 图像地址
@@ -26,21 +26,21 @@ public class ImageSlider { // 滑动栏
     private User manager; // 管理员对象 多对一
 
     @Column(name = "manager_id")
-    private int managerId;
+    private Integer managerId;
 
-    public int getManagerId() {
+    public Integer getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(int managerId) {
+    public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
