@@ -60,7 +60,7 @@ public class Commodity {
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryId", insertable = false, updatable = false)
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CommodityCategory category; // 所属类别对象 多对一
 
     @Column(name = "category_id")
