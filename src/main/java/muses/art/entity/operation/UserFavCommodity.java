@@ -10,7 +10,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "user_fav_commodity")
-public class UserFavCommodity { // 用户收藏商品
+public class UserFavCommodity { // 用户收藏商品 4个属性
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -31,6 +31,17 @@ public class UserFavCommodity { // 用户收藏商品
 
     @Column(name = "commodity_id")
     private int commodityId;
+
+    @Column(name = "price")
+    private float price;
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
     public int getUserId() {
         return userId;
