@@ -4,7 +4,7 @@ public class CommodityListModel {
 
     private int id;
     private String name; // 商品名称
-    private float discountPrice; // 折扣价或现价
+    private Float discountPrice; // 折扣价或现价
     private String brief; // 商品简介
     private String coverImage; // 封面图片地址
 
@@ -24,11 +24,11 @@ public class CommodityListModel {
         this.name = name;
     }
 
-    public float getDiscountPrice() {
+    public Float getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(float discountPrice) {
+    public void setDiscountPrice(Float discountPrice) {
         this.discountPrice = discountPrice;
     }
 

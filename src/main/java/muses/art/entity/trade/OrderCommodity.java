@@ -3,7 +3,7 @@ package muses.art.entity.trade;
 import muses.art.entity.commodity.Commodity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -16,11 +16,11 @@ public class OrderCommodity { // 订购的商品
     @Column(name = "add_time")
     private Date addTime; // 下单时间
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
@@ -31,7 +31,7 @@ public class OrderCommodity { // 订购的商品
     private Integer commodityId; // 商品id
 
     @Column(name = "price")
-    private float price; // 成交价
+    private Float price; // 成交价
 
     @Column(name = "brief")
     private String brief; // 简介
@@ -40,11 +40,11 @@ public class OrderCommodity { // 订购的商品
         return orderId;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

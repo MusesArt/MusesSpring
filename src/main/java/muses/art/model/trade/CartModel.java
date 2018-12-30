@@ -2,14 +2,13 @@ package muses.art.model.trade;
 
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CartModel {
+public class CartModel implements Serializable {
     private Integer id;
     private Integer number;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     protected Date addTime;
     private User user;
     private Integer userId;
@@ -36,9 +35,8 @@ public class CartModel {
         return addTime;
     }
 
-
     public void setAddTime(Date addTime) {
-        this.addTime = new Date();
+        this.addTime = addTime;
     }
 
     public User getUser() {

@@ -2,6 +2,9 @@ package muses.art.dao.common.impl;
 
 import muses.art.dao.common.BaseDao;
 import org.hibernate.*;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.NamingConventions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -65,6 +68,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public void delete(T o) {
         if (o != null) {
             this.getCurrentSession().delete(o);
+            this.getCurrentSession().flush();
         }
     }
 
@@ -72,6 +76,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public void update(T o) {
         if (o != null) {
             this.getCurrentSession().merge(o);
+            this.getCurrentSession().flush();
         }
     }
 
@@ -176,6 +181,16 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public BigInteger countBySql(String sql, Map<String, Object> params) {
         SQLQuery q = loadSQLParams(sql, params);
         return (BigInteger) q.uniqueResult();
+    }
+
+    @Override
+    public ModelMapper getModelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
+                .setSourceNamingConvention(NamingConventions.JAVABEANS_MUTATOR);
+        return modelMapper;
     }
 
     private Query loadHQLParams(String hql, Map<String, Object> params) {

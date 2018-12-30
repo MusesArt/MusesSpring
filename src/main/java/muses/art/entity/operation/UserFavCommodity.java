@@ -5,7 +5,7 @@ import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -18,14 +18,14 @@ public class UserFavCommodity { // 用户收藏商品 4个属性
     @Column(name = "add_time")
     private Date addTime; // 添加时间
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
@@ -33,13 +33,13 @@ public class UserFavCommodity { // 用户收藏商品 4个属性
     private Integer commodityId;
 
     @Column(name = "price")
-    private float price;
+    private Float price;
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

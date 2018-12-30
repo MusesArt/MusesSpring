@@ -25,7 +25,7 @@ public interface CartService {
      * @param number 商品数量
      * @return
      */
-    Boolean UpdateCart(Integer id, Integer number);
+    Boolean updateCart(Integer id, Integer number);
 
     /**
      * @param userId 用户id

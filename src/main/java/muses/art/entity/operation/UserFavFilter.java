@@ -5,7 +5,7 @@ import muses.art.entity.filter.Filter;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -19,14 +19,14 @@ public class UserFavFilter {
     @Column(name = "add_time")
     private Date addTime; // 添加时间
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "filter_id", insertable = false, updatable = false)
     private Filter filter; // 滤镜对象 多对一
 

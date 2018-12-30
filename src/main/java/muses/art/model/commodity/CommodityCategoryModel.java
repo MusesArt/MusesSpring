@@ -1,6 +1,6 @@
 package muses.art.model.commodity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class CommodityCategoryModel {
 
@@ -8,7 +8,7 @@ public class CommodityCategoryModel {
     private String name; // 类别名称
     private String code; // 类别编码
     private String description; // 类别描述
-    private boolean isTab; // 是否导航
+    private Boolean isTab; // 是否导航
     private Date addTime; // 添加时间
 
 }

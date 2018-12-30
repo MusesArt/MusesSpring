@@ -19,7 +19,7 @@ public class CommentPraiseServiceImpl implements CommentPraiseService {
     private CommentPraiseDao commentPraiseDao;
 
     @Override
-    public boolean addPraise(Integer userId, Integer commentId) {
+    public Boolean addPraise(Integer userId, Integer commentId) {
         CommentPraise commentPraise = new CommentPraise();
         commentPraise.setUserId(userId);
         commentPraise.setCommentId(commentId);
@@ -28,7 +28,7 @@ public class CommentPraiseServiceImpl implements CommentPraiseService {
     }
 
     @Override
-    public boolean deletePraise(Integer userId, Integer commentId) {
+    public Boolean deletePraise(Integer userId, Integer commentId) {
         String HQL = "from CommentPraise where userId=:id1 and commentId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
@@ -51,15 +51,12 @@ public class CommentPraiseServiceImpl implements CommentPraiseService {
     }
 
     @Override
-    public boolean findPraiseByCommentIdAndUserID(Integer commentId, Integer userId) {
+    public Boolean findPraiseByCommentIdAndUserID(Integer commentId, Integer userId) {
         String HQL = "from CommentPraise where userId=:id1 and commentId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
         map.put("id2", commentId);
         List<CommentPraise> commentPraises = commentPraiseDao.find(HQL, map);
-        if (commentPraises != null && commentPraises.size() > 0) {
-            return true;
-        }
-        return false;
+        return commentPraises != null && commentPraises.size() > 0;
     }
 }

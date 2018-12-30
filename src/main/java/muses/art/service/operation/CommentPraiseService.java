@@ -9,7 +9,7 @@ public interface CommentPraiseService { // 给评论点赞
      * @param commentId 评论id
      * @return
      */
-    boolean addPraise(Integer userId, Integer commentId);
+    Boolean addPraise(Integer userId, Integer commentId);
 
     /**
      * 用户取消点赞
@@ -17,7 +17,7 @@ public interface CommentPraiseService { // 给评论点赞
      * @param commentId 评论id
      * @return
      */
-    boolean deletePraise(Integer userId, Integer commentId);
+    Boolean deletePraise(Integer userId, Integer commentId);
 
     /**
      * 根据评论id查找点赞数
@@ -32,5 +32,5 @@ public interface CommentPraiseService { // 给评论点赞
      * @param userId 用户id
      * @return
      */
-    boolean findPraiseByCommentIdAndUserID(Integer commentId, Integer userId);
+    Boolean findPraiseByCommentIdAndUserID(Integer commentId, Integer userId);
 }

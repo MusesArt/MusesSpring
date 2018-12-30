@@ -1,6 +1,6 @@
 package muses.art.model.commodity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class CommodityDetailModel {
@@ -12,13 +12,13 @@ public class CommodityDetailModel {
     private int soldNum; // 销量
     private int favoriteNum; // 收藏数
     private int goodsNum; // 库存数
-    private float originalPrice; // 原价
-    private float discountPrice; // 折扣价或现价
+    private Float originalPrice; // 原价
+    private Float discountPrice; // 折扣价或现价
     private String brief; // 商品简介
     private String description; // 商品详情webview地址
     private int shipFree; // 是否包邮
-    private boolean isNew; // 是否新品
-    private boolean isHot; // 是否热门
+    private Boolean isNew; // 是否新品
+    private Boolean isHot; // 是否热门
     private Date updateTime; //更新时间
     private String coverImage; // 封面图片地址
     private List<String> imageUrls; // 商品图片链接列表
@@ -79,19 +79,19 @@ public class CommodityDetailModel {
         this.goodsNum = goodsNum;
     }
 
-    public float getOriginalPrice() {
+    public Float getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(float originalPrice) {
+    public void setOriginalPrice(Float originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public float getDiscountPrice() {
+    public Float getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(float discountPrice) {
+    public void setDiscountPrice(Float discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -119,19 +119,19 @@ public class CommodityDetailModel {
         this.shipFree = shipFree;
     }
 
-    public boolean isNew() {
+    public Boolean isNew() {
         return isNew;
     }
 
-    public void setNew(boolean aNew) {
+    public void setNew(Boolean aNew) {
         isNew = aNew;
     }
 
-    public boolean isHot() {
+    public Boolean isHot() {
         return isHot;
     }
 
-    public void setHot(boolean hot) {
+    public void setHot(Boolean hot) {
         isHot = hot;
     }
 

@@ -33,7 +33,7 @@ public class CommentPraiseServiceImplTest extends AbstractJUnit4SpringContextTes
        commentPraiseService.deletePraise(1, 1);
        logger.info("用户取消点赞成功");
 
-       boolean flag = commentPraiseService.findPraiseByCommentIdAndUserID(1, 1);
+        Boolean flag = commentPraiseService.findPraiseByCommentIdAndUserID(1, 1);
        logger.info("判断用户是否给某个评论点赞:"+flag);
     }
 }

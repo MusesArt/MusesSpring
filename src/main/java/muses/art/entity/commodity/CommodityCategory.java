@@ -1,7 +1,7 @@
 package muses.art.entity.commodity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,19 +21,19 @@ public class CommodityCategory { // 商品类别
     private String description; // 类别描述
 
     @Column(name = "is_tab")
-    private boolean isTab; // 是否导航
+    private Boolean isTab; // 是否导航
 
     @Column(name = "add_time")
     private Date addTime; // 添加时间
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_category_id", insertable = false, updatable = false)
     private CommodityCategory parentCategory; // 父类别对象 多对一
 
     @Column(name = "parent_category_id")
     private Integer parentCategoryId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCategory")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parentCategory")
     private List<CommodityCategory> subCategories; // 子类别列表 一对多
 
     public Integer getParentCategoryId() {
@@ -76,11 +76,11 @@ public class CommodityCategory { // 商品类别
         this.description = description;
     }
 
-    public boolean isTab() {
+    public Boolean isTab() {
         return isTab;
     }
 
-    public void setTab(boolean tab) {
+    public void setTab(Boolean tab) {
         isTab = tab;
     }
 

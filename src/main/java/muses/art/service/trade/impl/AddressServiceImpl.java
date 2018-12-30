@@ -4,7 +4,6 @@ import muses.art.dao.trade.AddressDao;
 import muses.art.entity.trade.Address;
 import muses.art.model.trade.AddressModel;
 import muses.art.service.trade.AddressService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,28 +20,28 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public boolean addAddressService(AddressModel addressModel,int id) {
+    public Boolean addAddressService(AddressModel addressModel, int id) {
         Date data = new Date();
-        java.sql.Date now = new java.sql.Date(data.getTime());
+        java.util.Date now = new java.util.Date(data.getTime());
         addressModel.setAddTime(now);
         Address address = new Address();
-        BeanUtils.copyProperties(addressModel,address);
+        addressDao.getModelMapper().map(addressModel, address);
         address.setUserId(id);
         addressDao.save(address);
         return true;
     }
 
     @Override
-    public boolean deleteAddressService(int id) {
+    public Boolean deleteAddressService(int id) {
         Address address = addressDao.get(Address.class,id);
         addressDao.delete(address);
         return true;
     }
 
     @Override
-    public boolean editAddressService(AddressModel addressModel, int id) {
+    public Boolean editAddressService(AddressModel addressModel, int id) {
         Address address = new Address();
-        BeanUtils.copyProperties(addressModel,address);
+        addressDao.getModelMapper().map(addressModel, address);
         address.setId(id);
         addressDao.update(address);
         return true;
@@ -52,7 +51,7 @@ public class AddressServiceImpl implements AddressService {
     public AddressModel getAddressByIdService(int id) {
         Address address = addressDao.get(Address.class,id);
         AddressModel addressModel = new AddressModel();
-        BeanUtils.copyProperties(address,addressModel);
+        addressDao.getModelMapper().map(address, addressModel);
         return addressModel;
     }
 
@@ -66,7 +65,7 @@ public class AddressServiceImpl implements AddressService {
         List<AddressModel> addressModels = new ArrayList<>();
         for(Address address : list){
             AddressModel addressModel = new AddressModel();
-            BeanUtils.copyProperties(address,addressModel);
+            addressDao.getModelMapper().map(address, addressModel);
             addressModels.add(addressModel);
         }
         return addressModels;
