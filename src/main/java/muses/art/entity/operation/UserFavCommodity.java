@@ -9,7 +9,7 @@ import java.sql.Date;
 
 
 @Entity
-@Table(name = "user_fav_commodity")
+@Table(name = "user_fav_commodity", uniqueConstraints = {@UniqueConstraint(columnNames={"user_id", "commodity_id"})})
 public class UserFavCommodity { // 用户收藏商品 4个属性
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

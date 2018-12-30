@@ -8,7 +8,6 @@ import muses.art.model.operation.FavCommodityModel;
 import muses.art.service.operation.UserFavCommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+@Transactional
 public class UserFavCommodityServiceImpl implements UserFavCommodityService {
 
     @Autowired
@@ -40,7 +39,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
 
     @Override
     public boolean deleteFavCommodity(int userId, int commodityId) {
-        String HQL = "select UserFavCommodity u where userId=:id1 and commodityId=:id2";
+        String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
         map.put("id2", commodityId);
@@ -64,7 +63,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
 
     @Override
     public List<FavCommodityModel> findFavCommodityByUserId(int userId) {
-        String HQL = "select UserFavCommodity u where userId=:id";
+        String HQL = "from UserFavCommodity u where userId=:id";
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
         List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
@@ -95,7 +94,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
 
     @Override
     public boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId) {
-        String HQL = "select UserFavCommodity u where userId=:id1 and commodityId=:id2";
+        String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
         map.put("id2", commodityId);
