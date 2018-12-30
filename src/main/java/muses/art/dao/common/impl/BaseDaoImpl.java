@@ -6,11 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import muses.art.dao.common.BaseDao;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.engine.query.spi.HQLQueryPlan;
+import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +24,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      * @return org.hibernate.Session
      */
     public Session getCurrentSession() {
-        return this.sessionFactory.getCurrentSession();
+        try {
+            return sessionFactory.getCurrentSession();
+        } catch (HibernateException e) {
+            return sessionFactory.openSession();
+        }
     }
 
     @Override
