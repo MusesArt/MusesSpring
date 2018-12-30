@@ -38,7 +38,7 @@ public class CartController {
     StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cart_id) {
         StatusModel statusModel = new StatusModel();
         Boolean status = cartService.UpdateCart(cart_id, cartModel.getNumber());
-        if (status == false) {
+        if (!status) {
             statusModel.setErrorCode(-1);
             statusModel.setErrorMsg("购物车内无此商品");
         } else {
@@ -48,12 +48,27 @@ public class CartController {
         return statusModel;
     }
 
+    @RequestMapping(value = "/{cart_id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    StatusModel deleteFromCart(@PathVariable int cart_id) {
+        StatusModel statusModel = new StatusModel();
+        Boolean status = cartService.deleteFromCart(cart_id);
+        if (!status) {
+            statusModel.setErrorCode(-1);
+            statusModel.setErrorMsg("购物车内无此商品");
+        } else {
+            statusModel.setErrorCode(0);
+            statusModel.setErrorMsg("删除成功");
+        }
+        return statusModel;
+    }
+
     @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel addToCart(@RequestBody CartModel cartModel, @PathVariable int user_id) {
         StatusModel statusModel = new StatusModel();
         Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getNumber());
-        if (status == false) {
+        if (!status) {
             statusModel.setErrorCode(-1);
             statusModel.setErrorMsg("购物车内已有此商品");
         } else {
