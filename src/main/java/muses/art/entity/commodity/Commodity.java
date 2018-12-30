@@ -53,6 +53,9 @@ public class Commodity {
     @Column(name = "add_time")
     private Date addTime; // 添加时间
 
+    @Column(name = "update_time")
+    private Date updateTime; //更新时间
+
     @Column(name = "cover_image")
     private String coverImage; // 封面图片地址
 
@@ -192,6 +195,14 @@ public class Commodity {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getCoverImage() {
