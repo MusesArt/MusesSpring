@@ -58,4 +58,6 @@ public class AddressServiceImplTest extends AbstractJUnit4SpringContextTests {
             System.out.println(addressModel.getAddress());
         }
     }
+
+
 }
