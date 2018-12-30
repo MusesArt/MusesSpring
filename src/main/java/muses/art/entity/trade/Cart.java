@@ -17,7 +17,7 @@ public class Cart { // 购物车
     @Column(name = "number")
     private Integer number; // 数量
 
-    @Column(name = "add_num")
+    @Column(name = "add_time")
     private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)

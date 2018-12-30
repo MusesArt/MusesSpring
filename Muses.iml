@@ -4,9 +4,9 @@
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="fileset" name="Spring Mvc" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/META-INF/spring-mvc.xml</file>
+        <fileset id="fileset" name="Spring" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/META-INF/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/META-INF/spring-mvc.xml</file>
         </fileset>
       </configuration>
     </facet>
