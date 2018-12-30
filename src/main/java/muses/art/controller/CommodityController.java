@@ -22,7 +22,7 @@ public class CommodityController {
     @Autowired
     private CommodityService commodityService;
 
-    @RequestMapping(value = "/list/{page}/{size}/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/{page}/{size}", method = RequestMethod.GET)
     public @ResponseBody StatusModel<PageModel<Commodity>> getCommoditiesByPage(@PathVariable int page, @PathVariable int size) {
 
         List<Commodity> commodities = new ArrayList<>();
