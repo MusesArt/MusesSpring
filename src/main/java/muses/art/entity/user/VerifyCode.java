@@ -9,7 +9,7 @@ import java.sql.Date;
 public class VerifyCode { // 短信验证码
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "code")
     private String code; // 短信验证码
@@ -20,11 +20,11 @@ public class VerifyCode { // 短信验证码
     @Column(name = "add_time")
     private Date addTime; // 申请时间，有效期5分钟
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

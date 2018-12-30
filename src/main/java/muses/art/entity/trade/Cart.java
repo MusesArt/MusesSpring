@@ -12,10 +12,10 @@ import java.sql.Date;
 public class Cart { // 购物车
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "number")
-    private int number; // 数量
+    private Integer number; // 数量
 
     @Column(name = "add_num")
     private Date addTime; // 添加时间
@@ -25,44 +25,44 @@ public class Cart { // 购物车
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "commodity_id")
-    private int commodityId;
+    private Integer commodityId;
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getCommodityId() {
+    public Integer getCommodityId() {
         return commodityId;
     }
 
-    public void setCommodityId(int commodityId) {
+    public void setCommodityId(Integer commodityId) {
         this.commodityId = commodityId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

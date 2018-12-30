@@ -12,7 +12,7 @@ public class Filter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "filter_name", nullable = false)
     private String filterName; // 滤镜名称
@@ -34,36 +34,36 @@ public class Filter {
     private FilterCategory category; // 滤镜所属类别对象 多对一
 
     @Column(name = "category_id")
-    private int categoryId;
+    private Integer categoryId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", insertable = false, updatable = false)
     private User owner; // 滤镜作者对象 多对一
 
     @Column(name = "owner_id")
-    private int owner_id;
+    private Integer owner_id;
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
-    public int getOwner_id() {
+    public Integer getOwner_id() {
         return owner_id;
     }
 
-    public void setOwner_id(int owner_id) {
+    public void setOwner_id(Integer owner_id) {
         this.owner_id = owner_id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
