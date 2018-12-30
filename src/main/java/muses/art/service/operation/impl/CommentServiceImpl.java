@@ -24,11 +24,13 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId) {
+    public boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId) {
         Comment commentObject = new Comment();
         commentObject.setComment(comment);
         commentObject.setCommodityId(commodityId);
         commentObject.setUserId(userId);
+        commentObject.setOrderId(orderId);
+        commentObject.setOrderCommodityId(orderCommodityId);
         commentObject.setAddTime(new Date(System.currentTimeMillis()));
         commentDao.save(commentObject);
         return true;
@@ -74,8 +76,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentModel findCommentByCommodityIdAndUserID(Integer commodityId, Integer userId) {
-        String SQL = "from Comment where userId=:id1 and commodityId=:id2";
+    public CommentModel findCommentByOrderCommodityIdAndUserID(Integer commodityId, Integer userId) {
+        String SQL = "from Comment where userId=:id1 and orderCommodityId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
         map.put("id2", commodityId);
