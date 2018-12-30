@@ -1,7 +1,6 @@
 package muses.art.service.user.impl;
 
 import muses.art.model.user.VerifyCodeModel;
-import muses.art.service.operation.CommentPraiseService;
 import muses.art.service.user.VerifyCodeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
