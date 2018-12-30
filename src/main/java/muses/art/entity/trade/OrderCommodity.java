@@ -11,7 +11,7 @@ import java.sql.Date;
 public class OrderCommodity { // 订购的商品
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "add_time")
     private Date addTime;
@@ -25,32 +25,32 @@ public class OrderCommodity { // 订购的商品
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "order_id")
-    private int orderId;
+    private Integer orderId;
 
     @Column(name = "commodity_id")
-    private int commodityId;
+    private Integer commodityId;
 
-    public int getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    public int getCommodityId() {
+    public Integer getCommodityId() {
         return commodityId;
     }
 
-    public void setCommodityId(int commodityId) {
+    public void setCommodityId(Integer commodityId) {
         this.commodityId = commodityId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

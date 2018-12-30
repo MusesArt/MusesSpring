@@ -2,8 +2,11 @@ package muses.art.service.operation;
 
 import muses.art.model.operation.CommentModel;
 import muses.art.model.operation.FavCommodityModel;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 public interface UserFavCommodityService { // 用户收藏商品
 

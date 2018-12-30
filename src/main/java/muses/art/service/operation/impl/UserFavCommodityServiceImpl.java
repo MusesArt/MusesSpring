@@ -8,6 +8,8 @@ import muses.art.model.operation.FavCommodityModel;
 import muses.art.service.operation.UserFavCommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 public class UserFavCommodityServiceImpl implements UserFavCommodityService {
 
     @Autowired
@@ -29,7 +32,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
         UserFavCommodity userFavCommodity = new UserFavCommodity();
         userFavCommodity.setUserId(userId);
         userFavCommodity.setCommodityId(commodityId);
-        userFavCommodity.setPrice(commodityDao.get(Commodity.class, commodityId).getDiscountPrice());
+        userFavCommodity.setPrice(commodityDao.get(Commodity.class, Integer.valueOf(1)).getDiscountPrice());
         userFavCommodity.setAddTime(new Date(System.currentTimeMillis()));
         userFavCommodityDao.save(userFavCommodity);
         return true;

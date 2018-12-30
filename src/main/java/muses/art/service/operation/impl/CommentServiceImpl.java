@@ -7,6 +7,8 @@ import muses.art.model.operation.CommentModel;
 import muses.art.service.operation.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
