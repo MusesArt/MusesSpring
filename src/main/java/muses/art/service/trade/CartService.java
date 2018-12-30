@@ -33,5 +33,12 @@ public interface CartService {
      */
     List<CartModel> listCart(Integer userId);
 
+    /**
+     * @param userId      用户id
+     * @param commodityId 商品id
+     * @return
+     */
+    Boolean findCartExist(Integer userId, Integer commodityId);
+
 
 }

@@ -2,13 +2,15 @@ package muses.art.model.trade;
 
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class CartModel {
     private Integer id;
     private Integer number;
-    private Date addTime;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    protected Date addTime;
     private User user;
     private Integer userId;
     private Commodity commodity;
@@ -34,8 +36,9 @@ public class CartModel {
         return addTime;
     }
 
+
     public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+        this.addTime = new Date();
     }
 
     public User getUser() {
@@ -69,4 +72,5 @@ public class CartModel {
     public void setCommodityId(Integer commodityId) {
         this.commodityId = commodityId;
     }
+
 }

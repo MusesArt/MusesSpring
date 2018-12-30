@@ -9,6 +9,7 @@ D:\project\MusesSpring\src\main\java\muses\art\service\commodity\ImageSliderServ
 D:\project\MusesSpring\src\main\java\muses\art\entity\trade\Cart.java
 D:\project\MusesSpring\src\main\java\muses\art\service\commodity\CommodityCategoryService.java
 D:\project\MusesSpring\src\main\java\muses\art\entity\trade\OrderCommodity.java
+D:\project\MusesSpring\src\main\java\muses\art\model\commodity\CommodityDetailModel.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\operation\impl\CommentPraiseDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\service\filter\impl\FilterServiceImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\entity\commodity\CommodityCategory.java
@@ -21,14 +22,15 @@ D:\project\MusesSpring\src\main\java\muses\art\service\filter\impl\FilterCategor
 D:\project\MusesSpring\src\main\java\muses\art\dao\operation\UserFilterHistoryDao.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\trade\impl\OrderDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\service\user\impl\UserServiceImpl.java
-D:\project\MusesSpring\src\main\java\muses\art\model\commodity\ImageModel.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\commodity\impl\ImageDaoImpl.java
+D:\project\MusesSpring\src\main\java\muses\art\model\trade\AddressModel.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\commodity\ImageSliderDao.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\commodity\impl\CommodityCategoryDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\filter\impl\FilterDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\commodity\CommodityDao.java
 D:\project\MusesSpring\src\main\java\muses\art\model\operation\CommentModel.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\operation\impl\CommentDaoImpl.java
+D:\project\MusesSpring\src\main\java\muses\art\model\trade\CartModel.java
 D:\project\MusesSpring\src\main\java\muses\art\service\commodity\impl\ImageServiceImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\service\commodity\impl\CommodityCategoryServiceImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\entity\commodity\HotKey.java
@@ -55,6 +57,7 @@ D:\project\MusesSpring\src\main\java\muses\art\service\filter\FilterCategoryServ
 D:\project\MusesSpring\src\main\java\muses\art\dao\trade\impl\OrderCommodityDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\entity\user\User.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\user\impl\VerifyCodeImpl.java
+D:\project\MusesSpring\src\main\java\muses\art\model\commodity\CommodityListModel.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\operation\impl\UserFilterHistoryDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\service\commodity\ImageService.java
 D:\project\MusesSpring\src\main\java\muses\art\service\trade\OrderService.java
@@ -79,7 +82,6 @@ D:\project\MusesSpring\src\main\java\muses\art\service\commodity\impl\CommodityS
 D:\project\MusesSpring\src\main\java\muses\art\model\operation\FavCommodityModel.java
 D:\project\MusesSpring\src\main\java\muses\art\service\trade\impl\OrderCommodityImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\service\commodity\impl\ImageSliderServiceImpl.java
-D:\project\MusesSpring\src\main\java\muses\art\model\commodity\CommodityModel.java
 D:\project\MusesSpring\src\main\java\muses\art\service\commodity\impl\HotKeyServiceImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\controller\HotKeyController.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\commodity\ImageDao.java
@@ -87,6 +89,7 @@ D:\project\MusesSpring\src\main\java\muses\art\service\trade\AddressService.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\commodity\impl\ImageSliderDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\service\user\VerifyCodeService.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\common\impl\BaseDaoImpl.java
+D:\project\MusesSpring\src\main\java\muses\art\controller\CartController.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\user\impl\UserDaoImpl.java
 D:\project\MusesSpring\src\main\java\muses\art\service\operation\UserFavFilterService.java
 D:\project\MusesSpring\src\main\java\muses\art\dao\trade\OrderCommodityDao.java

@@ -8,16 +8,16 @@ muses\art\dao\common\impl\BaseDaoImpl.class
 muses\art\entity\operation\Comment.class
 muses\art\service\filter\FilterCategoryService.class
 muses\art\controller\CartController.class
-muses\art\model\commodity\ImageModel.class
 muses\art\service\trade\impl\AddressServiceImpl.class
 muses\art\controller\CommodityController.class
+muses\art\model\commodity\CommodityDetailModel.class
 muses\art\entity\operation\CommentPraise.class
 muses\art\entity\commodity\Image.class
 muses\art\dao\commodity\impl\CommodityCategoryDaoImpl.class
 muses\art\service\user\VerifyCodeService.class
+muses\art\model\trade\AddressModel.class
 muses\art\entity\commodity\Commodity.class
 muses\art\dao\trade\AddressDao.class
-muses\art\model\commodity\CommodityModel.class
 muses\art\service\user\impl\UserServiceImpl.class
 muses\art\service\commodity\HotKeyService.class
 muses\art\dao\operation\UserFilterHistoryDao.class
@@ -50,6 +50,7 @@ muses\art\dao\operation\impl\UserFavFilterDaoImpl.class
 muses\art\dao\commodity\impl\ImageSliderDaoImpl.class
 muses\art\service\filter\FilterService.class
 muses\art\entity\operation\UserFavCommodity.class
+muses\art\model\commodity\CommodityListModel.class
 muses\art\service\commodity\impl\HotKeyServiceImpl.class
 muses\art\controller\HotKeyController.class
 muses\art\dao\operation\UserFavFilterDao.class

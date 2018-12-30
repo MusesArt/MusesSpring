@@ -22,6 +22,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Boolean addToCart(Integer userId, Integer commodityId, Integer number) {
+        if (findCartExist(userId, commodityId)) return false;
         Cart cart = new Cart();
         cart.setUserId(userId);
         cart.setCommodityId(commodityId);
@@ -33,6 +34,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Boolean deleteFromCart(Integer id) {
         Cart cart = cartDao.get(Cart.class, id);
+        if (cart == null) return false;
         cartDao.delete(cart);
         return true;
     }
@@ -40,6 +42,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Boolean UpdateCart(Integer id, Integer number) {
         Cart cart = cartDao.get(Cart.class, id);
+        if (cart == null) return false;
         cart.setNumber(number);
         cartDao.update(cart);
         return true;
@@ -52,6 +55,16 @@ public class CartServiceImpl implements CartService {
         map.put("id", userId);
         List<Cart> carts = cartDao.find(SQL, map);
         return entity2model(carts);
+    }
+
+    @Override
+    public Boolean findCartExist(Integer userId, Integer commodityId) {
+        String SQL = "from Cart where userId=:uid and commodityId=:cid";
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", userId);
+        map.put("cid", commodityId);
+        List<Cart> carts = cartDao.find(SQL, map);
+        return !carts.isEmpty();
     }
 
     private List<CartModel> entity2model(List<Cart> carts) {

@@ -4,11 +4,9 @@ import muses.art.model.base.StatusModel;
 import muses.art.model.trade.CartModel;
 import muses.art.service.trade.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,4 +34,17 @@ public class CartController {
         return statusModel;
     }
 
+    @RequestMapping(value = "/{cart_id}", method = RequestMethod.PUT)
+    public @ResponseBody
+    ResponseEntity<?> updateCart(@RequestBody CartModel cartModel, @PathVariable int cart_id) {
+        cartService.UpdateCart(cart_id, cartModel.getNumber());
+        return ResponseEntity.ok("Cart updated");
+    }
+
+    @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<?> addToCart(@RequestBody CartModel cartModel, @PathVariable int user_id) {
+        Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getNumber());
+        return ResponseEntity.ok("Cart saved");
+    }
 }
