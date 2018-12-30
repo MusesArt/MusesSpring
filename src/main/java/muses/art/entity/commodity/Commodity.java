@@ -60,8 +60,19 @@ public class Commodity {
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryId", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CommodityCategory category; // 所属类别对象 多对一
+
+    @Column(name = "category_id")
+    private int categoryId;
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public int getId() {
         return id;

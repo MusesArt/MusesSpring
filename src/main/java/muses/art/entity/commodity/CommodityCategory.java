@@ -27,11 +27,22 @@ public class CommodityCategory { // 商品类别
     private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_category_id", referencedColumnName = "id")
+    @JoinColumn(name = "parent_category_id", insertable = false, updatable = false)
     private CommodityCategory parentCategory; // 父类别对象 多对一
+
+    @Column(name = "parent_category_id")
+    private int parentCategoryId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCategory")
     private List<CommodityCategory> subCategories; // 子类别列表 一对多
+
+    public int getParentCategoryId() {
+        return parentCategoryId;
+    }
+
+    public void setParentCategoryId(int parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
+    }
 
     public int getId() {
         return id;

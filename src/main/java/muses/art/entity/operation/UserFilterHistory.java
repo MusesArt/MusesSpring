@@ -21,12 +21,34 @@ public class UserFilterHistory {
     private Date operateTime; // 使用时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filter_id", referencedColumnName = "id")
+    @JoinColumn(name = "filter_id", insertable = false, updatable = false)
     private Filter filter; // 滤镜对象 多对一
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
+
+    @Column(name = "filter_id")
+    private int filterId;
+
+    @Column(name = "user_id")
+    private int userId;
+
+    public int getFilterId() {
+        return filterId;
+    }
+
+    public void setFilterId(int filterId) {
+        this.filterId = filterId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public int getId() {
         return id;

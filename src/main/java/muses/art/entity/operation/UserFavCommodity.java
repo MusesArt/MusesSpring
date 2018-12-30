@@ -10,7 +10,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "user_fav_commodity")
-public class UserFavCommodity { // 用户收藏商品
+public class UserFavCommodity { // 用户收藏商品 4个属性
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -19,12 +19,45 @@ public class UserFavCommodity { // 用户收藏商品
     private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
+    @Column(name = "user_id")
+    private int userId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "commodity_id", referencedColumnName = "id")
+    @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
+
+    @Column(name = "commodity_id")
+    private int commodityId;
+
+    @Column(name = "price")
+    private float price;
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
 
     public int getId() {
         return id;
