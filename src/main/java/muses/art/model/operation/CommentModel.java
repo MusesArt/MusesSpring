@@ -97,4 +97,20 @@ public class CommentModel {
     public void setCommodityInfo(String commodityInfo) {
         this.commodityInfo = commodityInfo;
     }
+
+    @Override
+    public String toString() {
+        return "CommentModel{" +
+                "id=" + id +
+                ", head='" + head + '\'' +
+                ", username='" + username + '\'' +
+                ", date=" + date +
+                ", praise=" + praise +
+                ", message=" + message +
+                ", content='" + content + '\'' +
+                ", commodityInfo='" + commodityInfo + '\'' +
+                ", images=" + images +
+                ", star=" + star +
+                '}';
+    }
 }

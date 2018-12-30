@@ -54,6 +54,16 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" />                        <!-- 增 -->
+            <tx:method name="delete*" propagation="REQUIRED" />                     <!-- 删 -->
+            <tx:method name="update*" propagation="REQUIRED" />                     <!-- 改 -->
+            <tx:method name="find*" propagation="REQUIRED" read-only="true" />     <!-- 查 -->
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
