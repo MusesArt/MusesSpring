@@ -4,6 +4,7 @@ import muses.art.entity.user.User;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 
 @Entity
@@ -44,6 +45,17 @@ public class Order { // 订单
 
     @Column(name = "address_id")
     private Integer addressId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private List<OrderCommodity> orderCommodities;
+
+    public List<OrderCommodity> getOrderCommodities() {
+        return orderCommodities;
+    }
+
+    public void setOrderCommodities(List<OrderCommodity> orderCommodities) {
+        this.orderCommodities = orderCommodities;
+    }
 
     public Integer getUserId() {
         return userId;
