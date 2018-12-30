@@ -11,16 +11,17 @@ public interface CommentService {
      * @param commodityId 商品id
      * @param orderId 订单id
      * @param userId 用户id
+     * @param orderCommodityId 订单商品id
      * @return
      */
-    boolean addComment(String comment, int commodityId, int orderId, int userId);
+    boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId);
 
     /**
      *
      * @param id 评论id
      * @return
      */
-    boolean deleteComment(int id);
+    boolean deleteComment(Integer id);
 
     /**
      *
@@ -28,26 +29,34 @@ public interface CommentService {
      * @param content 评论内容
      * @return
      */
-    boolean updateComment(int id, String content);
+    boolean updateComment(Integer id, String content);
 
     /**
-     *
+     * 根据用户id查找评论
      * @param id 评论id
      * @return
      */
-    CommentModel findCommentById(int id);
+    CommentModel findCommentById(Integer id);
 
     /**
-     *
+     * 根据用户id查找评论
      * @param userId 用户id
      * @return
      */
-    List<CommentModel> findCommentByUserId(int userId);
+    List<CommentModel> findCommentByUserId(Integer userId);
 
     /**
-     *
+     * 根据商品id查找评论
      * @param commodityId 商品id
      * @return
      */
-    List<CommentModel> findCommentByCommodityId(int commodityId);
+    List<CommentModel> findCommentByCommodityId(Integer commodityId);
+
+    /**
+     * 查找用户是否给某个订单商品进行评论
+     * @param commodityId 商品id
+     * @param userId 用户id
+     * @return
+     */
+    CommentModel findCommentByOrderCommodityIdAndUserID(Integer commodityId, Integer userId);
 }
