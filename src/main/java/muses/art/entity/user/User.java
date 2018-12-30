@@ -11,7 +11,7 @@ import java.util.List;
 public class User { // 用户个人信息
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "username", nullable = false)
     private String username; // 用户名
@@ -29,7 +29,7 @@ public class User { // 用户个人信息
     private Date birthday; // 生日
 
     @Column(name = "gender")
-    private int gender;  // 性别 0-男 1-女
+    private Integer gender;  // 性别 0-男 1-女
 
     @Column(name = "mobile")
     private String mobile; // 手机号
@@ -49,11 +49,11 @@ public class User { // 用户个人信息
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Filter> favCommodities; // 用户喜欢的所有商品 一对多
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -113,11 +113,11 @@ public class User { // 用户个人信息
         this.birthday = birthday;
     }
 
-    public int getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 

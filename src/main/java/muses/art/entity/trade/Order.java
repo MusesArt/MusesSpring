@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Order { // 订单
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "order_sn")
     private String orderSN; // 订单号
@@ -36,36 +36,36 @@ public class Order { // 订单
     private User user; // 订单用户对象 多对一
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", insertable = false, updatable = false)
     private Address address; // 订单地址对象 多对一
 
     @Column(name = "address_id")
-    private int addressId;
+    private Integer addressId;
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getAddressId() {
+    public Integer getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

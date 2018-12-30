@@ -9,7 +9,7 @@ import java.util.List;
 public class FilterCategory { // 滤镜类别
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "category_name")
     private String categoryName; // 艺术类别名称
@@ -17,11 +17,11 @@ public class FilterCategory { // 滤镜类别
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Filter> filters; // 该类别下的所有滤镜 一对多
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,6 +1,7 @@
 package muses.art.service.operation.impl;
 
 import muses.art.service.operation.UserFavCommodityService;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +16,29 @@ public class UserFavCommodityServiceImplTest extends AbstractJUnit4SpringContext
     @Autowired
     private UserFavCommodityService userFavCommodityService;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Test
     public void addFavCommodityTest() {
-        userFavCommodityService.addFavCommodity();
+
+        userFavCommodityService.addFavCommodity(1,1);
     }
-
-    @Test
-    public void deleteFavCommodityTest() {
-
-    }
-
-    @Test
-    public void findFavCommodityByIdTest() {
-
-    }
-
-    @Test
-    public void findFavCommodityByUserId() {
-
-    }
+//
+//    @Test
+//    public void deleteFavCommodityTest() {
+//
+//    }
+//
+//    @Test
+//    public void findFavCommodityByIdTest() {
+//
+//    }
+//
+//    @Test
+//    public void findFavCommodityByUserId() {
+//
+//    }
 
 
 

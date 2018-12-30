@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "image_url")
     private String imageUrl; // 图像url
@@ -20,36 +20,36 @@ public class Image {
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "commodity_id")
-    private int commodityId;
+    private Integer commodityId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id", insertable = false, updatable = false)
     private Comment comment; // 评论对象 多对一
 
     @Column(name = "comment_id")
-    private int commentId;
+    private Integer commentId;
 
-    public int getCommodityId() {
+    public Integer getCommodityId() {
         return commodityId;
     }
 
-    public void setCommodityId(int commodityId) {
+    public void setCommodityId(Integer commodityId) {
         this.commodityId = commodityId;
     }
 
-    public int getCommentId() {
+    public Integer getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

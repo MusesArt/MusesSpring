@@ -9,7 +9,7 @@ import java.util.List;
 public class Commodity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "commodity_sn")
     private String commoditySN; // 商品唯一货号
@@ -18,16 +18,16 @@ public class Commodity {
     private String name; // 商品名称
 
     @Column(name = "click_num")
-    private int clickNum; // 点击量
+    private Integer clickNum; // 点击量
 
     @Column(name = "sold_num")
-    private int soldNum; // 销量
+    private Integer soldNum; // 销量
 
     @Column(name = "favorite_num")
-    private int favoriteNum; // 收藏数
+    private Integer favoriteNum; // 收藏数
 
     @Column(name = "goods_num")
-    private int goodsNum; // 库存数
+    private Integer goodsNum; // 库存数
 
     @Column(name = "original_price")
     private float originalPrice; // 原价
@@ -42,7 +42,7 @@ public class Commodity {
     private String description; // 商品详情webview地址
 
     @Column(name = "ship_free")
-    private int shipFree; // 是否包邮
+    private Integer shipFree; // 是否包邮
 
     @Column(name = "is_new")
     private boolean isNew; // 是否新品
@@ -64,21 +64,21 @@ public class Commodity {
     private CommodityCategory category; // 所属类别对象 多对一
 
     @Column(name = "category_id")
-    private int categoryId;
+    private Integer categoryId;
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -98,35 +98,35 @@ public class Commodity {
         this.name = name;
     }
 
-    public int getClickNum() {
+    public Integer getClickNum() {
         return clickNum;
     }
 
-    public void setClickNum(int clickNum) {
+    public void setClickNum(Integer clickNum) {
         this.clickNum = clickNum;
     }
 
-    public int getSoldNum() {
+    public Integer getSoldNum() {
         return soldNum;
     }
 
-    public void setSoldNum(int soldNum) {
+    public void setSoldNum(Integer soldNum) {
         this.soldNum = soldNum;
     }
 
-    public int getFavoriteNum() {
+    public Integer getFavoriteNum() {
         return favoriteNum;
     }
 
-    public void setFavoriteNum(int favoriteNum) {
+    public void setFavoriteNum(Integer favoriteNum) {
         this.favoriteNum = favoriteNum;
     }
 
-    public int getGoodsNum() {
+    public Integer getGoodsNum() {
         return goodsNum;
     }
 
-    public void setGoodsNum(int goodsNum) {
+    public void setGoodsNum(Integer goodsNum) {
         this.goodsNum = goodsNum;
     }
 
@@ -162,11 +162,11 @@ public class Commodity {
         this.description = description;
     }
 
-    public int getShipFree() {
+    public Integer getShipFree() {
         return shipFree;
     }
 
-    public void setShipFree(int shipFree) {
+    public void setShipFree(Integer shipFree) {
         this.shipFree = shipFree;
     }
 

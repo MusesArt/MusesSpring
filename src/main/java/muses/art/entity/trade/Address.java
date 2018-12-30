@@ -12,7 +12,7 @@ import java.sql.Date;
 public class Address { // 收货地址
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "province")
     private String province; // 省份
@@ -40,21 +40,21 @@ public class Address { // 收货地址
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
