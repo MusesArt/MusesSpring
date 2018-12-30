@@ -49,6 +49,17 @@ public class User { // 用户个人信息
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Filter> favCommodities; // 用户喜欢的所有商品 一对多
 
+    @Column(name = "token")
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Integer getId() {
         return id;
     }

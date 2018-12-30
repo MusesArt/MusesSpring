@@ -29,9 +29,14 @@ public class UserServiceImpl implements UserService {
             user.setPassword(generateEncryptedPassword(password));
             user.setMobile(mobile);
             user.setLevel(0);
+            user.setToken(generateToken(username+password));
             userDao.save(user);
             return true;
         }
+    }
+
+    private String generateToken(String input) {
+        return "";
     }
 
     @Override
@@ -118,6 +123,7 @@ public class UserServiceImpl implements UserService {
             userModel.setLevel(user.getLevel());
             userModel.setBirthday(user.getBirthday());
             userModel.setMobile(user.getMobile());
+            userModel.setToken(user.getToken());
             return userModel;
         } else {
             return null;
