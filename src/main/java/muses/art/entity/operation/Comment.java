@@ -14,7 +14,7 @@ import java.util.List;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "comment")
     private String comment; // 评论内容
@@ -24,27 +24,51 @@ public class Comment {
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
     @Column(name = "order_id")
-    private int orderId;
+    private Integer orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "commodity_id")
-    private int commodityId;
+    private Integer commodityId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
     private List<Image> images; // 图像列表 一对多
 
     @Column(name = "add_time")
     private Date addTime;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(Integer commodityId) {
+        this.commodityId = commodityId;
+    }
 
     public Date getAddTime() {
         return addTime;
@@ -54,11 +78,11 @@ public class Comment {
         this.addTime = addTime;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

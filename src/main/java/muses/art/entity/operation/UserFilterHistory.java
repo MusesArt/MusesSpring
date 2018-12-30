@@ -12,10 +12,10 @@ import java.sql.Date;
 public class UserFilterHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "output_size")
-    private int outputSize; // 输出图像大小
+    private Integer outputSize; // 输出图像大小
 
     @Column(name = "operate_time")
     private Date operateTime; // 使用时间
@@ -29,40 +29,40 @@ public class UserFilterHistory {
     private User user; // 用户对象 多对一
 
     @Column(name = "filter_id")
-    private int filterId;
+    private Integer filterId;
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
-    public int getFilterId() {
+    public Integer getFilterId() {
         return filterId;
     }
 
-    public void setFilterId(int filterId) {
+    public void setFilterId(Integer filterId) {
         this.filterId = filterId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getOutputSize() {
+    public Integer getOutputSize() {
         return outputSize;
     }
 
-    public void setOutputSize(int outputSize) {
+    public void setOutputSize(Integer outputSize) {
         this.outputSize = outputSize;
     }
 
