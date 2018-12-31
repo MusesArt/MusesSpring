@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,9 +22,9 @@ public class OrderController {
         StatusModel<List<OrderModel>> statusModel = new StatusModel<>();
         List<OrderModel> orderModels = orderService.listOrders(user_id);
         if (orderModels.isEmpty()) {
-            statusModel.onError(-1, "订单数据获取异常");
+            statusModel = new StatusModel<>("订单数据获取异常");
         } else {
-            statusModel.onSuccess(0, "success", orderModels);
+            statusModel = new StatusModel<>(orderModels);
         }
         return statusModel;
     }
@@ -34,11 +33,11 @@ public class OrderController {
     public @ResponseBody
     StatusModel updateOrder(@RequestBody OrderModel orderModel, @PathVariable int order_id) {
         StatusModel statusModel = new StatusModel();
-        Boolean status = orderService.updateOrder(order_id, orderModel.getPayStatus(), new Date());
+        Boolean status = orderService.updateOrder(order_id, orderModel.getPayStatus());
         if (!status) {
-            statusModel.onError(-1, "订单数据更新失败");
+            statusModel = new StatusModel<>("订单数据更新失败");
         } else {
-            statusModel.onSuccess(0, "订单数据获取成功");
+            statusModel = new StatusModel<>("订单数据更新成功", "0");
         }
         return statusModel;
     }
@@ -49,9 +48,9 @@ public class OrderController {
         StatusModel statusModel = new StatusModel();
         Boolean status = orderService.deleteOrder(order_id);
         if (!status) {
-            statusModel.onError(-1, "无此订单");
+            statusModel = new StatusModel<>("无此订单");
         } else {
-            statusModel.onSuccess(0, "删除成功");
+            statusModel = new StatusModel<>("删除成功", "0");
         }
         return statusModel;
     }
@@ -62,9 +61,9 @@ public class OrderController {
         StatusModel statusModel = new StatusModel();
         Boolean status = orderService.createOrder(orderModel);
         if (!status) {
-            statusModel.onError(-1, "订单创建失败");
+            statusModel = new StatusModel<>("订单创建失败");
         } else {
-            statusModel.onSuccess(0, "订单创建成功");
+            statusModel = new StatusModel<>("订单创建成功", "0");
         }
         return statusModel;
     }

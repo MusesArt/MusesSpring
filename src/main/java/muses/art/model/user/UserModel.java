@@ -1,6 +1,6 @@
 package muses.art.model.user;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class UserModel {
     private Integer id;

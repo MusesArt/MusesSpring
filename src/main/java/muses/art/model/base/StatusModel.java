@@ -1,8 +1,6 @@
 package muses.art.model.base;
 
-import muses.art.service.base.StatusSetter;
-
-public class StatusModel<E> implements StatusSetter<E> {
+public class StatusModel<E> {
 
     private String code;
     private String message;
@@ -61,22 +59,4 @@ public class StatusModel<E> implements StatusSetter<E> {
         this.data = data;
     }
 
-    @Override
-    public void onError(int code, String msg) {
-        setErrorCode(code);
-        setErrorMsg(msg);
-    }
-
-    @Override
-    public void onSuccess(int code, String msg) {
-        setErrorCode(code);
-        setErrorMsg(msg);
-    }
-
-    @Override
-    public void onSuccess(int code, String msg, E data) {
-        setErrorCode(code);
-        setErrorMsg(msg);
-        setData(data);
-    }
 }

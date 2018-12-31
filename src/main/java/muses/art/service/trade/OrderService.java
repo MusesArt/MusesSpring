@@ -2,7 +2,6 @@ package muses.art.service.trade;
 
 import muses.art.model.trade.OrderModel;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -23,10 +22,9 @@ public interface OrderService {
     /**
      * @param id        订单id
      * @param payStatus 支付状态
-     * @param payTime   支付时间
      * @return
      */
-    Boolean updateOrder(Integer id, String payStatus, Date payTime);
+    Boolean updateOrder(Integer id, String payStatus);
 
     /**
      * @param orderModel

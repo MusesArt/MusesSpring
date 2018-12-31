@@ -4,13 +4,16 @@ import muses.art.dao.trade.OrderDao;
 import muses.art.entity.trade.Order;
 import muses.art.model.trade.OrderModel;
 import muses.art.service.trade.OrderService;
-import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -39,11 +42,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Boolean updateOrder(Integer id, String payStatus, Date payTime) {
+    public Boolean updateOrder(Integer id, String payStatus) {
         Order order = orderDao.get(Order.class, id);
         if (order == null) return false;
         order.setPayStatus(payStatus);
-        order.setPayTime(payTime);
+        order.setPayTime(new Timestamp(System.currentTimeMillis()));
         orderDao.update(order);
         return true;
     }
@@ -51,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Boolean createOrder(OrderModel orderModel) {
         Order order = orderDao.getModelMapper().map(orderModel, Order.class);
+        if (orderDao.get(Order.class, order.getId()) != null) return false;
         orderDao.save(order);
         return true;
     }
