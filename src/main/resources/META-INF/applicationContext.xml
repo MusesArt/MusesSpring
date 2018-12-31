@@ -70,7 +70,7 @@
 
 
     <!--<aop:config>-->
-        <!--<aop:pointcut id="transactionPointcut" expression="execution(* muses.art.service..*Impl.*(..))" />-->
+        <!--<aop:pointcut userId="transactionPointcut" expression="execution(* muses.art.service..*Impl.*(..))" />-->
         <!--<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />-->
     <!--</aop:config>-->
 

@@ -33,9 +33,8 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
         List<Order> orders = orderDao.find(SQL, map);
-        if (orders.isEmpty()) return null;
-        List<OrderModel> orderModels = new ArrayList<>();
-        return orderDao.getModelMapper().map(orders, orderModels.getClass());
+
+        return entity2model(orders);
     }
 
     @Override
@@ -74,55 +73,9 @@ public class OrderServiceImpl implements OrderService {
         order.setAddressId(addressId);
         return true;
     }
-    
-        @Override
-        public Boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId) {
-        Order  order = new Order();
-        BeanUtils.copyProperties(orderModel,order);
-        order.setUserId(userId);
-        order.setPayStatus("待支付");
-        order.setAddressId(addressId);
-        orderDao.save(order);
-        return true;
-    }
 
     @Override
-    public Boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId) {
-        Order  order = new Order();
-        BeanUtils.copyProperties(orderModel,order);
-        order.setUserId(userId);
-        order.setPayStatus("已支付");
-        order.setAddressId(addressId);
-        orderDao.save(order);
-        return true;
-    }
-
-    @Override
-    public Boolean updateOrderStatus(int id) {
-        Order order = orderDao.get(Order.class,id);
-        order.setPayStatus("已支付");
-        orderDao.update(order);
-        return true;
-    }
-
-    @Override
-    public Boolean cancelOrder(int id) {
-        Order order = orderDao.get(Order.class,id);
-        order.setPayStatus("请求取消");
-        orderDao.update(order);
-        return true;
-    }
-
-    @Override
-    public Boolean updateOrder(OrderModel orderModel) {
-        Order order = new Order();
-        BeanUtils.copyProperties(orderModel,order);
-        orderDao.update(order);
-        return true;
-    }
-
-    @Override
-    public OrderModel getOrderById(int id) {
+    public OrderModel findOrderById(int id) {
         Order order = orderDao.get(Order.class,id);
         OrderModel orderModel = new OrderModel();
         BeanUtils.copyProperties(order,orderModel);
@@ -130,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderModel> listOrder(int userId, int start, int max) {
+    public List<OrderModel> listOrderByPage(int userId, int start, int max) {
         String hql = "from Order o where o.user.id=:userId";
         Map<String,Object> map = new HashMap<>();
         map.put("userId", userId);
@@ -144,4 +97,33 @@ public class OrderServiceImpl implements OrderService {
         return orderModels;
     }
 
+    private OrderModel entity2model(Order order) {
+        if (order != null) {
+            OrderModel orderModel = new OrderModel();
+            orderModel.setAddressId(order.getAddressId());
+            orderModel.setId(order.getId());
+            orderModel.setOrderAmount(order.getOrderAmount());
+            orderModel.setOrderSN(order.getOrderSN());
+            orderModel.setPayStatus(order.getPayStatus());
+            orderModel.setPayTime(order.getPayTime());
+            orderModel.setPostScript(order.getPostScript());
+            orderModel.setTradeNo(order.getTradeNo());
+            orderModel.setUserId(order.getUserId());
+            return orderModel;
+        } else {
+            return null;
+        }
+    }
+
+    private List<OrderModel> entity2model(List<Order> orders) {
+        if (orders != null && orders.size() > 0) {
+            List<OrderModel> orderModels = new ArrayList<>();
+            for (Order order : orders) {
+                orderModels.add(entity2model(order));
+            }
+            return orderModels;
+        } else {
+            return null;
+        }
+    }
 }

@@ -12,7 +12,7 @@ public interface AddressService {
      * @param id 用户id
      * @return
      */
-    Boolean addAddress(AddressModel addressModel, int id);
+    Boolean addAddress(AddressModel addressModel);
 
     /**
      * 根据地址id删除
