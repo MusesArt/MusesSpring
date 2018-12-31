@@ -10,6 +10,16 @@ public class PageModel<E> {
     private int totalNum;
     private List<E> dataList;
 
+    public PageModel() {}
+
+    public PageModel(int currentPage, int pageSize, int totalNum, List<E> dataList) {
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+        this.totalNum = totalNum;
+        this.dataList = dataList;
+        this.pageCount = totalNum % pageSize == 0 ? totalNum / pageSize : totalNum / pageSize + 1;
+    }
+
     public int getCurrentPage() {
         return currentPage;
     }
