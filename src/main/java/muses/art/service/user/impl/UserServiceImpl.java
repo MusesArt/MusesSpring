@@ -5,6 +5,7 @@ import muses.art.entity.user.User;
 import muses.art.model.user.UserModel;
 import muses.art.service.user.UserService;
 import muses.art.util.Hasher;
+import muses.art.util.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +30,14 @@ public class UserServiceImpl implements UserService {
             user.setPassword(generateEncryptedPassword(password));
             user.setMobile(mobile);
             user.setLevel(0);
+            user.setToken(generateToken());
             userDao.save(user);
             return true;
         }
+    }
+
+    private String generateToken() {
+        return TokenGenerator.getToken();
     }
 
     @Override
@@ -118,6 +124,8 @@ public class UserServiceImpl implements UserService {
             userModel.setLevel(user.getLevel());
             userModel.setBirthday(user.getBirthday());
             userModel.setMobile(user.getMobile());
+            userModel.setToken(user.getToken());
+            userModel.setPassword(user.getPassword());
             return userModel;
         } else {
             return null;
