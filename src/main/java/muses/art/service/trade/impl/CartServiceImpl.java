@@ -56,7 +56,8 @@ public class CartServiceImpl implements CartService {
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
         List<Cart> carts = cartDao.find(SQL, map);
-        return entity2model(carts);
+        List<CartModel> cartModels = new ArrayList<>();
+        return cartDao.getModelMapper().map(carts, cartModels.getClass());
     }
 
     @Override
@@ -67,32 +68,6 @@ public class CartServiceImpl implements CartService {
         map.put("cid", commodityId);
         List<Cart> carts = cartDao.find(SQL, map);
         return !carts.isEmpty();
-    }
-
-    private List<CartModel> entity2model(List<Cart> carts) {
-        if (carts != null) {
-            List<CartModel> cartModels = new ArrayList<>();
-            for (Cart cart : carts) {
-                cartModels.add(entity2model(cart));
-            }
-            return cartModels;
-        }
-        return null;
-    }
-
-    private CartModel entity2model(Cart cart) {
-        if (cart != null) {
-            CartModel cartModel = new CartModel();
-            cartModel.setId(cart.getId());
-            cartModel.setAddTime(cart.getAddTime());
-            cartModel.setCommodityId(cart.getCommodityId());
-            cartModel.setCommodity(cart.getCommodity());
-            cartModel.setUserId(cart.getUserId());
-            cartModel.setUser(cart.getUser());
-            cartModel.setAddTime(cart.getAddTime());
-            return cartModel;
-        }
-        return null;
     }
 
 }

@@ -22,7 +22,7 @@ public class OrderController {
     StatusModel<List<OrderModel>> listOrder(@PathVariable int user_id) {
         StatusModel<List<OrderModel>> statusModel = new StatusModel<>();
         List<OrderModel> orderModels = orderService.listOrders(user_id);
-        if (orderModels.isEmpty()) {
+        if (orderModels == null) {
             statusModel = new StatusModel<>("订单数据获取异常");
         } else {
             statusModel = new StatusModel<>(orderModels);

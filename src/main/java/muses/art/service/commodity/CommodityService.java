@@ -1,7 +1,7 @@
 package muses.art.service.commodity;
 
-import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.base.PageModel;
+import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.commodity.CommodityListModel;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public interface CommodityService {
      * @param size 每页数量
      * @return List<CommodityListModel>
      */
-    List<CommodityListModel> findCommodities(int page, int size);
+    List<CommodityListModel> findCommodities(String keyword, int page, int size);
 
     /**
      * 分页获取商品列表（时间）
@@ -81,7 +81,7 @@ public interface CommodityService {
      * @param size 每页数量
      * @return PageModel<CommodityListModel>
      */
-    PageModel<CommodityListModel> findCommoditiesPage(int page, int size);
+    PageModel<CommodityListModel> findCommoditiesPage(String keyword, int page, int size);
 
     /**
      * 分页获取商品列表及分页信息（时间）

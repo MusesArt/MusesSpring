@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("Duplicates")
 @Service
@@ -56,10 +57,19 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<CommodityListModel> findCommodities(int page, int size) {
-        String HQL = "from Commodity order by name asc, soldNum desc, discountPrice asc, updateTime asc";
-        List<Commodity> commodities = commodityDao.find(HQL, page, size);
-        return entity2listModel(commodities);
+    public List<CommodityListModel> findCommodities(String keyword, int page, int size) {
+        if ("".equals(keyword) || keyword == null) { // 没有搜索关键词
+            String HQL = "from Commodity order by name asc, soldNum desc, discountPrice asc, updateTime asc";
+            List<Commodity> commodities = commodityDao.find(HQL, page, size);
+            return entity2listModel(commodities);
+        } else { // 有搜索关键词
+            String HQL = "from Commodity where name like :name or brief like :brief order by name asc, soldNum desc, discountPrice asc, updateTime asc";
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", "%" + keyword + "%");
+            map.put("brief", "%" + keyword + "%");
+            List<Commodity> commodities = commodityDao.find(HQL, map, page, size);
+            return entity2listModel(commodities);
+        }
     }
 
     @Override
@@ -137,6 +147,18 @@ public class CommodityServiceImpl implements CommodityService {
         List<CommodityListModel> models = findCommoditiesOrderBySalesVolume(keyword, page, size, isASC);
         int totalNum = count(keyword);
         return new PageModel<>(page, size, totalNum, models);
+    }
+
+    private int count(String keyword) {
+        if ("".equals(keyword) || keyword == null) { // 没有搜索关键词
+            return commodityDao.count("select count(*) from Commodity").intValue();
+        } else { // 有搜索关键词
+            String HQL = "select count(*) from Commodity where name like :name or brief like :brief";
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", "%" + keyword + "%");
+            map.put("brief", "%" + keyword + "%");
+            return commodityDao.count(HQL, map).intValue();
+        }
     }
 
     //添加新商品

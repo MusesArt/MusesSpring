@@ -16,6 +16,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<List<CartModel>> listCart(@PathVariable int userId) {
