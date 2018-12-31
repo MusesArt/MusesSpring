@@ -1,6 +1,8 @@
 package muses.art.service.operation.impl;
 
+import muses.art.dao.operation.CommentDao;
 import muses.art.dao.operation.CommentPraiseDao;
+import muses.art.entity.operation.Comment;
 import muses.art.entity.operation.CommentPraise;
 import muses.art.service.operation.CommentPraiseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +20,27 @@ public class CommentPraiseServiceImpl implements CommentPraiseService {
     @Autowired
     private CommentPraiseDao commentPraiseDao;
 
+    @Autowired
+    private CommentDao commentDao;
+
     @Override
     public Boolean addPraise(Integer userId, Integer commentId) {
-        String HQL = "from CommentPraise where userId=:id1 and commentId=:id2";
-        Map<String, Object> map = new HashMap<>();
-        map.put("id1", userId);
-        map.put("id2", commentId);
-        List<CommentPraise> commentPraises = commentPraiseDao.find(HQL, map);
-        if (commentPraises == null || commentPraises.size() == 0) {
-            CommentPraise commentPraise = new CommentPraise();
-            commentPraise.setUserId(userId);
-            commentPraise.setCommentId(commentId);
-            commentPraiseDao.save(commentPraise);
+        Comment comment = commentDao.get(Comment.class, commentId);
+        if (comment != null) {
+            String HQL = "from CommentPraise where userId=:id1 and commentId=:id2";
+            Map<String, Object> map = new HashMap<>();
+            map.put("id1", userId);
+            map.put("id2", commentId);
+            List<CommentPraise> commentPraises = commentPraiseDao.find(HQL, map);
+            if (commentPraises == null || commentPraises.size() == 0) {
+                CommentPraise commentPraise = new CommentPraise();
+                commentPraise.setUserId(userId);
+                commentPraise.setCommentId(commentId);
+                commentPraiseDao.save(commentPraise);
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

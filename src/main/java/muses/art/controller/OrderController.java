@@ -20,7 +20,7 @@ public class OrderController {
     @RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<List<OrderModel>> listOrder(@PathVariable int user_id) {
-        StatusModel<List<OrderModel>> statusModel = new StatusModel<>();
+        StatusModel<List<OrderModel>> statusModel;
         List<OrderModel> orderModels = orderService.listOrders(user_id);
         if (orderModels == null) {
             statusModel = new StatusModel<>("订单数据获取异常");
@@ -33,7 +33,7 @@ public class OrderController {
     @RequestMapping(value = "/{order_id}", method = RequestMethod.PUT)
     public @ResponseBody
     StatusModel updateOrder(@RequestBody OrderModel orderModel, @PathVariable int order_id) {
-        StatusModel statusModel = new StatusModel();
+        StatusModel statusModel;
         Boolean status = orderService.updateOrder(order_id, orderModel.getPayStatus());
         if (!status) {
             statusModel = new StatusModel<>("订单数据更新失败");
@@ -46,7 +46,7 @@ public class OrderController {
     @RequestMapping(value = "/{order_id}", method = RequestMethod.DELETE)
     public @ResponseBody
     StatusModel deleteFromOrder(@PathVariable int order_id) {
-        StatusModel statusModel = new StatusModel();
+        StatusModel statusModel;
         Boolean status = orderService.deleteOrder(order_id);
         if (!status) {
             statusModel = new StatusModel<>("无此订单");
@@ -59,7 +59,7 @@ public class OrderController {
     @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel addOrder(@RequestBody ArrayList<Integer> cartIds, @RequestBody Integer addressId, @PathVariable int user_id) {
-        StatusModel statusModel = new StatusModel();
+        StatusModel statusModel;
         Boolean status = orderService.createOrderFromCart(cartIds, addressId);
         if (!status) {
             statusModel = new StatusModel<>("订单创建失败");

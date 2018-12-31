@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/banner")
-public class BannerController {
+public class  BannerController {
 
     @Autowired
     ImageSliderService imageSliderService;
