@@ -1,12 +1,14 @@
 package muses.art.service.trade;
 
+import muses.art.entity.trade.OrderCommodity;
+
 public interface OrderCommodityService {
     /**
-     * @param orderId
-     * @param commodityId
+     *
+     * @param orderCommodity
      * @return
      */
-    Boolean add(Integer orderId, Integer commodityId);
+    Boolean add(OrderCommodity orderCommodity);
 
     /**
      * @param id 订购的商品id

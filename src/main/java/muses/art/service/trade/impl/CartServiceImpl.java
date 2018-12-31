@@ -1,6 +1,8 @@
 package muses.art.service.trade.impl;
 
+import muses.art.dao.commodity.CommodityDao;
 import muses.art.dao.trade.CartDao;
+import muses.art.entity.commodity.Commodity;
 import muses.art.entity.trade.Cart;
 import muses.art.model.trade.CartModel;
 import muses.art.service.trade.CartService;
@@ -20,11 +22,19 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartDao cartDao;
+    @Autowired
+    private CommodityDao commodityDao;
 
     @Override
     public Boolean addToCart(Integer userId, Integer commodityId, Integer number) {
-        if (findCartExist(userId, commodityId)) return false;
-        Cart cart = new Cart();
+        Cart cart = findCartExist(userId, commodityId);
+        if (commodityDao.get(Commodity.class, commodityId) == null) return false;
+        if (cart != null) {
+            cart.setNumber(cart.getNumber() + 1);
+            cartDao.update(cart);
+            return true;
+        }
+        cart = new Cart();
         cart.setUserId(userId);
         cart.setCommodityId(commodityId);
         cart.setNumber(number);
@@ -61,13 +71,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Boolean findCartExist(Integer userId, Integer commodityId) {
+    public Cart findCartExist(Integer userId, Integer commodityId) {
         String SQL = "from Cart where userId=:uid and commodityId=:cid";
         Map<String, Object> map = new HashMap<>();
         map.put("uid", userId);
         map.put("cid", commodityId);
         List<Cart> carts = cartDao.find(SQL, map);
-        return !carts.isEmpty();
+        return carts.get(0);
     }
 
 }

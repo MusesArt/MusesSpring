@@ -64,8 +64,8 @@ public class CommodityController {
 
     @RequestMapping(value = "list/{page}", method = RequestMethod.GET)
     public @ResponseBody
-    StatusModel<List<CommodityListModel>> getCommodities(@PathVariable int page, @RequestParam int size,
-                                                         @RequestParam int sortType, @RequestParam Boolean isASC,
+    StatusModel<List<CommodityListModel>> getCommodities(@PathVariable Integer page, @RequestParam Integer size,
+                                                         @RequestParam Integer sortType, @RequestParam Boolean isASC,
                                                          @RequestParam String keyword) {
         switch (sortType) {
             case 0:

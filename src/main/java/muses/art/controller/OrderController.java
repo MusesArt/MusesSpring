@@ -1,13 +1,16 @@
 package muses.art.controller;
 
+import muses.art.entity.trade.Order;
 import muses.art.model.base.StatusModel;
+import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
+import muses.art.service.trade.CartService;
+import muses.art.service.trade.OrderCommodityService;
 import muses.art.service.trade.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,6 +19,10 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private CartService cartService;
+    @Autowired
+    private OrderCommodityService orderCommodityService;
 
     @RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
     public @ResponseBody
@@ -58,12 +65,16 @@ public class OrderController {
 
     @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel addOrder(@RequestBody ArrayList<Integer> cartIds, @RequestBody Integer addressId, @PathVariable int user_id) {
+    StatusModel addOrder(@RequestBody OrderFromCartModel orderFromCartModel, @PathVariable int user_id) {
         StatusModel statusModel;
-        Boolean status = orderService.createOrderFromCart(cartIds, addressId);
-        if (!status) {
+        Order order = orderService.createOrderFromCart(orderFromCartModel);
+        if (order == null) {
             statusModel = new StatusModel<>("订单创建失败");
         } else {
+            order.getOrderCommodities().forEach(orderCommodity -> orderCommodityService.add(orderCommodity));
+            orderFromCartModel.getCartIds().forEach(cartid -> {
+                cartService.deleteFromCart(cartid);
+            });
             statusModel = new StatusModel<>("订单创建成功", "0");
         }
         return statusModel;

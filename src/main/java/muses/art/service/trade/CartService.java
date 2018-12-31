@@ -1,5 +1,6 @@
 package muses.art.service.trade;
 
+import muses.art.entity.trade.Cart;
 import muses.art.model.trade.CartModel;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public interface CartService {
      * @param commodityId 商品id
      * @return
      */
-    Boolean findCartExist(Integer userId, Integer commodityId);
+    Cart findCartExist(Integer userId, Integer commodityId);
 
 
 }
