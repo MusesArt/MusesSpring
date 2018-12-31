@@ -54,9 +54,6 @@ public class Comment {
     @Column(name = "add_time")
     private Date addTime;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.REMOVE)
-    private List<CommentPraise> commentPraises;
-
     public OrderCommodity getOrderCommodity() {
         return orderCommodity;
     }

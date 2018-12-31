@@ -1,12 +1,7 @@
 package muses.art.entity.user;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
 import javax.persistence.*;
-import java.util.Date;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 
 @Entity

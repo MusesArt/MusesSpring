@@ -56,7 +56,6 @@ hs_err_pid*
 # .idea/*.iml
 # .idea/modules
 
-
 # CMake
 cmake-build-*/
 
@@ -86,10 +85,9 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
-.idea/misc.xml
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-# Target
-target/
+# JDBC & Hibernate configuration file
+config.properties

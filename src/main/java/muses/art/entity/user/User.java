@@ -1,6 +1,7 @@
 package muses.art.entity.user;
 
 import muses.art.entity.filter.Filter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -38,16 +39,27 @@ public class User { // 用户个人信息
     private String email; // 电子邮箱
 
     @Column(name = "level")
-    private Integer level; // 用户等级
+    private String level; // 用户等级
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
     private List<Filter> filters; // 用户制作的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
     private List<Filter> favFilters; // 用户喜欢的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
     private List<Filter> favCommodities; // 用户喜欢的所有商品 一对多
+
+    @Column(name = "token")
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public Integer getId() {
         return id;
@@ -137,11 +149,11 @@ public class User { // 用户个人信息
         this.email = email;
     }
 
-    public Integer getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
