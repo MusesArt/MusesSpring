@@ -21,17 +21,7 @@ public class HotKeyController {
 
     @RequestMapping(value = "/json", method = RequestMethod.GET)
     public @ResponseBody StatusModel<List<HotKeyModel>> findHotKeyList() {
-        StatusModel<List<HotKeyModel>> statusModel = new StatusModel<>();
         List<HotKeyModel> hotKeyModels = hotKeyService.findHotKeyList();
-        if (hotKeyModels == null) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("热搜关键词数据获取异常");
-            statusModel.setData(null);
-        } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("");
-            statusModel.setData(hotKeyModels);
-        }
-        return statusModel;
+        return hotKeyModels != null ? new StatusModel<>(hotKeyModels) : new StatusModel<List<HotKeyModel>>("热搜关键词数据获取异常");
     }
 }

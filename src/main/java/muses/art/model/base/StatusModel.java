@@ -6,6 +6,29 @@ public class StatusModel<E> {
     private String errorMsg;
     private E data;
 
+    public static final int OK = 0;
+    public static final int ERROR = -1;
+
+    public StatusModel() {}
+
+    public StatusModel(E data) {
+        this.data = data;
+        this.errorCode = OK;
+        this.errorMsg = "";
+    }
+
+    public StatusModel(String errorMsg) {
+        this.data = null;
+        this.errorMsg = errorMsg;
+        this.errorCode = ERROR;
+    }
+
+    public StatusModel(int errorCode, String errorMsg, E data) {
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+        this.data = data;
+    }
+
     public int getErrorCode() {
         return errorCode;
     }
