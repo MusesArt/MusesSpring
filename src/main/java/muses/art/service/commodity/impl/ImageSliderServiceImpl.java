@@ -53,7 +53,7 @@ public class ImageSliderServiceImpl implements ImageSliderService {
 
     @Override
     public List<ImageSliderModel> listImageSlider() {
-        String hql = "from ImageSlider image order by image.launchData";
+        String hql = "from ImageSlider image order by image.launchDate";
         Map<String,Object> map = new HashMap<>();
         List<ImageSlider> imageSliders = imageSliderDao.find(hql,1,4);
         List<ImageSliderModel> imageSliderModels = new ArrayList<ImageSliderModel>();
@@ -64,6 +64,5 @@ public class ImageSliderServiceImpl implements ImageSliderService {
         }
         return imageSliderModels;
     }
-
 
 }
