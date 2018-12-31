@@ -29,14 +29,14 @@ public class UserController {
 
     @RequestMapping(value = "/login/username", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> loginByUsername(@RequestParam("username") String username,
-                                                       @RequestParam("password") String password, HttpSession session) {
+                                                       @RequestParam("password") String password) {
         UserModel user = userService.findUserByUsername(username);
         return login(user, password);
     }
 
     @RequestMapping(value = "/login/mobile", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> loginByMobile(@RequestParam("mobile") String mobile,
-                                                                 @RequestParam("password") String password, HttpSession session) {
+                                                                 @RequestParam("password") String password) {
         UserModel user = userService.findUserByMobile(mobile);
         return login(user, password);
     }
@@ -44,7 +44,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> registerByMobile(@RequestParam("mobile") String mobile,
                                                                   @RequestParam("password") String password,
-                                                                  @RequestParam("code") String code, HttpSession session) {
+                                                                  @RequestParam("code") String code) {
         UserModel user = userService.findUserByMobile(mobile);
         if (user != null) { // 手机号已被注册
             return new StatusModel<>("手机号已被注册");
@@ -58,19 +58,33 @@ public class UserController {
     @RequestMapping(value = "/password", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> registerByMobile(@RequestParam("userId") Integer id,
                                                                   @RequestParam("old") String oldPassword,
-                                                                  @RequestParam("new") String newPassword,
-                                                                  HttpSession session) {
+                                                                  @RequestParam("new") String newPassword) {
         UserModel user = userService.findUserById(id);
         if (user == null) { // 用户存在
             return new StatusModel<>("该用户不存在");
         } else {
             if (Hasher.checkPassword(oldPassword, user.getPassword())) { // 旧密码输入正确
                 userService.updatePassword(id, newPassword);
+                return new StatusModel<>("修改密码成功", StatusModel.OK);
             }
-            return new StatusModel<>("修改密码成功", StatusModel.OK);
+            return new StatusModel<>("原始密码错误", StatusModel.ERROR);
         }
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    public @ResponseBody StatusModel<TokenModel> deleteByUserId(@RequestParam("userId") Integer id,
+                                                                  @RequestParam("password") String password) {
+        UserModel user = userService.findUserById(id);
+        if (user == null) { // 用户存在
+            return new StatusModel<>("该用户不存在");
+        } else {
+            if (Hasher.checkPassword(password, user.getPassword())) { // 密码输入正确
+                userService.deleteUser(id);
+                return new StatusModel<>("用户注销成功", StatusModel.OK);
+            }
+            return new StatusModel<>("密码错误", StatusModel.ERROR);
+        }
+    }
 
     private StatusModel<TokenModel> login(UserModel user, String password) {
         if (user != null) {
@@ -82,5 +96,4 @@ public class UserController {
         }
         return new StatusModel<>("用户名或密码错误");
     }
-
 }
