@@ -63,5 +63,12 @@ public interface UserService {
      */
     UserModel findUserByMobile(String mobile);
 
+    /**
+     * 根据token查找用户
+     * @param token 用户token
+     * @return
+     */
+    UserModel findUserByToken(String token);
+
 
 }
