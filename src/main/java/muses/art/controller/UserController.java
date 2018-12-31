@@ -1,6 +1,5 @@
 package muses.art.controller;
 
-import muses.art.entity.user.User;
 import muses.art.model.base.StatusModel;
 import muses.art.model.user.TokenModel;
 import muses.art.model.user.UserModel;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpSession;
 
 
 @Controller
