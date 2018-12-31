@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean update(OrderModel orderModel) {
+    public boolean updateOrder(OrderModel orderModel) {
         Order order = new Order();
         BeanUtils.copyProperties(orderModel,order);
         orderDao.update(order);
