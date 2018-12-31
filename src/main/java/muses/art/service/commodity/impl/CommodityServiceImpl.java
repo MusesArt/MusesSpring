@@ -163,10 +163,14 @@ public class CommodityServiceImpl implements CommodityService {
 
     //添加新商品
     private Commodity detailModel2entity(CommodityDetailModel model) {
-        
-        Commodity commodity = detailModel2entity(new Commodity(), model);
-        commodity.setAddTime(new Date(System.currentTimeMillis()));
-        return commodity;
+        if (model != null) {
+            Commodity commodity = detailModel2entity(new Commodity(), model);
+            commodity.setAddTime(new Date(System.currentTimeMillis()));
+            return commodity;
+        } else {
+            return null;
+        }
+
     }
 
     //更新商品
@@ -191,53 +195,67 @@ public class CommodityServiceImpl implements CommodityService {
 
     //获取单个商品详细信息
     private CommodityDetailModel entity2detailModel(Commodity commodity) {
-        CommodityDetailModel model = new CommodityDetailModel();
-        model.setId(commodity.getId());
-        model.setCommoditySN(commodity.getCommoditySN());
-        model.setName(commodity.getName());
-        model.setClickNum(commodity.getClickNum());
-        model.setSoldNum(commodity.getSoldNum());
-        model.setFavoriteNum(commodity.getFavoriteNum());
-        model.setGoodsNum(commodity.getGoodsNum());
-        model.setOriginalPrice(commodity.getOriginalPrice());
-        model.setDiscountPrice(commodity.getDiscountPrice());
-        model.setBrief(commodity.getBrief());
-        model.setDescription(commodity.getDescription());
-        model.setShipFree(commodity.getShipFree());
-        model.setNew(commodity.isNew());
-        model.setHot(commodity.isHot());
-        model.setUpdateTime(commodity.getUpdateTime());
-        model.setCoverImage(commodity.getCoverImage());
-        model.setImageUrls(entity2imageUrls(commodity.getImages()));
-        return model;
+        if (commodity != null) {
+            CommodityDetailModel model = new CommodityDetailModel();
+            model.setId(commodity.getId());
+            model.setCommoditySN(commodity.getCommoditySN());
+            model.setName(commodity.getName());
+            model.setClickNum(commodity.getClickNum());
+            model.setSoldNum(commodity.getSoldNum());
+            model.setFavoriteNum(commodity.getFavoriteNum());
+            model.setGoodsNum(commodity.getGoodsNum());
+            model.setOriginalPrice(commodity.getOriginalPrice());
+            model.setDiscountPrice(commodity.getDiscountPrice());
+            model.setBrief(commodity.getBrief());
+            model.setDescription(commodity.getDescription());
+            model.setShipFree(commodity.getShipFree());
+            model.setNew(commodity.isNew());
+            model.setHot(commodity.isHot());
+            model.setUpdateTime(commodity.getUpdateTime());
+            model.setCoverImage(commodity.getCoverImage());
+            model.setImageUrls(entity2imageUrls(commodity.getImages()));
+            return model;
+        } else {
+            return null;
+        }
     }
 
     //获取单个商品简略信息
     private CommodityListModel entity2listModel(Commodity commodity) {
-        CommodityListModel model = new CommodityListModel();
-        model.setId(commodity.getId());
-        model.setBrief(commodity.getBrief());
-        model.setCoverImage(commodity.getCoverImage());
-        model.setDiscountPrice(commodity.getDiscountPrice());
-        model.setName(commodity.getName());
-        return model;
+        if (commodity != null) {
+            CommodityListModel model = new CommodityListModel();
+            model.setId(commodity.getId());
+            model.setBrief(commodity.getBrief());
+            model.setCoverImage(commodity.getCoverImage());
+            model.setDiscountPrice(commodity.getDiscountPrice());
+            model.setName(commodity.getName());
+            return model;
+        }
+        return null;
     }
 
     //获取列表商品简略信息
     private List<CommodityListModel> entity2listModel(List<Commodity> commodities) {
-        List<CommodityListModel> models = new ArrayList<>();
-        for (Commodity commodity : commodities) {
-            models.add(entity2listModel(commodity));
+        if (commodities != null && commodities.size() > 0) {
+            List<CommodityListModel> models = new ArrayList<>();
+            for (Commodity commodity : commodities) {
+                models.add(entity2listModel(commodity));
+            }
+            return models;
         }
-        return models;
+        return null;
     }
 
     //获取图片链接
     private List<String> entity2imageUrls(List<Image> images) {
-        List<String> imageUrls = new ArrayList<>();
-        for (Image image : images) {
-            imageUrls.add(image.getImageUrl());
+        if (images != null && images.size() > 0) {
+            List<String> imageUrls = new ArrayList<>();
+            for (Image image : images) {
+                imageUrls.add(image.getImageUrl());
+            }
+            return imageUrls;
+        } else {
+            return null;
         }
-        return imageUrls;
     }
 }
