@@ -19,17 +19,17 @@ public class HotKeyController {
     @Autowired
     private HotKeyService hotKeyService;
 
-    @RequestMapping(value = "/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody StatusModel<List<HotKeyModel>> findHotKeyList() {
         StatusModel<List<HotKeyModel>> statusModel = new StatusModel<>();
         List<HotKeyModel> hotKeyModels = hotKeyService.findHotKeyList();
         if (hotKeyModels == null) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("热搜关键词数据获取异常");
+            statusModel.setCode(statusModel.ERROR);
+            statusModel.setMessage("热搜关键词数据获取异常");
             statusModel.setData(null);
         } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("");
+            statusModel.setCode(statusModel.OK);
+            statusModel.setMessage("");
             statusModel.setData(hotKeyModels);
         }
         return statusModel;

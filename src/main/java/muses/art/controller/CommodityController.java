@@ -19,10 +19,9 @@ public class CommodityController {
     @Autowired
     private CommodityService commodityService;
 
-    @RequestMapping(value = "/list/{page}/{size}", method = RequestMethod.GET)
-    public @ResponseBody StatusModel<PageModel<Commodity>> getCommoditiesByPage(@PathVariable int page, @PathVariable int size) {
+    @RequestMapping(value = "/list/{page}/", method = RequestMethod.GET)
+    public @ResponseBody StatusModel<PageModel<Commodity>> getCommoditiesByPage(@PathVariable int page, @RequestParam("size") int size) {
 
-//        commodityService;
         List<Commodity> commodities = new ArrayList<>();
         for (int i = 0; i < 10; i++ ) {
             Commodity commodity = new Commodity();
@@ -36,17 +35,12 @@ public class CommodityController {
         pageModel.setPageSize(10);
         pageModel.setTotalNum(10);
         StatusModel<PageModel<Commodity>> statusModel = new StatusModel<>();
-        statusModel.setErrorCode(0);
-        statusModel.setErrorMsg("ERROR CODE == 0");
+        statusModel.setCode(StatusModel.OK);
+        statusModel.setMessage("ERROR CODE == 0");
         PageModel<Commodity> commodityPageModel = new PageModel<>();
         commodityPageModel.setDataList(new ArrayList<Commodity>());
         statusModel.setData(commodityPageModel);
         return statusModel;
     }
 
-    @RequestMapping(value = "/comment", method = RequestMethod.GET)
-    public @ResponseBody CommentModel getComment() {
-        CommentModel commentModel = new CommentModel();
-        return commentModel;
-    }
 }
