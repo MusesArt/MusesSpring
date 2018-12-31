@@ -39,10 +39,9 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Boolean updateAddressById(AddressModel addressModel, int id) {
+    public Boolean updateAddress(AddressModel addressModel) {
         Address address = new Address();
         addressDao.getModelMapper().map(addressModel, address);
-        address.setId(id);
         addressDao.update(address);
         return true;
     }

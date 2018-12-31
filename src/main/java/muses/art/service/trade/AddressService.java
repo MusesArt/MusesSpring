@@ -24,10 +24,9 @@ public interface AddressService {
     /**
      * 编辑地址（id为地址id）
      * @param addressModel
-     * @param id 地址id
      * @return
      */
-    Boolean updateAddressById(AddressModel addressModel, int id);
+    Boolean updateAddress(AddressModel addressModel);
 
     /**
      * 根据地址id得到详细地址

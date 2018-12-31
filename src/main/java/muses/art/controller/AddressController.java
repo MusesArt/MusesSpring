@@ -25,7 +25,7 @@ public class AddressController {
     public List<AddressModel> getAllAddress(){
         //用户id为1
         int id = 1;
-        List<AddressModel> list = addressService.getAllAddress(id);
+        List<AddressModel> list = addressService.findAllAddressByUserId(id);
         return list;
     }
 
@@ -34,7 +34,7 @@ public class AddressController {
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.DELETE)
     public void deleteAddress(@RequestParam(value = "Id") int id){
-        addressService.deleteAddressService(id);
+        addressService.findAllAddressByUserId(id);
     }
 
     //增加地址
@@ -44,7 +44,7 @@ public class AddressController {
     public void addAddress(AddressModel addressModel){
         //用户id为1
         int id = 1;
-        addressService.addAddressService(addressModel,id);
+        addressService.addAddress(addressModel,id);
     }
 
     //编辑地址
@@ -52,7 +52,7 @@ public class AddressController {
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     public void modifyAddress(AddressModel addressModel){
-        addressService.editAddressService(addressModel);
+        addressService.updateAddress(addressModel);
     }
 
     //得到用户某地址的详细信息
@@ -60,7 +60,7 @@ public class AddressController {
     @ResponseBody
     @RequestMapping(value = "/one",method = RequestMethod.GET)
     public AddressModel getAddress(@RequestParam(value = "Id") int id){
-        AddressModel addressModel = addressService.getAddressByIdService(id);
+        AddressModel addressModel = addressService.findAddressById(id);
         return addressModel;
     }
 }
