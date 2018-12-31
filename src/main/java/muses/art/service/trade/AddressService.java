@@ -16,6 +16,7 @@ public interface AddressService {
 
     //根据地址id得到详细地址
     AddressModel getAddressByIdService(int id);
+
     //列出某个用户所有的地址
     List<AddressModel> getAllAddress(int id);
 
