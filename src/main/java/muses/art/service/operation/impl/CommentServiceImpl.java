@@ -10,14 +10,9 @@ import muses.art.model.operation.CommentModel;
 import muses.art.service.operation.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -27,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId) {
+    public Boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId) {
         Comment commentObject = new Comment();
         commentObject.setComment(comment);
         commentObject.setCommodityId(commodityId);
@@ -40,14 +35,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteComment(Integer id) {
+    public Boolean deleteComment(Integer id) {
         Comment comment = commentDao.get(Comment.class, id);
         commentDao.delete(comment);
         return true;
     }
 
     @Override
-    public boolean updateComment(Integer id, String content) {
+    public Boolean updateComment(Integer id, String content) {
         Comment comment = commentDao.get(Comment.class, id);
         comment.setComment(content);
         commentDao.update(comment);

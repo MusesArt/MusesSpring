@@ -3,7 +3,7 @@ package muses.art.entity.commodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "image_slider")
@@ -21,7 +21,7 @@ public class ImageSlider { // 滑动栏
     @Column(name = "link_url")
     private String linkUrl; // 链接地址
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_id", insertable = false, updatable = false)
     private User manager; // 管理员对象 多对一
 

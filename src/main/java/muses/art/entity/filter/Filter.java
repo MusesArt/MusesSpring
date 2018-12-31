@@ -21,7 +21,7 @@ public class Filter {
     private String coverImage; // 滤镜封面图像地址
 
     @Column(name = "vip_only")
-    private boolean VipOnly; // 是否需要VIP
+    private Boolean VipOnly; // 是否需要VIP
 
     @Column(name = "public_data")
     private Date publishData; // 发布日期
@@ -29,14 +29,14 @@ public class Filter {
     @Column(name = "description")
     private String description; // 滤镜描述
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private FilterCategory category; // 滤镜所属类别对象 多对一
 
     @Column(name = "category_id")
     private Integer categoryId; // 类别id
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", insertable = false, updatable = false)
     private User owner; // 滤镜作者对象 多对一
 
@@ -83,11 +83,11 @@ public class Filter {
         this.coverImage = coverImage;
     }
 
-    public boolean isVipOnly() {
+    public Boolean isVipOnly() {
         return VipOnly;
     }
 
-    public void setVipOnly(boolean vipOnly) {
+    public void setVipOnly(Boolean vipOnly) {
         VipOnly = vipOnly;
     }
 

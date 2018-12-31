@@ -1,13 +1,13 @@
 package muses.art.entity.operation;
 
-import muses.art.entity.trade.Order;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.commodity.Image;
+import muses.art.entity.trade.Order;
 import muses.art.entity.trade.OrderCommodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,25 +20,25 @@ public class Comment {
     @Column(name = "comment")
     private String comment; // 评论内容
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
     @Column(name = "order_id")
     private Integer orderId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_commodity_id", insertable = false, updatable = false)
     private OrderCommodity orderCommodity;
 
@@ -48,7 +48,7 @@ public class Comment {
     @Column(name = "commodity_id")
     private Integer commodityId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "comment")
     private List<Image> images; // 图像列表 一对多
 
     @Column(name = "add_time")

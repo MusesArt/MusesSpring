@@ -33,7 +33,7 @@ public class CartController {
     public @ResponseBody
     StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cartId) {
         StatusModel statusModel;
-        Boolean status = cartService.UpdateCart(cartId, cartModel.getNumber());
+        Boolean status = cartService.updateCart(cartId, cartModel.getNumber());
         if (!status) {
             statusModel = new StatusModel("购物车内无此商品");
         } else {

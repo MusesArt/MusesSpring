@@ -39,12 +39,12 @@ public class OrderServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void updateStatus(){
-        orderService.updateStatus(1);
+        orderService.updateOrderStatus(1);
     }
 
     @Test
     public void cancelOfUser(){
-        orderService.cancelOfUser(1);
+        orderService.cancelOrder(1);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class OrderServiceImplTest extends AbstractJUnit4SpringContextTests {
         orderModel.setOrderSN("123456");
         orderModel.setPostScript("支付成功");
         orderModel.setTradeNo("123456");
-        orderService.update(orderModel);
+        orderService.updateOrder(orderModel);
     }
 
     @Test

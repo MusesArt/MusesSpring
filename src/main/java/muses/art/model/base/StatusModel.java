@@ -58,4 +58,5 @@ public class StatusModel<E> {
     public void setData(E data) {
         this.data = data;
     }
+
 }

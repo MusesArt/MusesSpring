@@ -3,7 +3,7 @@ package muses.art.entity.trade;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,21 +32,21 @@ public class Order { // 订单
     @Column(name = "pay_time")
     private Date payTime; // 支付时间
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 订单用户对象 多对一
 
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", insertable = false, updatable = false)
     private Address address; // 订单地址对象 多对一
 
     @Column(name = "address_id")
     private Integer addressId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
     private List<OrderCommodity> orderCommodities;
 
     public List<OrderCommodity> getOrderCommodities() {

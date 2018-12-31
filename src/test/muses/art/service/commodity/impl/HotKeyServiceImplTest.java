@@ -47,7 +47,7 @@ public class HotKeyServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void deleteHotKey() {
-        hotKeyService.deleteHotKey(23);
+        hotKeyService.deleteHotKey(10);
         logger.info("删除成功1");
     }
 
@@ -59,7 +59,7 @@ public class HotKeyServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void updateHotKey() {
-        hotKeyService.updateHotKey(25, "更新成功1");
+        hotKeyService.updateHotKey(12, "更新成功1");
         logger.info("更新成功1");
     }
 

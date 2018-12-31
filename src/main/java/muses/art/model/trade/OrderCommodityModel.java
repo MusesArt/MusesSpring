@@ -1,19 +1,19 @@
 package muses.art.model.trade;
 
 import muses.art.entity.commodity.Commodity;
-import muses.art.entity.user.User;
+import muses.art.entity.trade.Order;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class CartModel implements Serializable {
+public class OrderCommodityModel {
     private Integer id;
-    private Integer number;
-    protected Date addTime;
-    private User user;
-    private Integer userId;
+    private Date addTime;
+    private Order order;
     private Commodity commodity;
+    private Integer orderId;
     private Integer commodityId;
+    private Float price;
+    private String brief;
 
     public Integer getId() {
         return id;
@@ -21,14 +21,6 @@ public class CartModel implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
     }
 
     public Date getAddTime() {
@@ -39,20 +31,12 @@ public class CartModel implements Serializable {
         this.addTime = addTime;
     }
 
-    public User getUser() {
-        return user;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Commodity getCommodity() {
@@ -63,6 +47,14 @@ public class CartModel implements Serializable {
         this.commodity = commodity;
     }
 
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
     public Integer getCommodityId() {
         return commodityId;
     }
@@ -71,4 +63,19 @@ public class CartModel implements Serializable {
         this.commodityId = commodityId;
     }
 
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
 }

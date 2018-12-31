@@ -40,7 +40,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Boolean UpdateCart(Integer id, Integer number) {
+    public Boolean updateCart(Integer id, Integer number) {
         Cart cart = cartDao.get(Cart.class, id);
         if (cart == null) return false;
         cart.setNumber(number);
