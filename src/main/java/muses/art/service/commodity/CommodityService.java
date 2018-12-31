@@ -1,7 +1,7 @@
 package muses.art.service.commodity;
 
-import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.base.PageModel;
+import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.commodity.CommodityListModel;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public interface CommodityService {
      * @param isASC 是否升序
      * @return List<CommodityListModel>
      */
-    List<CommodityListModel> findCommoditiesOrderByTime(int page, int size, boolean isASC);
+    List<CommodityListModel> findCommoditiesOrderByTime(int page, int size, Boolean isASC);
 
     /**
      * 分页获取商品列表（价格）
@@ -64,7 +64,7 @@ public interface CommodityService {
      * @param isASC 是否升序
      * @return List<CommodityListModel>
      */
-    List<CommodityListModel> findCommoditiesOrderByPrice(int page, int size, boolean isASC);
+    List<CommodityListModel> findCommoditiesOrderByPrice(int page, int size, Boolean isASC);
 
     /**
      * 分页获取商品列表（销量）
@@ -73,7 +73,7 @@ public interface CommodityService {
      * @param isASC 是否升序
      * @return List<CommodityListModel>
      */
-    List<CommodityListModel> findCommoditiesOrderBySalesVolume(int page, int size, boolean isASC);
+    List<CommodityListModel> findCommoditiesOrderBySalesVolume(int page, int size, Boolean isASC);
 
     /**
      * 分页获取商品列表及分页信息（综合）
@@ -90,7 +90,7 @@ public interface CommodityService {
      * @param isASC 是否升序
      * @return PageModel<CommodityListModel>
      */
-    PageModel<CommodityListModel> findCommoditiesPageOrderByTime(int page, int size, boolean isASC);
+    PageModel<CommodityListModel> findCommoditiesPageOrderByTime(int page, int size, Boolean isASC);
 
     /**
      * 分页获取商品列表及分页信息（价格）
@@ -99,7 +99,7 @@ public interface CommodityService {
      * @param isASC 是否升序
      * @return PageModel<CommodityListModel>
      */
-    PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(int page, int size, boolean isASC);
+    PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(int page, int size, Boolean isASC);
 
     /**
      * 分页获取商品列表及分页信息（销量）
@@ -108,5 +108,5 @@ public interface CommodityService {
      * @param isASC 是否升序
      * @return PageModel<CommodityListModel>
      */
-    PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(int page, int size, boolean isASC);
+    PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(int page, int size, Boolean isASC);
 }

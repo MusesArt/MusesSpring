@@ -25,7 +25,7 @@ public class OrderCommodity { // 订购的商品
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "order_id")
-    private Integer orderId; // 订单ip
+    private Integer orderId; // 订单id
 
     @Column(name = "commodity_id")
     private Integer commodityId; // 商品id

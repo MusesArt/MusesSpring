@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public boolean addNewUser(String username, String password, String mobile) {
+    public Boolean addNewUser(String username, String password, String mobile) {
         if (findUsernameIsUsed(username) || findMobileIsUsed(mobile)) { // 若用户名或手机号被使用
             return false;
         } else {
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(Integer id) {
+    public Boolean deleteUser(Integer id) {
         User user = userDao.get(User.class, id);
         if (user != null) {
             userDao.delete(user);
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updatePassword(Integer userId, String password) {
+    public Boolean updatePassword(Integer userId, String password) {
         User user = userDao.get(User.class, userId);
         if (user != null) {
             user.setPassword(generateEncryptedPassword(password));
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean findUsernameIsUsed(String username) {
+    public Boolean findUsernameIsUsed(String username) {
         String HQL = "from User where username=:name";
         Map<String, Object> map = new HashMap<>();
         map.put("name", username);
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean findMobileIsUsed(String mobile) {
+    public Boolean findMobileIsUsed(String mobile) {
         String HQL = "from User where mobile=:mobile";
         Map<String, Object> map = new HashMap<>();
         map.put("mobile", mobile);

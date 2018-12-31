@@ -1,7 +1,10 @@
 package muses.art.service.trade.impl;
 
+import muses.art.dao.trade.CartDao;
 import muses.art.dao.trade.OrderDao;
+import muses.art.entity.trade.Cart;
 import muses.art.entity.trade.Order;
+import muses.art.entity.trade.OrderCommodity;
 import muses.art.model.trade.OrderModel;
 import muses.art.service.trade.OrderService;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +24,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
 
+    @Autowired
+    private CartDao cartDao;
 
     @Override
     public List<OrderModel> listOrders(Integer userId) {
@@ -46,21 +51,32 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.get(Order.class, id);
         if (order == null) return false;
         order.setPayStatus(payStatus);
-        order.setPayTime(new Timestamp(System.currentTimeMillis()));
+        if (payStatus == "payed") order.setPayTime(new Timestamp(System.currentTimeMillis()));
         orderDao.update(order);
         return true;
     }
 
     @Override
-    public Boolean createOrder(OrderModel orderModel) {
-        Order order = orderDao.getModelMapper().map(orderModel, Order.class);
-        if (orderDao.get(Order.class, order.getId()) != null) return false;
-        orderDao.save(order);
+    public Boolean createOrderFromCart(ArrayList<Integer> cartIds, Integer addressId) {
+        ArrayList<OrderCommodity> orderCommodities = new ArrayList<>();
+        Order order = new Order();
+        cartIds.forEach(cartId -> {
+            OrderCommodity orderCommodity = new OrderCommodity();
+            Cart cart = cartDao.get(Cart.class, cartId);
+            if (cart == null) return;
+            orderCommodity.setCommodityId(cart.getCommodityId());
+            orderCommodity.setOrderId(order.getId());
+            orderCommodities.add(orderCommodity);
+        });
+        if (cartIds.size() != orderCommodities.size()) return false;
+        order.setOrderCommodities(orderCommodities);
+        order.setPayStatus("-1");
+        order.setAddressId(addressId);
         return true;
     }
     
         @Override
-    public boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId) {
+        public Boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId) {
         Order  order = new Order();
         BeanUtils.copyProperties(orderModel,order);
         order.setUserId(userId);
@@ -71,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId) {
+    public Boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId) {
         Order  order = new Order();
         BeanUtils.copyProperties(orderModel,order);
         order.setUserId(userId);
@@ -82,7 +98,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean updateOrderStatus(int id) {
+    public Boolean updateOrderStatus(int id) {
         Order order = orderDao.get(Order.class,id);
         order.setPayStatus("已支付");
         orderDao.update(order);
@@ -90,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean cancelOrder(int id) {
+    public Boolean cancelOrder(int id) {
         Order order = orderDao.get(Order.class,id);
         order.setPayStatus("请求取消");
         orderDao.update(order);
@@ -98,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean updateOrder(OrderModel orderModel) {
+    public Boolean updateOrder(OrderModel orderModel) {
         Order order = new Order();
         BeanUtils.copyProperties(orderModel,order);
         orderDao.update(order);

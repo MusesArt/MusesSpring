@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -57,9 +58,9 @@ public class OrderController {
 
     @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel addOrder(@RequestBody OrderModel orderModel, @PathVariable int user_id) {
+    StatusModel addOrder(@RequestBody ArrayList<Integer> cartIds, @RequestBody Integer addressId, @PathVariable int user_id) {
         StatusModel statusModel = new StatusModel();
-        Boolean status = orderService.createOrder(orderModel);
+        Boolean status = orderService.createOrderFromCart(cartIds, addressId);
         if (!status) {
             statusModel = new StatusModel<>("订单创建失败");
         } else {
