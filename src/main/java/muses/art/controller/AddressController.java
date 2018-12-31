@@ -19,21 +19,19 @@ public class AddressController {
     private AddressService addressService;
 
     //返回该用户所有的地址
-    @CrossOrigin(origins="*",maxAge=3600)
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @ResponseBody
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<AddressModel> getAllAddress(){
-        //用户id为1
-        int id = 1;
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public List<AddressModel> getAllAddress(@RequestParam int id) {
         List<AddressModel> list = addressService.findAllAddressByUserId(id);
         return list;
     }
 
     //删除该用户的地址
-    @CrossOrigin(origins = "*",maxAge = 3600)
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @ResponseBody
-    @RequestMapping(value = "/list",method = RequestMethod.DELETE)
-    public void deleteAddress(@RequestParam(value = "Id") int id){
+    @RequestMapping(value = "/list", method = RequestMethod.DELETE)
+    public void deleteAddress(@RequestParam(value = "Id") int id) {
         addressService.findAllAddressByUserId(id);
     }
 
@@ -56,10 +54,10 @@ public class AddressController {
 //    }
 
     //得到用户某地址的详细信息
-    @CrossOrigin(origins = "*",maxAge = 3600)
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @ResponseBody
-    @RequestMapping(value = "/one",method = RequestMethod.GET)
-    public AddressModel getAddress(@RequestParam(value = "Id") int id){
+    @RequestMapping(value = "/one", method = RequestMethod.GET)
+    public AddressModel getAddress(@RequestParam(value = "Id") int id) {
         AddressModel addressModel = addressService.findAddressById(id);
         return addressModel;
     }
