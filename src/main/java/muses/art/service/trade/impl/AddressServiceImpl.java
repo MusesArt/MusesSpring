@@ -40,10 +40,9 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public boolean editAddressService(AddressModel addressModel, int id) {
+    public boolean editAddressService(AddressModel addressModel) {
         Address address = new Address();
         BeanUtils.copyProperties(addressModel,address);
-        address.setId(id);
         addressDao.update(address);
         return true;
     }
