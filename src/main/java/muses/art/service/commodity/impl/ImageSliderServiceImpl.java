@@ -1,11 +1,13 @@
 package muses.art.service.commodity.impl;
 
+import com.sun.prism.Image;
 import muses.art.dao.commodity.ImageSliderDao;
 import muses.art.entity.commodity.ImageSlider;
 import muses.art.model.commodity.ImageSliderModel;
 import muses.art.service.commodity.ImageSliderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +21,9 @@ public class ImageSliderServiceImpl implements ImageSliderService {
     private ImageSliderDao imageSliderDao;
 
     @Override
-    public Boolean addImageSlider(ImageSliderModel imageSliderModel, int user_id) {
+    public Boolean addImageSlider(ImageSliderModel imageSliderModel,int user_id) {
         Date date = new Date();
-        java.util.Date now = new java.util.Date(date.getTime());
+        java.sql.Date now = new java.sql.Date(date.getTime());
         ImageSlider imageSlider = new ImageSlider();
         //活动开始时间必须大于等于当前时间
         if(now.compareTo(imageSliderModel.getLaunchData())>=0) {
@@ -51,7 +53,7 @@ public class ImageSliderServiceImpl implements ImageSliderService {
 
     @Override
     public List<ImageSliderModel> listImageSlider() {
-        String hql = "from ImageSlider image order by image.launchData";
+        String hql = "from ImageSlider image order by image.launchDate";
         Map<String,Object> map = new HashMap<>();
         List<ImageSlider> imageSliders = imageSliderDao.find(hql,1,4);
         List<ImageSliderModel> imageSliderModels = new ArrayList<ImageSliderModel>();
@@ -62,6 +64,5 @@ public class ImageSliderServiceImpl implements ImageSliderService {
         }
         return imageSliderModels;
     }
-
 
 }
