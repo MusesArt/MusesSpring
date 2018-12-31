@@ -18,7 +18,7 @@ public class UserFavCommodityServiceImplTest extends AbstractJUnit4SpringContext
 
     @Test
     public void favCommodityTest() {
-        boolean flag = userFavCommodityService.findFavCommodityByUserIdAndCommodityId(1, 1);
+        Boolean flag = userFavCommodityService.findFavCommodityByUserIdAndCommodityId(1, 1);
         logger.info("查找收藏测试通过");
         if (flag) {
             userFavCommodityService.deleteFavCommodity(1, 1);

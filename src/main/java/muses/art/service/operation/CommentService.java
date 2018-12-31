@@ -12,14 +12,14 @@ public interface CommentService {
      * @param orderCommodityId 订单商品id
      * @return
      */
-    boolean addComment(String comment, Integer orderCommodityId);
+    Boolean addComment(String comment, Integer orderCommodityId);
 
     /**
      *
      * @param id 评论id
      * @return
      */
-    boolean deleteComment(Integer id);
+    Boolean deleteComment(Integer id);
 
     /**
      *
@@ -27,7 +27,7 @@ public interface CommentService {
      * @param content 评论内容
      * @return
      */
-    boolean updateComment(Integer id, String content);
+    Boolean updateComment(Integer id, String content);
 
     /**
      * 根据用户id查找评论

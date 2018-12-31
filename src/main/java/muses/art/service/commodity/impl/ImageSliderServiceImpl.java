@@ -21,7 +21,7 @@ public class ImageSliderServiceImpl implements ImageSliderService {
     private ImageSliderDao imageSliderDao;
 
     @Override
-    public boolean addImageSlider(ImageSliderModel imageSliderModel,int user_id) {
+    public Boolean addImageSlider(ImageSliderModel imageSliderModel,int user_id) {
         Date date = new Date();
         java.sql.Date now = new java.sql.Date(date.getTime());
         ImageSlider imageSlider = new ImageSlider();
@@ -38,14 +38,14 @@ public class ImageSliderServiceImpl implements ImageSliderService {
     }
 
     @Override
-    public boolean deleteImageSlider(int id) {
+    public Boolean deleteImageSlider(int id) {
         ImageSlider imageSlider = imageSliderDao.get(ImageSlider.class,id);
         imageSliderDao.delete(imageSlider);
         return true;
     }
 
     @Override
-    public boolean updateImageSlider(ImageSliderModel imageSliderModel) {
+    public Boolean updateImageSlider(ImageSliderModel imageSliderModel) {
         ImageSlider imageSlider = imageSliderDao.get(ImageSlider.class,imageSliderModel.getId());
         imageSliderDao.update(imageSlider);
         return true;

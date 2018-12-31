@@ -21,7 +21,7 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public boolean addAddress(AddressModel addressModel, int id) {
+    public Boolean addAddress(AddressModel addressModel, int id) {
         Date data = new Date();
         java.sql.Date now = new java.sql.Date(data.getTime());
         addressModel.setAddTime(now);
@@ -33,14 +33,14 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public boolean deleteAddress(int id) {
+    public Boolean deleteAddress(int id) {
         Address address = addressDao.get(Address.class,id);
         addressDao.delete(address);
         return true;
     }
 
     @Override
-    public boolean updateAddressById(AddressModel addressModel, int id) {
+    public Boolean updateAddressById(AddressModel addressModel, int id) {
         Address address = new Address();
         BeanUtils.copyProperties(addressModel,address);
         address.setId(id);

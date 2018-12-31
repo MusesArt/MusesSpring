@@ -24,7 +24,7 @@ public class CommentServiceImplTest extends AbstractJUnit4SpringContextTests {
         CommentModel commentModel = commentService.findCommentById(1);
         logger.info(commentModel);
         logger.info("根据id查找评论测试通过");
-        boolean flag = commentService.addComment("这是一条测试评论", 1,null, 1, 1);
+        Boolean flag = commentService.addComment("这是一条测试评论", 1,null, 1, 1);
         if (flag) {
             logger.info("添加评论测试通过");
         }

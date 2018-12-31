@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
-    public boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId) {
+    public Boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId) {
         Order  order = new Order();
         BeanUtils.copyProperties(orderModel,order);
         order.setUserId(userId);
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId) {
+    public Boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId) {
         Order  order = new Order();
         BeanUtils.copyProperties(orderModel,order);
         order.setUserId(userId);
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean updateOrderStatus(int id) {
+    public Boolean updateOrderStatus(int id) {
         Order order = orderDao.get(Order.class,id);
         order.setPayStatus("已支付");
         orderDao.update(order);
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean cancelOrder(int id) {
+    public Boolean cancelOrder(int id) {
         Order order = orderDao.get(Order.class,id);
         order.setPayStatus("请求取消");
         orderDao.update(order);
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean updateOrder(OrderModel orderModel) {
+    public Boolean updateOrder(OrderModel orderModel) {
         Order order = new Order();
         BeanUtils.copyProperties(orderModel,order);
         orderDao.update(order);

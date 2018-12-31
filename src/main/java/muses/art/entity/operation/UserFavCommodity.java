@@ -33,13 +33,13 @@ public class UserFavCommodity { // 用户收藏商品 4个属性
     private Integer commodityId;
 
     @Column(name = "price")
-    private float price;
+    private Float price;
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

@@ -21,7 +21,7 @@ public class Filter {
     private String coverImage; // 滤镜封面图像地址
 
     @Column(name = "vip_only")
-    private boolean VipOnly; // 是否需要VIP
+    private Boolean VipOnly; // 是否需要VIP
 
     @Column(name = "public_data")
     private Date publishData; // 发布日期
@@ -83,11 +83,11 @@ public class Filter {
         this.coverImage = coverImage;
     }
 
-    public boolean isVipOnly() {
+    public Boolean isVipOnly() {
         return VipOnly;
     }
 
-    public void setVipOnly(boolean vipOnly) {
+    public void setVipOnly(Boolean vipOnly) {
         VipOnly = vipOnly;
     }
 

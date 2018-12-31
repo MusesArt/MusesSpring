@@ -16,7 +16,7 @@ public interface UserFavCommodityService { // 用户收藏商品
      * @param commodityId 商品id
      * @return
      */
-    boolean addFavCommodity(int userId, int commodityId);
+    Boolean addFavCommodity(int userId, int commodityId);
 
     /**
      * 取消收藏
@@ -24,7 +24,7 @@ public interface UserFavCommodityService { // 用户收藏商品
      * @param commodityId 商品id
      * @return
      */
-    boolean deleteFavCommodity(int userId, int commodityId);
+    Boolean deleteFavCommodity(int userId, int commodityId);
 
     /**
      * 根据收藏记录的编号查找收藏
@@ -46,5 +46,5 @@ public interface UserFavCommodityService { // 用户收藏商品
      * @param commodityId 商品id
      * @return
      */
-    boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId);
+    Boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId);
 }

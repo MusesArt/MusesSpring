@@ -31,7 +31,7 @@ public class OrderCommodity { // 订购的商品
     private Integer commodityId; // 商品id
 
     @Column(name = "price")
-    private float price; // 成交价
+    private Float price; // 成交价
 
     @Column(name = "brief")
     private String brief; // 简介
@@ -40,11 +40,11 @@ public class OrderCommodity { // 订购的商品
         return orderId;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

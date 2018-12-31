@@ -12,14 +12,14 @@ public interface AddressService {
      * @param id 用户id
      * @return
      */
-    boolean addAddress(AddressModel addressModel, int id);
+    Boolean addAddress(AddressModel addressModel, int id);
 
     /**
      * 根据地址id删除
      * @param id 地址id
      * @return
      */
-    boolean deleteAddress(int id);
+    Boolean deleteAddress(int id);
 
     /**
      * 编辑地址（id为地址id）
@@ -27,7 +27,7 @@ public interface AddressService {
      * @param id 地址id
      * @return
      */
-    boolean updateAddressById(AddressModel addressModel, int id);
+    Boolean updateAddressById(AddressModel addressModel, int id);
 
     /**
      * 根据地址id得到详细地址

@@ -21,7 +21,7 @@ public class CommodityCategory { // 商品类别
     private String description; // 类别描述
 
     @Column(name = "is_tab")
-    private boolean isTab; // 是否导航
+    private Boolean isTab; // 是否导航
 
     @Column(name = "add_time")
     private Date addTime; // 添加时间
@@ -76,11 +76,11 @@ public class CommodityCategory { // 商品类别
         this.description = description;
     }
 
-    public boolean isTab() {
+    public Boolean isTab() {
         return isTab;
     }
 
-    public void setTab(boolean tab) {
+    public void setTab(Boolean tab) {
         isTab = tab;
     }
 
