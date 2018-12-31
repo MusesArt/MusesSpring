@@ -1,23 +1,12 @@
-package muses.art.entity.user;
+package muses.art.model.user;
 
-import javax.persistence.*;
 import java.util.Date;
 
+public class VerifyCodeModel {
 
-@Entity
-@Table(name = "verify_code")
-public class VerifyCode { // 短信验证码
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @Column(name = "code")
     private String code; // 短信验证码
-
-    @Column(name = "mobile")
     private String mobile; // 申请的手机号
-
-    @Column(name = "add_time")
     private Date addTime; // 申请时间，有效期5分钟
 
     public Integer getId() {
@@ -54,7 +43,7 @@ public class VerifyCode { // 短信验证码
 
     @Override
     public String toString() {
-        return "VerifyCode{" +
+        return "VerifyCodeModel{" +
                 "id=" + id +
                 ", code='" + code + '\'' +
                 ", mobile='" + mobile + '\'' +

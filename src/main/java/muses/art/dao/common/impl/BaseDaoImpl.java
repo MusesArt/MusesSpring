@@ -1,17 +1,14 @@
 package muses.art.dao.common.impl;
 
+import muses.art.dao.common.BaseDao;
+import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
-
-import muses.art.dao.common.BaseDao;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 
 @SuppressWarnings("Duplicates")
@@ -27,7 +24,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      * @return org.hibernate.Session
      */
     public Session getCurrentSession() {
-        return this.sessionFactory.getCurrentSession();
+        try {
+            return sessionFactory.getCurrentSession();
+        } catch (HibernateException e) {
+            return sessionFactory.openSession();
+        }
     }
 
     @Override
@@ -70,7 +71,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public void update(T o) {
         if (o != null) {
-            this.getCurrentSession().update(o);
+            this.getCurrentSession().merge(o);
         }
     }
 

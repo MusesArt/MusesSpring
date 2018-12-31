@@ -50,22 +50,24 @@
         </property>
     </bean>
 
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
     <!-- 事物管理器配置  -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="add*" propagation="REQUIRED" />                        <!-- 增 -->
-            <tx:method name="delete*" propagation="REQUIRED" />                     <!-- 删 -->
-            <tx:method name="update*" propagation="REQUIRED" />                     <!-- 改 -->
-            <tx:method name="find*" propagation="REQUIRED" read-only="true" />     <!-- 查 -->
-            <tx:method name="*" propagation="REQUIRED" />
-        </tx:attributes>
+        <!--<tx:attributes>-->
+            <!--<tx:method name="add*" propagation="REQUIRED" />                        &lt;!&ndash; 增 &ndash;&gt;-->
+            <!--<tx:method name="delete*" propagation="REQUIRED" />                     &lt;!&ndash; 删 &ndash;&gt;-->
+            <!--<tx:method name="update*" propagation="REQUIRED" />                     &lt;!&ndash; 改 &ndash;&gt;-->
+            <!--<tx:method name="find*" propagation="REQUIRED" read-only="true" />     &lt;!&ndash; 查 &ndash;&gt;-->
+            <!--<tx:method name="*" propagation="REQUIRED" />-->
+        <!--</tx:attributes>-->
     </tx:advice>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+
 
     <!--<aop:config>-->
         <!--<aop:pointcut id="transactionPointcut" expression="execution(* muses.art.service..*Impl.*(..))" />-->
