@@ -6,7 +6,7 @@ import muses.art.entity.user.User;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "comment", uniqueConstraints = {@UniqueConstraint(columnNames={"user_id", "comment_id"})})
+@Table(name = "comment_praise", uniqueConstraints = {@UniqueConstraint(columnNames={"user_id", "comment_id"})})
 public class CommentPraise {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
