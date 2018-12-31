@@ -37,23 +37,23 @@ public class AddressController {
         addressService.findAllAddressByUserId(id);
     }
 
-    //增加地址
-    @CrossOrigin(origins = "*",maxAge = 3600)
-    @ResponseBody
-    @RequestMapping(value = "/list",method = RequestMethod.POST)
-    public void addAddress(AddressModel addressModel){
-        //用户id为1
-        int id = 1;
-        addressService.addAddress(addressModel,id);
-    }
-
-    //编辑地址
-    @CrossOrigin(origins = "*",maxAge = 3600)
-    @ResponseBody
-    @RequestMapping(value = "/list",method = RequestMethod.POST)
-    public void modifyAddress(AddressModel addressModel){
-        addressService.updateAddress(addressModel);
-    }
+//    //增加地址
+//    @CrossOrigin(origins = "*",maxAge = 3600)
+//    @ResponseBody
+//    @RequestMapping(value = "/list",method = RequestMethod.POST)
+//    public void addAddress(AddressModel addressModel){
+//        //用户id为1
+//        int id = 1;
+//        addressService.addAddress(addressModel,id);
+//    }
+//
+//    //编辑地址
+//    @CrossOrigin(origins = "*",maxAge = 3600)
+//    @ResponseBody
+//    @RequestMapping(value = "/list",method = RequestMethod.POST)
+//    public void modifyAddress(AddressModel addressModel){
+//        addressService.updateAddress(addressModel);
+//    }
 
     //得到用户某地址的详细信息
     @CrossOrigin(origins = "*",maxAge = 3600)
