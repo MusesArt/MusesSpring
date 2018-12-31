@@ -64,6 +64,9 @@ public class CommentPraiseServiceImpl implements CommentPraiseService {
         map.put("id1", userId);
         map.put("id2", commentId);
         List<CommentPraise> commentPraises = commentPraiseDao.find(HQL, map);
-        return commentPraises != null && commentPraises.size() > 0;
+        if (commentPraises != null && commentPraises.size() > 0) {
+            return true;
+        }
+        return false;
     }
 }

@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
@@ -62,51 +63,79 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<CommodityListModel> findCommoditiesOrderByTime(int page, int size, Boolean isASC) {
-        String HQL = isASC ? "from Commodity order by updateTime asc" : "from Commodity order by updateTime desc";
-        List<Commodity> commodities = commodityDao.find(HQL, page, size);
-        return entity2listModel(commodities);
+    public List<CommodityListModel> findCommoditiesOrderByTime(String keyword, int page, int size, Boolean isASC) {
+        if ("".equals(keyword) || keyword == null) { // 没有搜索关键词
+            String HQL = isASC ? "from Commodity order by updateTime asc" : "from Commodity order by updateTime desc";
+            List<Commodity> commodities = commodityDao.find(HQL, page, size);
+            return entity2listModel(commodities);
+        } else { // 有搜索关键词
+            String HQL = isASC ? "from Commodity where name like :name or brief like :brief order by updateTime asc" : "from Commodity where name like :name or brief like :brief order by updateTime desc";
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", "%"+keyword+"%");
+            map.put("brief", "%"+keyword+"%");
+            List<Commodity> commodities = commodityDao.find(HQL, map, page, size);
+            return entity2listModel(commodities);
+        }
+
     }
 
     @Override
-    public List<CommodityListModel> findCommoditiesOrderByPrice(int page, int size, Boolean isASC) {
-        String HQL = isASC ? "from Commodity order by discountPrice asc" : "from Commodity order by discountPrice desc";
-        List<Commodity> commodities = commodityDao.find(HQL, page, size);
-        return entity2listModel(commodities);
+    public List<CommodityListModel> findCommoditiesOrderByPrice(String keyword, int page, int size, Boolean isASC) {
+        if ("".equals(keyword) || keyword == null) { // 没有搜索关键词
+            String HQL = isASC ? "from Commodity order by discountPrice asc" : "from Commodity order by discountPrice desc";
+            List<Commodity> commodities = commodityDao.find(HQL, page, size);
+            return entity2listModel(commodities);
+        } else { // 有搜索关键词
+            String HQL = isASC ? "from Commodity where name like :name or brief like :brief order by discountPrice asc" : "from Commodity where name like :name or brief like :brief order by discountPrice desc";
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", "%"+keyword+"%");
+            map.put("brief", "%"+keyword+"%");
+            List<Commodity> commodities = commodityDao.find(HQL, map, page, size);
+            return entity2listModel(commodities);
+        }
     }
 
     @Override
-    public List<CommodityListModel> findCommoditiesOrderBySalesVolume(int page, int size, Boolean isASC) {
-        String HQL = isASC ? "from Commodity order by soldNum asc" : "from Commodity order by soldNum desc";
-        List<Commodity> commodities = commodityDao.find(HQL, page, size);
-        return entity2listModel(commodities);
+    public List<CommodityListModel> findCommoditiesOrderBySalesVolume(String keyword, int page, int size, Boolean isASC) {
+        if ("".equals(keyword) || keyword == null) { // 没有搜索关键词
+            String HQL = isASC ? "from Commodity order by soldNum asc" : "from Commodity order by soldNum desc";
+            List<Commodity> commodities = commodityDao.find(HQL, page, size);
+            return entity2listModel(commodities);
+        } else { // 有搜索关键词
+            String HQL = isASC ? "from Commodity where name like :name or brief like :brief order by soldNum asc" : "from Commodity where name like :name or brief like :brief order by soldNum desc";
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", "%"+keyword+"%");
+            map.put("brief", "%"+keyword+"%");
+            List<Commodity> commodities = commodityDao.find(HQL, map, page, size);
+            return entity2listModel(commodities);
+        }
     }
 
     @Override
-    public PageModel<CommodityListModel> findCommoditiesPage(int page, int size) {
-        List<CommodityListModel> models = findCommodities(page, size);
-        int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
+    public PageModel<CommodityListModel> findCommoditiesPage(String keyword, int page, int size) {
+        List<CommodityListModel> models = findCommodities(keyword, page, size);
+        int totalNum = count(keyword);
         return new PageModel<>(page, size, totalNum, models);
     }
 
     @Override
-    public PageModel<CommodityListModel> findCommoditiesPageOrderByTime(int page, int size, Boolean isASC) {
-        List<CommodityListModel> models = findCommoditiesOrderByTime(page, size, isASC);
-        int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
+    public PageModel<CommodityListModel> findCommoditiesPageOrderByTime(String keyword, int page, int size, Boolean isASC) {
+        List<CommodityListModel> models = findCommoditiesOrderByTime(keyword, page, size, isASC);
+        int totalNum = count(keyword);
         return new PageModel<>(page, size, totalNum, models);
     }
 
     @Override
-    public PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(int page, int size, Boolean isASC) {
-        List<CommodityListModel> models = findCommoditiesOrderByPrice(page, size, isASC);
-        int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
+    public PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(String keyword, int page, int size, Boolean isASC) {
+        List<CommodityListModel> models = findCommoditiesOrderByPrice(keyword, page, size, isASC);
+        int totalNum = count(keyword);
         return new PageModel<>(page, size, totalNum, models);
     }
 
     @Override
-    public PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(int page, int size, Boolean isASC) {
-        List<CommodityListModel> models = findCommoditiesOrderBySalesVolume(page, size, isASC);
-        int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
+    public PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(String keyword, int page, int size, Boolean isASC) {
+        List<CommodityListModel> models = findCommoditiesOrderBySalesVolume(keyword, page, size, isASC);
+        int totalNum = count(keyword);
         return new PageModel<>(page, size, totalNum, models);
     }
 

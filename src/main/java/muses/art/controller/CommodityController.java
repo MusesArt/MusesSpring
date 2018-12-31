@@ -23,7 +23,9 @@ public class CommodityController {
 
     @RequestMapping(value = "/page/{page}/{size}", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel<PageModel<CommodityListModel>> getCommoditiesPage(@PathVariable int page, @PathVariable int size, @RequestParam int sortType, @RequestParam Boolean isASC) {
+    StatusModel<PageModel<CommodityListModel>> getCommoditiesPage(@PathVariable int page, @RequestParam int size,
+                                                                  @RequestParam int sortType, @RequestParam Boolean isASC,
+                                                                  @RequestParam String keyword) {
         switch (sortType) {
             case 0:
                 PageModel<CommodityListModel> timeModels = commodityService.findCommoditiesPageOrderByTime(page, size, isASC);
@@ -62,7 +64,9 @@ public class CommodityController {
 
     @RequestMapping(value = "list/{page}/{size}", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel<List<CommodityListModel>> getCommodities(@PathVariable int page, @PathVariable int size, @RequestParam int sortType, @RequestParam Boolean isASC) {
+    StatusModel<List<CommodityListModel>> getCommodities(@PathVariable int page, @RequestParam int size,
+                                                         @RequestParam int sortType, @RequestParam Boolean isASC,
+                                                         @RequestParam String keyword) {
         switch (sortType) {
             case 0:
                 List<CommodityListModel> timeModels = commodityService.findCommoditiesOrderByTime(page, size, isASC);
