@@ -38,6 +38,11 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
 
         <!-- spring-->
         <dependency>
@@ -161,9 +166,9 @@
 
         <!--文件 上传-->
         <!--<dependency>-->
-            <!--<groupId>commons-fileupload</groupId>-->
-            <!--<artifactId>commons-fileupload</artifactId>-->
-            <!--<version>${fileuploadVersion}</version>-->
+        <!--<groupId>commons-fileupload</groupId>-->
+        <!--<artifactId>commons-fileupload</artifactId>-->
+        <!--<version>${fileuploadVersion}</version>-->
         <!--</dependency>-->
 
         <!-- lombok插件导包-->

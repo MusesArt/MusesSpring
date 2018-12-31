@@ -67,7 +67,7 @@ public class Commodity {
     private CommodityCategory category; // 所属类别对象 多对一
 
     @Column(name = "category_id")
-    private Integer categoryId;
+    private Integer categoryId; // 类别id
 
     public Integer getCategoryId() {
         return categoryId;

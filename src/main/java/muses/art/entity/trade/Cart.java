@@ -3,9 +3,10 @@ package muses.art.entity.trade;
 
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "cart")
@@ -17,7 +18,8 @@ public class Cart { // 购物车
     @Column(name = "number")
     private Integer number; // 数量
 
-    @Column(name = "add_num")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HHmmss")
+    @Column(name = "add_time")
     private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -71,7 +73,7 @@ public class Cart { // 购物车
     }
 
     public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+        this.addTime = new Date();
     }
 
     public User getUser() {

@@ -12,7 +12,7 @@ public interface AddressService {
     boolean deleteAddressService(int id);
 
     //编辑地址（id为地址id）
-    boolean editAddressService(AddressModel addressModel);
+    boolean editAddressService(AddressModel addressModel,int id);
 
     //根据地址id得到详细地址
     AddressModel getAddressByIdService(int id);

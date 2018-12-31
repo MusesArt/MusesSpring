@@ -23,6 +23,8 @@ public class UserModel {
 
     private Integer level; // 用户等级
 
+    private String token;
+
     public Integer getId() {
         return id;
     }
@@ -101,6 +103,14 @@ public class UserModel {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

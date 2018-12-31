@@ -1,8 +1,11 @@
 package muses.art.service.operation.impl;
 
 import muses.art.dao.operation.CommentDao;
+import muses.art.entity.commodity.Commodity;
 import muses.art.entity.commodity.Image;
 import muses.art.entity.operation.Comment;
+import muses.art.model.base.PageModel;
+import muses.art.model.commodity.CommodityListModel;
 import muses.art.model.operation.CommentModel;
 import muses.art.service.operation.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +85,11 @@ public class CommentServiceImpl implements CommentService {
         map.put("id1", userId);
         map.put("id2", commodityId);
         List<Comment> comments = commentDao.find(SQL, map);
-        return entity2model(comments.get(0));
+        if (comments != null && comments.size() > 0) {
+            return entity2model(comments.get(0));
+        } else {
+            return null;
+        }
     }
 
     private CommentModel entity2model(Comment comment) {
@@ -122,4 +129,24 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
+    @Override
+    public List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size) {
+        String HQL = "from Comment where commodityId=:id";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", commodityId);
+        List<Comment> comments = commentDao.find(HQL, map, page, size);
+        return entity2model(comments);
+    }
+
+    @Override
+    public PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size) {
+        int totalNum = commentDao.count("select count(*) from Comment").intValue();
+        PageModel<CommentModel> pageModel = new PageModel<>();
+        pageModel.setDataList(models);
+        pageModel.setCurrentPage(page);
+        pageModel.setPageCount(totalNum % size == 0 ? totalNum / size : totalNum / size + 1);
+        pageModel.setTotalNum(totalNum);
+        pageModel.setPageSize(size);
+        return pageModel;
+    }
 }

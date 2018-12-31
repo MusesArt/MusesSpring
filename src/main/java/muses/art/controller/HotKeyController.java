@@ -4,6 +4,8 @@ package muses.art.controller;
 import muses.art.model.base.StatusModel;
 import muses.art.model.commodity.HotKeyModel;
 import muses.art.service.commodity.HotKeyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,20 +20,17 @@ public class HotKeyController {
 
     @Autowired
     private HotKeyService hotKeyService;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody StatusModel<List<HotKeyModel>> findHotKeyList() {
-        StatusModel<List<HotKeyModel>> statusModel = new StatusModel<>();
         List<HotKeyModel> hotKeyModels = hotKeyService.findHotKeyList();
-        if (hotKeyModels == null) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("热搜关键词数据获取异常");
-            statusModel.setData(null);
+        if (hotKeyModels != null) {
+            return new StatusModel<>(hotKeyModels);
         } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("");
-            statusModel.setData(hotKeyModels);
+            logger.info("热搜关键词数据获取异常");
+            return new StatusModel<>("热搜关键词数据获取异常");
         }
-        return statusModel;
+
     }
 }

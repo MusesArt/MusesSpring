@@ -2,24 +2,53 @@ package muses.art.model.base;
 
 public class StatusModel<E> {
 
-    private int errorCode;
-    private String errorMsg;
+    private String code;
+    private String message;
     private E data;
 
-    public int getErrorCode() {
-        return errorCode;
+    public static final String OK = "OK";
+    public static final String ERROR = "ERROR";
+
+    public StatusModel() {}
+
+    public StatusModel(E data) {
+        this.data = data;
+        this.code = OK;
+        this.message = "";
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public StatusModel(String message) {
+        this.data = null;
+        this.message = message;
+        this.code = ERROR;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
+    public StatusModel(String message, String code) {
+        this.data = null;
+        this.message = message;
+        this.code = code;
     }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
+    public StatusModel(String message, String code, E data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public E getData() {
