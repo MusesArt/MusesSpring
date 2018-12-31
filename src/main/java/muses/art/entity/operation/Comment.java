@@ -20,25 +20,25 @@ public class Comment {
     @Column(name = "comment")
     private String comment; // 评论内容
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
     @Column(name = "order_id")
     private Integer orderId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_commodity_id", insertable = false, updatable = false)
     private OrderCommodity orderCommodity;
 
@@ -48,7 +48,7 @@ public class Comment {
     @Column(name = "commodity_id")
     private Integer commodityId;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "comment")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
     private List<Image> images; // 图像列表 一对多
 
     @Column(name = "add_time")

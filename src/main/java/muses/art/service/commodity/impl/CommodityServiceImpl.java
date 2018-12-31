@@ -163,6 +163,7 @@ public class CommodityServiceImpl implements CommodityService {
 
     //添加新商品
     private Commodity detailModel2entity(CommodityDetailModel model) {
+        
         Commodity commodity = detailModel2entity(new Commodity(), model);
         commodity.setAddTime(new Date(System.currentTimeMillis()));
         return commodity;
@@ -170,6 +171,7 @@ public class CommodityServiceImpl implements CommodityService {
 
     //更新商品
     private Commodity detailModel2entity(Commodity commodity, CommodityDetailModel model) {
+
         commodity.setCommoditySN(model.getCommoditySN());
         commodity.setName(model.getName());
         commodity.setClickNum(model.getClickNum());

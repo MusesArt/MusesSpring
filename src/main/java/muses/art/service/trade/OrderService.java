@@ -9,26 +9,29 @@ import java.util.List;
 public interface OrderService {
 
     /**
+     * 列出某用户的所有订单
      * @param userId 用户id
      * @return
      */
     List<OrderModel> listOrders(Integer userId);
 
     /**
+     * 根据订单id删除订单
      * @param id 订单id
      * @return
      */
     Boolean deleteOrder(Integer id);
 
     /**
-     * @param id        订单id
+     * 更细订单状态
+     * @param id 订单id
      * @param payStatus 支付状态
      * @return
      */
     Boolean updateOrder(Integer id, String payStatus);
 
     /**
-     *
+     * 从购物车创建订单
      * @param cartIds 购物车id
      * @param addressId 地址id
      * @return
@@ -37,54 +40,11 @@ public interface OrderService {
 
 
     /**
-     * 增加待支付订单
-     * @param orderModel 订单model
-     * @param userId     用户id
-     * @param addressId  地址id
-     * @return Boolean
-     */
-    Boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId);
-
-    /**
-     * 增加已支付订单
-     * @param orderModel 订单model
-     * @param userId 用户id
-     * @param addressId 地址id
-     * @return Boolean
-     */
-    Boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId);
-
-
-    /**
-     * 更改待支付订单为已支付
-     * @param id 订单id
-     * @return Boolean
-     */
-    Boolean updateOrderStatus(int id);
-
-
-    /**
-     * 用户取消订单
-     * @param id 订单id
-     * @return Boolean
-     */
-    Boolean cancelOrder(int id);
-
-
-    /**
-     * 修改订单
-     * @param orderModel 订单model
-     * @return Boolean
-     */
-    Boolean updateOrder(OrderModel orderModel);
-
-
-    /**
      * 得到订单详细信息
      * @param id 订单id
      * @return OrderModel
      */
-    OrderModel getOrderById(int id);
+    OrderModel findOrderById(int id);
 
 
     /**
@@ -94,5 +54,5 @@ public interface OrderService {
      * @param max 每页数量
      * @return 分页模型
      */
-    List<OrderModel> listOrder(int userId, int start, int max);
+    List<OrderModel> listOrderByPage(int userId, int start, int max);
 }

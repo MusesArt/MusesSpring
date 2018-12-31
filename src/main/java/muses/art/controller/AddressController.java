@@ -1,15 +1,13 @@
 package muses.art.controller;
 
+import muses.art.model.base.StatusModel;
 import muses.art.model.trade.AddressModel;
 import muses.art.service.trade.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("api/address")
@@ -18,47 +16,58 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    //返回该用户所有的地址
+    // 返回该用户所有的地址
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<AddressModel> getAllAddress(@RequestParam int id) {
-        List<AddressModel> list = addressService.findAllAddressByUserId(id);
-        return list;
+    public @ResponseBody StatusModel<List<AddressModel>> getAllAddress(@RequestParam int userId) {
+        List<AddressModel> addressModels = addressService.findAllAddressByUserId(userId);
+        return new StatusModel<>("获取地址列表成功", StatusModel.OK, addressModels);
     }
 
-    //删除该用户的地址
+    // 清空该用户的地址
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.DELETE)
-    public void deleteAddress(@RequestParam(value = "Id") int id) {
-        addressService.findAllAddressByUserId(id);
+    public @ResponseBody StatusModel deleteAddress(@RequestParam(value = "Id") int id) {
+        List<AddressModel> addressModels = addressService.findAllAddressByUserId(id);
+        if (addressModels != null) {
+            for (AddressModel addressModel : addressModels) {
+                addressService.deleteAddress(addressModel.getId());
+            }
+            return new StatusModel("清空用户地址成功", StatusModel.OK);
+        }
+        return new StatusModel("用户地址已清空", StatusModel.ERROR);
     }
 
-//    //增加地址
-//    @CrossOrigin(origins = "*",maxAge = 3600)
-//    @ResponseBody
-//    @RequestMapping(value = "/list",method = RequestMethod.POST)
-//    public void addAddress(AddressModel addressModel){
-//        //用户id为1
-//        int id = 1;
-//        addressService.addAddress(addressModel,id);
-//    }
-//
-//    //编辑地址
-//    @CrossOrigin(origins = "*",maxAge = 3600)
-//    @ResponseBody
-//    @RequestMapping(value = "/list",method = RequestMethod.POST)
-//    public void modifyAddress(AddressModel addressModel){
-//        addressService.updateAddress(addressModel);
-//    }
+    //增加地址
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public @ResponseBody StatusModel addAddress(@RequestBody AddressModel addressModel) {
+        Boolean flag = addressService.addAddress(addressModel);
+        if (flag) {
+            return new StatusModel("添加地址成功", StatusModel.OK);
+        }
+        return new StatusModel("添加地址失败", StatusModel.ERROR);
+    }
+
+    //编辑地址
+    @CrossOrigin(origins = "*",maxAge = 3600)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public @ResponseBody StatusModel modifyAddress(@RequestBody AddressModel addressModel, @PathVariable int id){
+        Boolean flag = addressService.updateAddress(addressModel);
+        if (flag) {
+            return new StatusModel("编辑地址成功", StatusModel.OK);
+        }
+        return new StatusModel("编辑地址失败", StatusModel.ERROR);
+    }
 
     //得到用户某地址的详细信息
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @ResponseBody
-    @RequestMapping(value = "/one", method = RequestMethod.GET)
-    public AddressModel getAddress(@RequestParam(value = "Id") int id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody StatusModel<AddressModel> getAddress(@PathVariable int id) {
         AddressModel addressModel = addressService.findAddressById(id);
-        return addressModel;
+        if (addressModel != null) {
+            return new StatusModel("获取地址成功", StatusModel.OK, addressModel);
+        }
+        return new StatusModel("获取地址失败", StatusModel.ERROR, addressModel);
     }
 }

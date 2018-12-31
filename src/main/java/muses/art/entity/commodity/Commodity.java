@@ -59,10 +59,10 @@ public class Commodity {
     @Column(name = "cover_image")
     private String coverImage; // 封面图片地址
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "commodity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity")
     private List<Image> images; // 商品图片列表 一对多
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CommodityCategory category; // 所属类别对象 多对一
 

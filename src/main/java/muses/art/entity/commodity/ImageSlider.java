@@ -21,7 +21,7 @@ public class ImageSlider { // 滑动栏
     @Column(name = "link_url")
     private String linkUrl; // 链接地址
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", insertable = false, updatable = false)
     private User manager; // 管理员对象 多对一
 
