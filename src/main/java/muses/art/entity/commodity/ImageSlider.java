@@ -26,7 +26,7 @@ public class ImageSlider { // 滑动栏
     private User manager; // 管理员对象 多对一
 
     @Column(name = "manager_id")
-    private Integer managerId;
+    private Integer managerId; // 管理员id
 
     public Integer getManagerId() {
         return managerId;

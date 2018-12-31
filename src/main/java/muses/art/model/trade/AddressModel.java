@@ -5,7 +5,6 @@ import java.util.Date;
 public class AddressModel {
     private Integer id;
 
-
     private String province; // 省份
 
     private String city; // 城市

@@ -5,19 +5,45 @@ import muses.art.model.trade.AddressModel;
 import java.util.List;
 
 public interface AddressService {
-    //添加地址(id为用户id)
-    Boolean addAddressService(AddressModel addressModel, int id);
 
-    //删除地址(根据地址id删除)
-    Boolean deleteAddressService(int id);
+    /**
+     * 添加地址
+     * @param addressModel
+     * @param id 用户id
+     * @return
+     */
+    boolean addAddress(AddressModel addressModel, int id);
 
-    //编辑地址（id为地址id）
-    Boolean editAddressService(AddressModel addressModel, int id);
+    /**
+     * 根据地址id删除
+     * @param id 地址id
+     * @return
+     */
+    boolean deleteAddress(int id);
 
-    //根据地址id得到详细地址
-    AddressModel getAddressByIdService(int id);
+    /**
+     * 编辑地址（id为地址id）
+     * @param addressModel
+     * @param id 地址id
+     * @return
+     */
+    boolean updateAddressById(AddressModel addressModel, int id);
+
+    /**
+     * 根据地址id得到详细地址
+     * @param id 地址id
+     * @return
+     */
+    AddressModel findAddressById(int id);
+
     //列出某个用户所有的地址
-    List<AddressModel> getAllAddress(int id);
+
+    /**
+     * 列出某个用户所有的地址
+     * @param id 用户id
+     * @return
+     */
+    List<AddressModel> findAllAddressByUserId(int id);
 
 
 }

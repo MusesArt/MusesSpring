@@ -20,7 +20,7 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public Boolean addAddressService(AddressModel addressModel, int id) {
+    public boolean addAddress(AddressModel addressModel, int id) {
         Date data = new Date();
         java.util.Date now = new java.util.Date(data.getTime());
         addressModel.setAddTime(now);
@@ -32,14 +32,14 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Boolean deleteAddressService(int id) {
+    public boolean deleteAddress(int id) {
         Address address = addressDao.get(Address.class,id);
         addressDao.delete(address);
         return true;
     }
 
     @Override
-    public Boolean editAddressService(AddressModel addressModel, int id) {
+    public boolean updateAddressById(AddressModel addressModel, int id) {
         Address address = new Address();
         addressDao.getModelMapper().map(addressModel, address);
         address.setId(id);
@@ -48,7 +48,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressModel getAddressByIdService(int id) {
+    public AddressModel findAddressById(int id) {
         Address address = addressDao.get(Address.class,id);
         AddressModel addressModel = new AddressModel();
         addressDao.getModelMapper().map(address, addressModel);
@@ -57,7 +57,7 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public List<AddressModel> getAllAddress(int id) {
+    public List<AddressModel> findAllAddressByUserId(int id) {
         String hql = "from Address add where add.userId = :userId";
         Map<String,Object> map = new HashMap<>();
         map.put("userId",id);

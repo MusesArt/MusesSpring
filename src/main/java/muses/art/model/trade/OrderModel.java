@@ -1,25 +1,27 @@
 package muses.art.model.trade;
 
 import muses.art.entity.trade.Address;
-import muses.art.entity.trade.OrderCommodity;
-import muses.art.entity.user.User;
 
 import java.util.Date;
-import java.util.List;
 
 public class OrderModel {
     private Integer id;
-    private String orderSN;
-    private String tradeNo;
-    private String payStatus;
-    private String postScript;
-    private Float orderAmount;
-    private Date payTime;
-    private User user;
+
+    private String orderSN; // 订单号
+
+    private String tradeNo; // 交易号
+
+    private String payStatus; // 订单状态
+
+    private String postScript; // 订单留言
+
+    private Float orderAmount; // 订单金额
+
+    private Date payTime; // 支付时间
+
     private Integer userId;
-    private Address address;
+
     private Integer addressId;
-    private List<OrderCommodity> orderCommodities;
 
     public Integer getId() {
         return id;
@@ -77,14 +79,6 @@ public class OrderModel {
         this.payTime = payTime;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Integer getUserId() {
         return userId;
     }
@@ -93,27 +87,11 @@ public class OrderModel {
         this.userId = userId;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public Integer getAddressId() {
         return addressId;
     }
 
     public void setAddressId(Integer addressId) {
         this.addressId = addressId;
-    }
-
-    public List<OrderCommodity> getOrderCommodities() {
-        return orderCommodities;
-    }
-
-    public void setOrderCommodities(List<OrderCommodity> orderCommodities) {
-        this.orderCommodities = orderCommodities;
     }
 }

@@ -34,14 +34,14 @@ public class Filter {
     private FilterCategory category; // 滤镜所属类别对象 多对一
 
     @Column(name = "category_id")
-    private Integer categoryId;
+    private Integer categoryId; // 类别id
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", insertable = false, updatable = false)
     private User owner; // 滤镜作者对象 多对一
 
     @Column(name = "owner_id")
-    private Integer owner_id;
+    private Integer ownerId; // 作者id
 
     public Integer getCategoryId() {
         return categoryId;
@@ -51,12 +51,12 @@ public class Filter {
         this.categoryId = categoryId;
     }
 
-    public Integer getOwner_id() {
-        return owner_id;
+    public Integer getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner_id(Integer owner_id) {
-        this.owner_id = owner_id;
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
     public Integer getId() {

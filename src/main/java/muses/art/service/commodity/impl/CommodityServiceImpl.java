@@ -56,7 +56,28 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public List<CommodityListModel> findCommodities(int page, int size) {
-        String HQL = "from Commodity";
+        String HQL = "from Commodity order by name asc, soldNum desc, discountPrice asc, updateTime asc";
+        List<Commodity> commodities = commodityDao.find(HQL, page, size);
+        return entity2listModel(commodities);
+    }
+
+    @Override
+    public List<CommodityListModel> findCommoditiesOrderByTime(int page, int size, boolean isASC) {
+        String HQL = isASC ? "from Commodity order by updateTime asc" : "from Commodity order by updateTime desc";
+        List<Commodity> commodities = commodityDao.find(HQL, page, size);
+        return entity2listModel(commodities);
+    }
+
+    @Override
+    public List<CommodityListModel> findCommoditiesOrderByPrice(int page, int size, boolean isASC) {
+        String HQL = isASC ? "from Commodity order by discountPrice asc" : "from Commodity order by discountPrice desc";
+        List<Commodity> commodities = commodityDao.find(HQL, page, size);
+        return entity2listModel(commodities);
+    }
+
+    @Override
+    public List<CommodityListModel> findCommoditiesOrderBySalesVolume(int page, int size, boolean isASC) {
+        String HQL = isASC ? "from Commodity order by soldNum asc" : "from Commodity order by soldNum desc";
         List<Commodity> commodities = commodityDao.find(HQL, page, size);
         return entity2listModel(commodities);
     }
@@ -65,13 +86,28 @@ public class CommodityServiceImpl implements CommodityService {
     public PageModel<CommodityListModel> findCommoditiesPage(int page, int size) {
         List<CommodityListModel> models = findCommodities(page, size);
         int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
-        PageModel<CommodityListModel> pageModel = new PageModel<>();
-        pageModel.setDataList(models);
-        pageModel.setCurrentPage(page);
-        pageModel.setPageCount(totalNum % size == 0 ? totalNum / size : totalNum / size + 1);
-        pageModel.setTotalNum(totalNum);
-        pageModel.setPageSize(size);
-        return pageModel;
+        return new PageModel<>(page, size, totalNum, models);
+    }
+
+    @Override
+    public PageModel<CommodityListModel> findCommoditiesPageOrderByTime(int page, int size, boolean isASC) {
+        List<CommodityListModel> models = findCommoditiesOrderByTime(page, size, isASC);
+        int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
+        return new PageModel<>(page, size, totalNum, models);
+    }
+
+    @Override
+    public PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(int page, int size, boolean isASC) {
+        List<CommodityListModel> models = findCommoditiesOrderByPrice(page, size, isASC);
+        int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
+        return new PageModel<>(page, size, totalNum, models);
+    }
+
+    @Override
+    public PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(int page, int size, boolean isASC) {
+        List<CommodityListModel> models = findCommoditiesOrderBySalesVolume(page, size, isASC);
+        int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
+        return new PageModel<>(page, size, totalNum, models);
     }
 
     //添加新商品

@@ -1,5 +1,6 @@
 package muses.art.service.operation;
 
+import muses.art.model.base.PageModel;
 import muses.art.model.operation.CommentModel;
 
 import java.util.List;
@@ -59,4 +60,24 @@ public interface CommentService {
      * @return
      */
     CommentModel findCommentByOrderCommodityIdAndUserID(Integer commodityId, Integer userId);
+
+
+    /**
+     * 封装成PageModel
+     * @param page 第几页
+     * @param size 每页的数量
+     * @return
+     */
+    PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size);
+
+    /**
+     * 分页获取评论
+     * @param commodityId 商品id
+     * @param page 第几页
+     * @param size 每页的数量
+     * @return
+     */
+    List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size);
+
+
 }
