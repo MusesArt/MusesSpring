@@ -39,7 +39,7 @@ public class User { // 用户个人信息
     private String email; // 电子邮箱
 
     @Column(name = "level")
-    private String level; // 用户等级
+    private Integer level; // 用户等级
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
     private List<Filter> filters; // 用户制作的所有滤镜 一对多
@@ -149,11 +149,11 @@ public class User { // 用户个人信息
         this.email = email;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

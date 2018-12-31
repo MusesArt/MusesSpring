@@ -22,7 +22,7 @@ public class HotKeyController {
     private HotKeyService hotKeyService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody StatusModel<List<HotKeyModel>> findHotKeyList() {
         List<HotKeyModel> hotKeyModels = hotKeyService.findHotKeyList();
         if (hotKeyModels != null) {

@@ -9,6 +9,7 @@ public class HotKey {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     @Column(name = "keyword", unique = true, nullable = false)
     private String keyword; //热门搜索关键词
 

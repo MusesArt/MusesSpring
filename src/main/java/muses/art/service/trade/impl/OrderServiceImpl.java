@@ -19,29 +19,29 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
-    public boolean addOrderOfNoPay(OrderModel orderModel,int user_id,int address_id) {
+    public boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId) {
         Order  order = new Order();
         BeanUtils.copyProperties(orderModel,order);
-        order.setUserId(user_id);
+        order.setUserId(userId);
         order.setPayStatus("待支付");
-        order.setAddressId(address_id);
+        order.setAddressId(addressId);
         orderDao.save(order);
         return true;
     }
 
     @Override
-    public boolean addOrderOfPay(OrderModel orderModel, int user_id, int address_id) {
+    public boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId) {
         Order  order = new Order();
         BeanUtils.copyProperties(orderModel,order);
-        order.setUserId(user_id);
+        order.setUserId(userId);
         order.setPayStatus("已支付");
-        order.setAddressId(address_id);
+        order.setAddressId(addressId);
         orderDao.save(order);
         return true;
     }
 
     @Override
-    public boolean updateStatus(int id) {
+    public boolean updateOrderStatus(int id) {
         Order order = orderDao.get(Order.class,id);
         order.setPayStatus("已支付");
         orderDao.update(order);
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean cancelOfUser(int id) {
+    public boolean cancelOrder(int id) {
         Order order = orderDao.get(Order.class,id);
         order.setPayStatus("请求取消");
         orderDao.update(order);
@@ -73,10 +73,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderModel> listOrder(int user_id,int start,int max) {
+    public List<OrderModel> listOrder(int userId, int start, int max) {
         String hql = "from Order o where o.user.id=:userId";
         Map<String,Object> map = new HashMap<>();
-        map.put("userId",user_id);
+        map.put("userId", userId);
         List<Order> orders = orderDao.find(hql,map,start,max);
         List<OrderModel> orderModels = new ArrayList<OrderModel>();
         for(Order order : orders) {

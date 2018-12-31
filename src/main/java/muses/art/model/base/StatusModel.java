@@ -29,7 +29,7 @@ public class StatusModel<E> {
         this.code = code;
     }
 
-    public StatusModel(String code, String message, E data) {
+    public StatusModel(String message, String code, E data) {
         this.code = code;
         this.message = message;
         this.data = data;
