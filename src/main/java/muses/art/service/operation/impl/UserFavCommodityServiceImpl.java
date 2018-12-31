@@ -27,7 +27,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     private CommodityDao commodityDao;
 
     @Override
-    public boolean addFavCommodity(int userId, int commodityId) {
+    public Boolean addFavCommodity(int userId, int commodityId) {
         UserFavCommodity userFavCommodity = new UserFavCommodity();
         userFavCommodity.setUserId(userId);
         userFavCommodity.setCommodityId(commodityId);
@@ -38,7 +38,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     }
 
     @Override
-    public boolean deleteFavCommodity(int userId, int commodityId) {
+    public Boolean deleteFavCommodity(int userId, int commodityId) {
         String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
@@ -93,7 +93,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     }
 
     @Override
-    public boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId) {
+    public Boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId) {
         String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);

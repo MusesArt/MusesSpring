@@ -34,7 +34,7 @@ public class CommentController {
     public @ResponseBody
     StatusModel<CommentModel> addComment(@RequestParam("comment") String comment,
                                          @RequestParam("orderCommodityId") Integer orderCommodityId) {
-        boolean flag = commentService.addComment(comment, orderCommodityId);
+        Boolean flag = commentService.addComment(comment, orderCommodityId);
         if (flag) {
             return new StatusModel<>("添加评论成功", StatusModel.OK);
         } else {
@@ -69,7 +69,7 @@ public class CommentController {
     public @ResponseBody
     StatusModel<CommentModel> addPraiseByCommentIdAndUserId(@RequestParam("commentId") Integer commentId,
                                                             @RequestParam("userId") Integer userId) {
-        boolean flag = commentPraiseService.addPraise(userId, commentId);
+        Boolean flag = commentPraiseService.addPraise(userId, commentId);
         if (flag) {
             return new StatusModel<>("点赞成功", StatusModel.OK);
         } else {
@@ -79,7 +79,7 @@ public class CommentController {
     @RequestMapping(value = "/praise", method = RequestMethod.DELETE)
     public @ResponseBody StatusModel<CommentModel> deletePraiseByCommentIdAndUserId(@RequestParam("commentId") Integer commentId,
                                                                                     @RequestParam("userId") Integer userId) {
-        boolean flag = commentPraiseService.deletePraise(userId, commentId);
+        Boolean flag = commentPraiseService.deletePraise(userId, commentId);
         if (flag) {
             return new StatusModel<>("取消点赞成功", StatusModel.OK);
         } else {

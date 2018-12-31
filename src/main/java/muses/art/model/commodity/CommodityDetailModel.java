@@ -5,29 +5,29 @@ import java.util.List;
 
 public class CommodityDetailModel {
 
-    private int id;
+    private Integer id;
     private String commoditySN; // 商品唯一货号
     private String name; // 商品名称
-    private int clickNum; // 点击量
-    private int soldNum; // 销量
-    private int favoriteNum; // 收藏数
-    private int goodsNum; // 库存数
-    private float originalPrice; // 原价
-    private float discountPrice; // 折扣价或现价
+    private Integer clickNum; // 点击量
+    private Integer soldNum; // 销量
+    private Integer favoriteNum; // 收藏数
+    private Integer goodsNum; // 库存数
+    private Float originalPrice; // 原价
+    private Float discountPrice; // 折扣价或现价
     private String brief; // 商品简介
     private String description; // 商品详情webview地址
-    private int shipFree; // 是否包邮
-    private boolean isNew; // 是否新品
-    private boolean isHot; // 是否热门
+    private Integer shipFree; // 是否包邮
+    private Boolean isNew; // 是否新品
+    private Boolean isHot; // 是否热门
     private Date updateTime; //更新时间
     private String coverImage; // 封面图片地址
     private List<String> imageUrls; // 商品图片链接列表
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,51 +47,51 @@ public class CommodityDetailModel {
         this.name = name;
     }
 
-    public int getClickNum() {
+    public Integer getClickNum() {
         return clickNum;
     }
 
-    public void setClickNum(int clickNum) {
+    public void setClickNum(Integer clickNum) {
         this.clickNum = clickNum;
     }
 
-    public int getSoldNum() {
+    public Integer getSoldNum() {
         return soldNum;
     }
 
-    public void setSoldNum(int soldNum) {
+    public void setSoldNum(Integer soldNum) {
         this.soldNum = soldNum;
     }
 
-    public int getFavoriteNum() {
+    public Integer getFavoriteNum() {
         return favoriteNum;
     }
 
-    public void setFavoriteNum(int favoriteNum) {
+    public void setFavoriteNum(Integer favoriteNum) {
         this.favoriteNum = favoriteNum;
     }
 
-    public int getGoodsNum() {
+    public Integer getGoodsNum() {
         return goodsNum;
     }
 
-    public void setGoodsNum(int goodsNum) {
+    public void setGoodsNum(Integer goodsNum) {
         this.goodsNum = goodsNum;
     }
 
-    public float getOriginalPrice() {
+    public Float getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(float originalPrice) {
+    public void setOriginalPrice(Float originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public float getDiscountPrice() {
+    public Float getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(float discountPrice) {
+    public void setDiscountPrice(Float discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -111,27 +111,27 @@ public class CommodityDetailModel {
         this.description = description;
     }
 
-    public int getShipFree() {
+    public Integer getShipFree() {
         return shipFree;
     }
 
-    public void setShipFree(int shipFree) {
+    public void setShipFree(Integer shipFree) {
         this.shipFree = shipFree;
     }
 
-    public boolean isNew() {
+    public Boolean isNew() {
         return isNew;
     }
 
-    public void setNew(boolean aNew) {
+    public void setNew(Boolean aNew) {
         isNew = aNew;
     }
 
-    public boolean isHot() {
+    public Boolean isHot() {
         return isHot;
     }
 
-    public void setHot(boolean hot) {
+    public void setHot(Boolean hot) {
         isHot = hot;
     }
 

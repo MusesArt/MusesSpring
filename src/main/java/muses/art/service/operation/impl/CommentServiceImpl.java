@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     private OrderCommodityDao commodityDao;
 
     @Override
-    public boolean addComment(String comment, Integer orderCommodityId) {
+    public Boolean addComment(String comment, Integer orderCommodityId) {
         CommentModel commentModel = findCommentByOrderCommodityId(orderCommodityId);
         if (commentModel != null) {
             return false;
@@ -54,14 +54,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteComment(Integer id) {
+    public Boolean deleteComment(Integer id) {
         Comment comment = commentDao.get(Comment.class, id);
         commentDao.delete(comment);
         return true;
     }
 
     @Override
-    public boolean updateComment(Integer id, String content) {
+    public Boolean updateComment(Integer id, String content) {
         Comment comment = commentDao.get(Comment.class, id);
         comment.setComment(content);
         commentDao.update(comment);

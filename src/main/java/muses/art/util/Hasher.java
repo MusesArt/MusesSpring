@@ -104,7 +104,7 @@ public class Hasher {
         return String.format("%s$%d$%s$%s", algorithm, iterations, salt, hash);
     }
 
-    public static boolean checkPassword(String password, String hashedPassword) {
+    public static Boolean checkPassword(String password, String hashedPassword) {
         // hashedPassword consist of: ALGORITHM, ITERATIONS_NUMBER, SALT and
         // HASH; parts are joined with dollar character ("$")
         String[] parts = hashedPassword.split("\\$");

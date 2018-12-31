@@ -30,10 +30,10 @@ public class Commodity {
     private Integer goodsNum; // 库存数
 
     @Column(name = "original_price")
-    private float originalPrice; // 原价
+    private Float originalPrice; // 原价
 
     @Column(name = "discount_price")
-    private float discountPrice; // 折扣价或现价
+    private Float discountPrice; // 折扣价或现价
 
     @Column(name = "brief")
     private String brief; // 商品简介
@@ -45,10 +45,10 @@ public class Commodity {
     private Integer shipFree; // 是否包邮
 
     @Column(name = "is_new")
-    private boolean isNew; // 是否新品
+    private Boolean isNew; // 是否新品
 
     @Column(name = "is_hot")
-    private boolean isHot; // 是否热门
+    private Boolean isHot; // 是否热门
 
     @Column(name = "add_time")
     private Date addTime; // 添加时间
@@ -133,19 +133,19 @@ public class Commodity {
         this.goodsNum = goodsNum;
     }
 
-    public float getOriginalPrice() {
+    public Float getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(float originalPrice) {
+    public void setOriginalPrice(Float originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public float getDiscountPrice() {
+    public Float getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(float discountPrice) {
+    public void setDiscountPrice(Float discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -173,19 +173,19 @@ public class Commodity {
         this.shipFree = shipFree;
     }
 
-    public boolean isNew() {
+    public Boolean isNew() {
         return isNew;
     }
 
-    public void setNew(boolean aNew) {
+    public void setNew(Boolean aNew) {
         isNew = aNew;
     }
 
-    public boolean isHot() {
+    public Boolean isHot() {
         return isHot;
     }
 
-    public void setHot(boolean hot) {
+    public void setHot(Boolean hot) {
         isHot = hot;
     }
 

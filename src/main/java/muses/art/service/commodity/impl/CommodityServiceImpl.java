@@ -62,21 +62,21 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<CommodityListModel> findCommoditiesOrderByTime(int page, int size, boolean isASC) {
+    public List<CommodityListModel> findCommoditiesOrderByTime(int page, int size, Boolean isASC) {
         String HQL = isASC ? "from Commodity order by updateTime asc" : "from Commodity order by updateTime desc";
         List<Commodity> commodities = commodityDao.find(HQL, page, size);
         return entity2listModel(commodities);
     }
 
     @Override
-    public List<CommodityListModel> findCommoditiesOrderByPrice(int page, int size, boolean isASC) {
+    public List<CommodityListModel> findCommoditiesOrderByPrice(int page, int size, Boolean isASC) {
         String HQL = isASC ? "from Commodity order by discountPrice asc" : "from Commodity order by discountPrice desc";
         List<Commodity> commodities = commodityDao.find(HQL, page, size);
         return entity2listModel(commodities);
     }
 
     @Override
-    public List<CommodityListModel> findCommoditiesOrderBySalesVolume(int page, int size, boolean isASC) {
+    public List<CommodityListModel> findCommoditiesOrderBySalesVolume(int page, int size, Boolean isASC) {
         String HQL = isASC ? "from Commodity order by soldNum asc" : "from Commodity order by soldNum desc";
         List<Commodity> commodities = commodityDao.find(HQL, page, size);
         return entity2listModel(commodities);
@@ -90,21 +90,21 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public PageModel<CommodityListModel> findCommoditiesPageOrderByTime(int page, int size, boolean isASC) {
+    public PageModel<CommodityListModel> findCommoditiesPageOrderByTime(int page, int size, Boolean isASC) {
         List<CommodityListModel> models = findCommoditiesOrderByTime(page, size, isASC);
         int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
         return new PageModel<>(page, size, totalNum, models);
     }
 
     @Override
-    public PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(int page, int size, boolean isASC) {
+    public PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(int page, int size, Boolean isASC) {
         List<CommodityListModel> models = findCommoditiesOrderByPrice(page, size, isASC);
         int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
         return new PageModel<>(page, size, totalNum, models);
     }
 
     @Override
-    public PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(int page, int size, boolean isASC) {
+    public PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(int page, int size, Boolean isASC) {
         List<CommodityListModel> models = findCommoditiesOrderBySalesVolume(page, size, isASC);
         int totalNum = commodityDao.count("select count(*) from Commodity").intValue();
         return new PageModel<>(page, size, totalNum, models);
