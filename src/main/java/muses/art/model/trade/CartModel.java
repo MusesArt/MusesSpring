@@ -9,7 +9,6 @@ import java.util.Date;
 public class CartModel {
     private Integer id;
     private Integer number;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     protected Date addTime;
     private User user;
     private Integer userId;

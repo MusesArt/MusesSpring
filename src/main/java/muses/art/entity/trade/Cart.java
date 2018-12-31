@@ -18,7 +18,7 @@ public class Cart { // 购物车
     @Column(name = "number")
     private Integer number; // 数量
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HHmmss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     @Column(name = "add_time")
     private Date addTime; // 添加时间
 

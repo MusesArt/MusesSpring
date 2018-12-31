@@ -24,11 +24,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      * @return org.hibernate.Session
      */
     public Session getCurrentSession() {
-        try {
-            return sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            return sessionFactory.openSession();
-        }
+        return sessionFactory.getCurrentSession();
     }
 
     @Override
@@ -65,6 +61,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public void delete(T o) {
         if (o != null) {
             this.getCurrentSession().delete(o);
+            this.getCurrentSession().flush();
         }
     }
 
@@ -72,6 +69,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public void update(T o) {
         if (o != null) {
             this.getCurrentSession().merge(o);
+            this.getCurrentSession().flush();
         }
     }
 
