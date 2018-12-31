@@ -6,7 +6,6 @@ import muses.art.model.commodity.HotKeyModel;
 import muses.art.service.commodity.HotKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,17 +21,7 @@ public class HotKeyController {
 
     @RequestMapping(value = "/json", method = RequestMethod.GET)
     public @ResponseBody StatusModel<List<HotKeyModel>> findHotKeyList() {
-        StatusModel<List<HotKeyModel>> statusModel = new StatusModel<>();
         List<HotKeyModel> hotKeyModels = hotKeyService.findHotKeyList();
-        if (hotKeyModels == null) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("热搜关键词数据获取异常");
-            statusModel.setData(null);
-        } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("");
-            statusModel.setData(hotKeyModels);
-        }
-        return statusModel;
+        return hotKeyModels != null ? new StatusModel<>(hotKeyModels) : new StatusModel<List<HotKeyModel>>("热搜关键词数据获取异常");
     }
 }
