@@ -94,3 +94,12 @@ config.properties
 
 # Target
 target/
+
+# iml
+*.iml
+
+# .idea
+/.idea
+
+
+
