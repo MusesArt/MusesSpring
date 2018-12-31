@@ -27,11 +27,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
      * @return org.hibernate.Session
      */
     public Session getCurrentSession() {
-        try {
-            return sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            return sessionFactory.openSession();
-        }
+        return sessionFactory.getCurrentSession();
     }
 
     @Override

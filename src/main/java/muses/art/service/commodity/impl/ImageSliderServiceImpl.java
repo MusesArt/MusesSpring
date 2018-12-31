@@ -19,7 +19,7 @@ public class ImageSliderServiceImpl implements ImageSliderService {
     private ImageSliderDao imageSliderDao;
 
     @Override
-    public Boolean addImageSlider(ImageSliderModel imageSliderModel, int user_id) {
+    public Boolean addImageSlider(ImageSliderModel imageSliderModel,int user_id) {
         Date date = new Date();
         java.util.Date now = new java.util.Date(date.getTime());
         ImageSlider imageSlider = new ImageSlider();
@@ -51,7 +51,7 @@ public class ImageSliderServiceImpl implements ImageSliderService {
 
     @Override
     public List<ImageSliderModel> listImageSlider() {
-        String hql = "from ImageSlider image order by image.launchData";
+        String hql = "from ImageSlider image order by image.launchDate";
         Map<String,Object> map = new HashMap<>();
         List<ImageSlider> imageSliders = imageSliderDao.find(hql,1,4);
         List<ImageSliderModel> imageSliderModels = new ArrayList<ImageSliderModel>();
@@ -62,6 +62,5 @@ public class ImageSliderServiceImpl implements ImageSliderService {
         }
         return imageSliderModels;
     }
-
 
 }

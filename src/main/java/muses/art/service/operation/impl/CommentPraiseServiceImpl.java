@@ -20,10 +20,17 @@ public class CommentPraiseServiceImpl implements CommentPraiseService {
 
     @Override
     public Boolean addPraise(Integer userId, Integer commentId) {
-        CommentPraise commentPraise = new CommentPraise();
-        commentPraise.setUserId(userId);
-        commentPraise.setCommentId(commentId);
-        commentPraiseDao.save(commentPraise);
+        String HQL = "from CommentPraise where userId=:id1 and commentId=:id2";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id1", userId);
+        map.put("id2", commentId);
+        List<CommentPraise> commentPraises = commentPraiseDao.find(HQL, map);
+        if (commentPraises == null || commentPraises.size() == 0) {
+            CommentPraise commentPraise = new CommentPraise();
+            commentPraise.setUserId(userId);
+            commentPraise.setCommentId(commentId);
+            commentPraiseDao.save(commentPraise);
+        }
         return true;
     }
 

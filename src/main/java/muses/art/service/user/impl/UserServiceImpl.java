@@ -110,6 +110,15 @@ public class UserServiceImpl implements UserService {
         return entity2model(user);
     }
 
+    @Override
+    public UserModel findUserByToken(String token) {
+        String HQL = "from User where token=:token";
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        User user = userDao.get(HQL, map);
+        return entity2model(user);
+    }
+
     public String generateEncryptedPassword(String password) {
         return new Hasher().encode(password, 20000);
     }

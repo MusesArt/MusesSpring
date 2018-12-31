@@ -5,22 +5,22 @@ import java.util.List;
 
 public class CommentModel {
 
-    private int id; // 评论id
+    private Integer id; // 评论id
     private String head; // 头像地址
     private String username; // 用户名
     private Date date; // 填写日期
-    private int praise; // 点赞数
-    private int message; // 评论数
+    private Integer praise; // 点赞数
+    private Integer message; // 评论数
     private String content; // 评论内容
     private String commodityInfo; // 订单信息
     private List<String> images; // 图像列表 一对多
-    private int star; // 评分
+    private Integer star; // 评分
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,11 +48,11 @@ public class CommentModel {
         this.date = date;
     }
 
-    public int getMessage() {
+    public Integer getMessage() {
         return message;
     }
 
-    public void setMessage(int message) {
+    public void setMessage(Integer message) {
         this.message = message;
     }
 
@@ -72,19 +72,19 @@ public class CommentModel {
         this.images = images;
     }
 
-    public int getStar() {
+    public Integer getStar() {
         return star;
     }
 
-    public void setStar(int star) {
+    public void setStar(Integer star) {
         this.star = star;
     }
 
-    public int getPraise() {
+    public Integer getPraise() {
         return praise;
     }
 
-    public void setPraise(int praise) {
+    public void setPraise(Integer praise) {
         this.praise = praise;
     }
 

@@ -1,9 +1,12 @@
 package muses.art.service.operation.impl;
 
 import muses.art.dao.operation.CommentDao;
+import muses.art.dao.trade.OrderCommodityDao;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.commodity.Image;
 import muses.art.entity.operation.Comment;
+import muses.art.entity.trade.Order;
+import muses.art.entity.trade.OrderCommodity;
 import muses.art.model.base.PageModel;
 import muses.art.model.commodity.CommodityListModel;
 import muses.art.model.operation.CommentModel;
@@ -21,17 +24,28 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentDao commentDao;
 
+    @Autowired
+    private OrderCommodityDao commodityDao;
+
     @Override
-    public Boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId) {
-        Comment commentObject = new Comment();
-        commentObject.setComment(comment);
-        commentObject.setCommodityId(commodityId);
-        commentObject.setUserId(userId);
-        commentObject.setOrderId(orderId);
-        commentObject.setOrderCommodityId(orderCommodityId);
-        commentObject.setAddTime(new Date(System.currentTimeMillis()));
-        commentDao.save(commentObject);
-        return true;
+    public Boolean addComment(String comment, Integer orderCommodityId) {
+        CommentModel commentModel = findCommentByOrderCommodityId(orderCommodityId);
+        if (commentModel != null) {
+            return false;
+        } else {
+            Comment commentObject = new Comment();
+            commentObject.setComment(comment);
+            OrderCommodity orderCommodity = commodityDao.get(OrderCommodity.class, orderCommodityId);
+            Commodity commodity = orderCommodity.getCommodity();
+            Order order = orderCommodity.getOrder();
+            commentObject.setCommodityId(commodity.getId());
+            commentObject.setUserId(order.getUser().getId());
+            commentObject.setOrderId(order.getId());
+            commentObject.setOrderCommodityId(orderCommodityId);
+            commentObject.setAddTime(new Date(System.currentTimeMillis()));
+            commentDao.save(commentObject);
+            return true;
+        }
     }
 
     @Override
@@ -74,11 +88,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentModel findCommentByOrderCommodityIdAndUserID(Integer commodityId, Integer userId) {
-        String SQL = "from Comment where userId=:id1 and orderCommodityId=:id2";
+    public CommentModel findCommentByOrderCommodityId(Integer commodityId) {
+        String SQL = "from Comment where orderCommodityId=:id";
         Map<String, Object> map = new HashMap<>();
-        map.put("id1", userId);
-        map.put("id2", commodityId);
+        map.put("id", commodityId);
         List<Comment> comments = commentDao.find(SQL, map);
         if (comments != null && comments.size() > 0) {
             return entity2model(comments.get(0));

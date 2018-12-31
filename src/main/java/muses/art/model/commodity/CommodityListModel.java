@@ -2,17 +2,17 @@ package muses.art.model.commodity;
 
 public class CommodityListModel {
 
-    private int id;
+    private Integer id;
     private String name; // 商品名称
     private Float discountPrice; // 折扣价或现价
     private String brief; // 商品简介
     private String coverImage; // 封面图片地址
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
