@@ -1,6 +1,8 @@
 package muses.art.service.operation.impl;
 
+import muses.art.dao.commodity.CommodityDao;
 import muses.art.service.operation.CommentPraiseService;
+import muses.art.service.operation.CommentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,11 @@ public class CommentPraiseServiceImplTest extends AbstractJUnit4SpringContextTes
     @Autowired
     private CommentPraiseService commentPraiseService;
 
+    private CommentService commentService;
+
     @Test
     public void commentPraiseServiceTest() {
+
        commentPraiseService.addPraise(1, 1);
        logger.info("用户给评论点赞成功");
 

@@ -41,7 +41,7 @@ public interface CommodityService {
     CommodityDetailModel getCommodity(int commodityId);
 
     /**
-     * 分页获取商品列表
+     * 分页获取商品列表（综合）
      * @param page 页码
      * @param size 每页数量
      * @return List<CommodityListModel>
@@ -49,12 +49,64 @@ public interface CommodityService {
     List<CommodityListModel> findCommodities(int page, int size);
 
     /**
-     * 分页获取商品列表及分页信息
+     * 分页获取商品列表（时间）
+     * @param page 页码
+     * @param size 每页数量
+     * @param isASC 是否升序
+     * @return List<CommodityListModel>
+     */
+    List<CommodityListModel> findCommoditiesOrderByTime(int page, int size, boolean isASC);
+
+    /**
+     * 分页获取商品列表（价格）
+     * @param page 页码
+     * @param size 每页数量
+     * @param isASC 是否升序
+     * @return List<CommodityListModel>
+     */
+    List<CommodityListModel> findCommoditiesOrderByPrice(int page, int size, boolean isASC);
+
+    /**
+     * 分页获取商品列表（销量）
+     * @param page 页码
+     * @param size 每页数量
+     * @param isASC 是否升序
+     * @return List<CommodityListModel>
+     */
+    List<CommodityListModel> findCommoditiesOrderBySalesVolume(int page, int size, boolean isASC);
+
+    /**
+     * 分页获取商品列表及分页信息（综合）
      * @param page 页码
      * @param size 每页数量
      * @return PageModel<CommodityListModel>
      */
     PageModel<CommodityListModel> findCommoditiesPage(int page, int size);
 
+    /**
+     * 分页获取商品列表及分页信息（时间）
+     * @param page 页码
+     * @param size 每页数量
+     * @param isASC 是否升序
+     * @return PageModel<CommodityListModel>
+     */
+    PageModel<CommodityListModel> findCommoditiesPageOrderByTime(int page, int size, boolean isASC);
 
+    /**
+     * 分页获取商品列表及分页信息（价格）
+     * @param page 页码
+     * @param size 每页数量
+     * @param isASC 是否升序
+     * @return PageModel<CommodityListModel>
+     */
+    PageModel<CommodityListModel> findCommoditiesPageOrderByPrice(int page, int size, boolean isASC);
+
+    /**
+     * 分页获取商品列表及分页信息（销量）
+     * @param page 页码
+     * @param size 每页数量
+     * @param isASC 是否升序
+     * @return PageModel<CommodityListModel>
+     */
+    PageModel<CommodityListModel> findCommoditiesPageOrderBySalesVolume(int page, int size, boolean isASC);
 }
