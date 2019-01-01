@@ -2,7 +2,6 @@ package muses.art.service.trade.impl;
 
 import muses.art.dao.commodity.CommodityDao;
 import muses.art.dao.trade.OrderCommodityDao;
-import muses.art.entity.commodity.Commodity;
 import muses.art.entity.trade.OrderCommodity;
 import muses.art.model.trade.OrderCommodityModel;
 import muses.art.service.trade.OrderCommodityService;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +24,12 @@ public class OrderCommodityServiceImpl implements OrderCommodityService {
     private CommodityDao commodityDao;
 
     @Override
-    public Boolean add(Integer orderId, Integer commodityId) {
-        if (findExist(orderId, commodityId)) return false;
+    public Boolean add(OrderCommodity orderCommodity) {
+        if (orderCommodity == null) return false;
+        if (findExist(orderCommodity.getOrderId(), orderCommodity.getCommodityId())) return false;
         OrderCommodityModel orderCommodityModel = new OrderCommodityModel();
-        Commodity commodity = commodityDao.get(Commodity.class, commodityId);
-        orderCommodityModel.setBrief(commodity.getBrief());
-        orderCommodityModel.setPrice(commodity.getDiscountPrice());
-        orderCommodityModel.setCommodityId(commodityId);
-        orderCommodityModel.setOrderId(orderId);
-        orderCommodityDao.save(orderCommodityDao.getModelMapper().map(orderCommodityModel, OrderCommodity.class));
+        orderCommodity.setAddTime(new Timestamp(System.currentTimeMillis()));
+        orderCommodityDao.save(orderCommodity);
         return true;
     }
 

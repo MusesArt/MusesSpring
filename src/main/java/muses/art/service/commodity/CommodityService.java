@@ -1,7 +1,7 @@
 package muses.art.service.commodity;
 
-import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.base.PageModel;
+import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.commodity.CommodityListModel;
 
 import java.util.List;

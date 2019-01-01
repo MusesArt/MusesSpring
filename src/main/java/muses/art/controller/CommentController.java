@@ -38,7 +38,7 @@ public class CommentController {
         if (flag) {
             return new StatusModel<>("添加评论成功", StatusModel.OK);
         } else {
-            return new StatusModel<>("请勿重复评论", StatusModel.ERROR);
+            return new StatusModel<>("请勿重复评论", StatusModel.OK);
         }
     }
 

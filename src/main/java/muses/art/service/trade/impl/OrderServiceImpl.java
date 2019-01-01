@@ -5,7 +5,9 @@ import muses.art.dao.trade.OrderDao;
 import muses.art.entity.trade.Cart;
 import muses.art.entity.trade.Order;
 import muses.art.entity.trade.OrderCommodity;
+import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
+import muses.art.service.trade.OrderCommodityService;
 import muses.art.service.trade.OrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Autowired
+    private OrderCommodityService orderCommodityService;
+
+    @Autowired
     private CartDao cartDao;
 
     @Override
@@ -33,8 +38,9 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
         List<Order> orders = orderDao.find(SQL, map);
-
-        return entity2model(orders);
+        if (orders.isEmpty()) return null;
+        List<OrderModel> orderModels = new ArrayList<>();
+        return orderDao.getModelMapper().map(orders, orderModels.getClass());
     }
 
     @Override
@@ -42,6 +48,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.get(Order.class, id);
         if (order == null) return false;
         orderDao.delete(order);
+        order.getOrderCommodities().forEach(orderCommodity1 -> orderCommodityService.delete(orderCommodity1.getId()));
         return true;
     }
 
@@ -56,7 +63,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Boolean createOrderFromCart(ArrayList<Integer> cartIds, Integer addressId) {
+    public Order createOrderFromCart(OrderFromCartModel orderFromCartModel) {
+        ArrayList<Integer> cartIds = orderFromCartModel.getCartIds();
+        Integer addressId = orderFromCartModel.getAddressId();
         ArrayList<OrderCommodity> orderCommodities = new ArrayList<>();
         Order order = new Order();
         cartIds.forEach(cartId -> {
@@ -65,17 +74,66 @@ public class OrderServiceImpl implements OrderService {
             if (cart == null) return;
             orderCommodity.setCommodityId(cart.getCommodityId());
             orderCommodity.setOrderId(order.getId());
+            orderCommodity.setBrief(cart.getCommodity().getBrief());
+            orderCommodity.setPrice(cart.getCommodity().getDiscountPrice());
             orderCommodities.add(orderCommodity);
         });
-        if (cartIds.size() != orderCommodities.size()) return false;
+        if (cartIds.size() != orderCommodities.size()) return null;
         order.setOrderCommodities(orderCommodities);
         order.setPayStatus("-1");
         order.setAddressId(addressId);
+        orderDao.save(order);
+        return order;
+    }
+
+    @Override
+    public Boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId) {
+        Order order = new Order();
+        BeanUtils.copyProperties(orderModel, order);
+        order.setUserId(userId);
+        order.setPayStatus("待支付");
+        order.setAddressId(addressId);
+        orderDao.save(order);
         return true;
     }
 
     @Override
-    public OrderModel findOrderById(int id) {
+    public Boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId) {
+        Order order = new Order();
+        BeanUtils.copyProperties(orderModel, order);
+        order.setUserId(userId);
+        order.setPayStatus("已支付");
+        order.setAddressId(addressId);
+        orderDao.save(order);
+        return true;
+    }
+
+    @Override
+    public Boolean updateOrderStatus(int id) {
+        Order order = orderDao.get(Order.class, id);
+        order.setPayStatus("已支付");
+        orderDao.update(order);
+        return true;
+    }
+
+    @Override
+    public Boolean cancelOrder(int id) {
+        Order order = orderDao.get(Order.class, id);
+        order.setPayStatus("请求取消");
+        orderDao.update(order);
+        return true;
+    }
+
+    @Override
+    public Boolean updateOrder(OrderModel orderModel) {
+        Order order = new Order();
+        BeanUtils.copyProperties(orderModel, order);
+        orderDao.update(order);
+        return true;
+    }
+
+    @Override
+    public OrderModel getOrderById(int id) {
         Order order = orderDao.get(Order.class,id);
         OrderModel orderModel = new OrderModel();
         BeanUtils.copyProperties(order,orderModel);
@@ -83,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderModel> listOrderByPage(int userId, int start, int max) {
+    public List<OrderModel> listOrder(int userId, int start, int max) {
         String hql = "from Order o where o.user.id=:userId";
         Map<String,Object> map = new HashMap<>();
         map.put("userId", userId);
@@ -97,33 +155,4 @@ public class OrderServiceImpl implements OrderService {
         return orderModels;
     }
 
-    private OrderModel entity2model(Order order) {
-        if (order != null) {
-            OrderModel orderModel = new OrderModel();
-            orderModel.setAddressId(order.getAddressId());
-            orderModel.setId(order.getId());
-            orderModel.setOrderAmount(order.getOrderAmount());
-            orderModel.setOrderSN(order.getOrderSN());
-            orderModel.setPayStatus(order.getPayStatus());
-            orderModel.setPayTime(order.getPayTime());
-            orderModel.setPostScript(order.getPostScript());
-            orderModel.setTradeNo(order.getTradeNo());
-            orderModel.setUserId(order.getUserId());
-            return orderModel;
-        } else {
-            return null;
-        }
-    }
-
-    private List<OrderModel> entity2model(List<Order> orders) {
-        if (orders != null && orders.size() > 0) {
-            List<OrderModel> orderModels = new ArrayList<>();
-            for (Order order : orders) {
-                orderModels.add(entity2model(order));
-            }
-            return orderModels;
-        } else {
-            return null;
-        }
-    }
 }

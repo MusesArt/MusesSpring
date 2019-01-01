@@ -65,8 +65,8 @@ public class CommodityServiceImpl implements CommodityService {
         } else { // 有搜索关键词
             String HQL = "from Commodity where name like :name or brief like :brief order by name asc, soldNum desc, discountPrice asc, updateTime asc";
             Map<String, Object> map = new HashMap<>();
-            map.put("name", "%"+keyword+"%");
-            map.put("brief", "%"+keyword+"%");
+            map.put("name", "%" + keyword + "%");
+            map.put("brief", "%" + keyword + "%");
             List<Commodity> commodities = commodityDao.find(HQL, map, page, size);
             return entity2listModel(commodities);
         }
@@ -155,8 +155,8 @@ public class CommodityServiceImpl implements CommodityService {
         } else { // 有搜索关键词
             String HQL = "select count(*) from Commodity where name like :name or brief like :brief";
             Map<String, Object> map = new HashMap<>();
-            map.put("name", "%"+keyword+"%");
-            map.put("brief", "%"+keyword+"%");
+            map.put("name", "%" + keyword + "%");
+            map.put("brief", "%" + keyword + "%");
             return commodityDao.count(HQL, map).intValue();
         }
     }

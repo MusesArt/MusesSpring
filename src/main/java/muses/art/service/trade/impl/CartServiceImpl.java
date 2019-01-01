@@ -1,6 +1,8 @@
 package muses.art.service.trade.impl;
 
+import muses.art.dao.commodity.CommodityDao;
 import muses.art.dao.trade.CartDao;
+import muses.art.entity.commodity.Commodity;
 import muses.art.entity.trade.Cart;
 import muses.art.model.trade.CartModel;
 import muses.art.service.trade.CartService;
@@ -20,11 +22,19 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartDao cartDao;
+    @Autowired
+    private CommodityDao commodityDao;
 
     @Override
     public Boolean addToCart(Integer userId, Integer commodityId, Integer number) {
-        if (findCartExist(userId, commodityId)) return false;
-        Cart cart = new Cart();
+        Cart cart = findCartExist(userId, commodityId);
+        if (commodityDao.get(Commodity.class, commodityId) == null) return false;
+        if (cart != null) {
+            cart.setNumber(cart.getNumber() + 1);
+            cartDao.update(cart);
+            return true;
+        }
+        cart = new Cart();
         cart.setUserId(userId);
         cart.setCommodityId(commodityId);
         cart.setNumber(number);
@@ -56,43 +66,18 @@ public class CartServiceImpl implements CartService {
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
         List<Cart> carts = cartDao.find(SQL, map);
-        return entity2model(carts);
+        List<CartModel> cartModels = new ArrayList<>();
+        return cartDao.getModelMapper().map(carts, cartModels.getClass());
     }
 
     @Override
-    public Boolean findCartExist(Integer userId, Integer commodityId) {
+    public Cart findCartExist(Integer userId, Integer commodityId) {
         String SQL = "from Cart where userId=:uid and commodityId=:cid";
         Map<String, Object> map = new HashMap<>();
         map.put("uid", userId);
         map.put("cid", commodityId);
         List<Cart> carts = cartDao.find(SQL, map);
-        return !carts.isEmpty();
-    }
-
-    private List<CartModel> entity2model(List<Cart> carts) {
-        if (carts != null) {
-            List<CartModel> cartModels = new ArrayList<>();
-            for (Cart cart : carts) {
-                cartModels.add(entity2model(cart));
-            }
-            return cartModels;
-        }
-        return null;
-    }
-
-    private CartModel entity2model(Cart cart) {
-        if (cart != null) {
-            CartModel cartModel = new CartModel();
-            cartModel.setId(cart.getId());
-            cartModel.setAddTime(cart.getAddTime());
-            cartModel.setCommodityId(cart.getCommodityId());
-            cartModel.setCommodity(cart.getCommodity());
-            cartModel.setUserId(cart.getUserId());
-            cartModel.setUser(cart.getUser());
-            cartModel.setAddTime(cart.getAddTime());
-            return cartModel;
-        }
-        return null;
+        return carts.get(0);
     }
 
 }
