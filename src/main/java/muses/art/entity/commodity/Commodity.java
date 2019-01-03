@@ -59,7 +59,8 @@ public class Commodity {
     @Column(name = "cover_image")
     private String coverImage; // 封面图片地址
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity")
+    // 若商品删除，则其所属的所有图片可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity", cascade = CascadeType.REMOVE)
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -68,6 +69,10 @@ public class Commodity {
 
     @Column(name = "category_id")
     private Integer categoryId; // 类别id
+
+    // 若商品删除，则其所属的所有参数可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity", cascade = CascadeType.REMOVE)
+    private List<Attribute> attributes;
 
     public Integer getCategoryId() {
         return categoryId;

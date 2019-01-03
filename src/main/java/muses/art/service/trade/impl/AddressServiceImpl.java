@@ -32,6 +32,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Boolean deleteAddress(int id) {
         Address address = addressDao.get(Address.class, id);
+        System.out.println(address);
         if (address != null) {
             addressDao.delete(address);
             return true;

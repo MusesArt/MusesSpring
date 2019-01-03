@@ -48,11 +48,24 @@ public class Comment {
     @Column(name = "commodity_id")
     private Integer commodityId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
+    // 评论被删除时，其所属的所有图片可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.REMOVE)
     private List<Image> images; // 图像列表 一对多
 
     @Column(name = "add_time")
     private Date addTime;
+
+    // 评论被删除时，所有点赞记录可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.REMOVE)
+    private List<CommentPraise> praises;
+
+    public List<CommentPraise> getPraises() {
+        return praises;
+    }
+
+    public void setPraises(List<CommentPraise> praises) {
+        this.praises = praises;
+    }
 
     public OrderCommodity getOrderCommodity() {
         return orderCommodity;
