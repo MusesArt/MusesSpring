@@ -16,6 +16,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<List<CartModel>> listCart(@PathVariable int userId) {
@@ -33,7 +34,7 @@ public class CartController {
     public @ResponseBody
     StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cartId) {
         StatusModel statusModel;
-        Boolean status = cartService.UpdateCart(cartId, cartModel.getNumber());
+        Boolean status = cartService.updateCart(cartId, cartModel.getNumber());
         if (!status) {
             statusModel = new StatusModel("购物车内无此商品");
         } else {
@@ -61,7 +62,7 @@ public class CartController {
         StatusModel statusModel;
         Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getNumber());
         if (!status) {
-            statusModel = new StatusModel("购物车内已有此商品");
+            statusModel = new StatusModel("购物车数据更新失败");
         } else {
             statusModel = new StatusModel("购物车数据更新成功", StatusModel.OK);
         }

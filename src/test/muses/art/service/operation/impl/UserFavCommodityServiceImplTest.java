@@ -1,7 +1,6 @@
 package muses.art.service.operation.impl;
 
 import muses.art.service.operation.UserFavCommodityService;
-import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class UserFavCommodityServiceImplTest extends AbstractJUnit4SpringContext
 
     @Test
     public void favCommodityTest() {
-        boolean flag = userFavCommodityService.findFavCommodityByUserIdAndCommodityId(1, 1);
+        Boolean flag = userFavCommodityService.findFavCommodityByUserIdAndCommodityId(1, 1);
         logger.info("查找收藏测试通过");
         if (flag) {
             userFavCommodityService.deleteFavCommodity(1, 1);

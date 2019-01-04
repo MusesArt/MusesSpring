@@ -2,7 +2,7 @@ package muses.art.model.trade;
 
 import muses.art.entity.trade.Address;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class OrderModel {
     private Integer id;

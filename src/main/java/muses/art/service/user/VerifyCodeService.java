@@ -10,7 +10,7 @@ public interface VerifyCodeService {
      * @param code 短信验证码
      * @return
      */
-    boolean addVerifyCode(String mobile, String code);
+    Boolean addVerifyCode(String mobile, String code);
 
     /**
      * 根据手机号码查找短信验证码

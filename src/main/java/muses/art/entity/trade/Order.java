@@ -3,7 +3,7 @@ package muses.art.entity.trade;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
@@ -46,7 +46,8 @@ public class Order { // 订单
     @Column(name = "address_id")
     private Integer addressId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    // 刪除订单时，删除订单内的所有商品快照
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<OrderCommodity> orderCommodities;
 
     public List<OrderCommodity> getOrderCommodities() {

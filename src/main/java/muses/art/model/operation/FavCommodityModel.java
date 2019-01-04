@@ -4,8 +4,8 @@ public class FavCommodityModel { // 根据收藏夹写
     private String src; // 图片地址
     private String title; // 商品标题
     private String content; // 商品简介
-    private float price; // 商品现价
-    private float collectPrice; // 商品收藏价
+    private Float price; // 商品现价
+    private Float collectPrice; // 商品收藏价
     private String message; // 消息
 
     public String getSrc() {
@@ -32,19 +32,19 @@ public class FavCommodityModel { // 根据收藏夹写
         this.content = content;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public float getCollectPrice() {
+    public Float getCollectPrice() {
         return collectPrice;
     }
 
-    public void setCollectPrice(float collectPrice) {
+    public void setCollectPrice(Float collectPrice) {
         this.collectPrice = collectPrice;
     }
 

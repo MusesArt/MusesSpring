@@ -3,7 +3,7 @@ package muses.art.entity.commodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "image_slider")
@@ -15,8 +15,8 @@ public class ImageSlider { // 滑动栏
     @Column(name = "image_url", nullable = false)
     private String imageUrl; // 图像地址
 
-    @Column(name = "launch_data")
-    private Date launchData; // 活动上线时间
+    @Column(name = "launch_date")
+    private Date launchDate; // 活动上线时间
 
     @Column(name = "link_url")
     private String linkUrl; // 链接地址
@@ -53,11 +53,11 @@ public class ImageSlider { // 滑动栏
     }
 
     public Date getLaunchData() {
-        return launchData;
+        return launchDate;
     }
 
     public void setLaunchData(Date launchData) {
-        this.launchData = launchData;
+        this.launchDate = launchData;
     }
 
     public String getLinkUrl() {

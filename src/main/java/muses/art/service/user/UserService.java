@@ -11,14 +11,14 @@ public interface UserService {
      * @param mobile 手机号
      * @return
      */
-    boolean addNewUser(String username, String password, String mobile);
+    Boolean addNewUser(String username, String password, String mobile);
 
     /**
      * 删除用户
      * @param id 用户id
      * @return
      */
-    boolean deleteUser(Integer id);
+    Boolean deleteUser(Integer id);
 
     /**
      * 用户修改密码
@@ -26,21 +26,21 @@ public interface UserService {
      * @param password 新密码
      * @return
      */
-    boolean updatePassword(Integer userId, String password);
+    Boolean updatePassword(Integer userId, String password);
 
     /**
      * 判断用户名是否已经被使用
      * @param username 用户名
      * @return
      */
-    boolean findUsernameIsUsed(String username);
+    Boolean findUsernameIsUsed(String username);
 
     /**
      * 判断手机号是否已被使用
      * @param mobile 手机号
      * @return
      */
-    boolean findMobileIsUsed(String mobile);
+    Boolean findMobileIsUsed(String mobile);
 
     /**
      * 根据用户名查找用户
@@ -62,6 +62,13 @@ public interface UserService {
      * @return
      */
     UserModel findUserByMobile(String mobile);
+
+    /**
+     * 根据token查找用户
+     * @param token 用户token
+     * @return
+     */
+    UserModel findUserByToken(String token);
 
 
 }
