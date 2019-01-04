@@ -68,18 +68,19 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel addOrder(@RequestBody OrderFromCartModel orderFromCartModel, @PathVariable int user_id) {
+    StatusModel addOrder(@RequestBody OrderFromCartModel orderFromCartModel) {
         StatusModel statusModel;
-        Integer orderId = orderService.createOrderFromCart(orderFromCartModel, user_id);
+        // 根据cardIds将商品从购物车添加至订单中
+        Integer orderId = orderService.createOrderFromCart(orderFromCartModel, orderFromCartModel.getUserId());
         if (orderId == null) {
             statusModel = new StatusModel<>("订单创建失败");
-        } else {
+        } else { // 若订单创建成功
             List<Integer> cartIds = orderFromCartModel.getCartIds();
-            orderCommodityService.add(cartIds, orderId);
+            orderCommodityService.add(cartIds, orderId); // 复制商品快照
             cartIds.forEach(cartId -> {
-                cartService.deleteFromCart(cartId);
+                cartService.deleteFromCart(cartId); // 从购物车中移除商品
             });
             statusModel = new StatusModel<>("订单创建成功", "0");
         }

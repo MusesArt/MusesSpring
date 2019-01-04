@@ -34,14 +34,10 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     }
 
     @Override
-    public Boolean deleteFavCommodity(int userId, int commodityId) {
-        String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
-        Map<String, Object> map = new HashMap<>();
-        map.put("id1", userId);
-        map.put("id2", commodityId);
-        List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
-        if (userFavCommodities != null && userFavCommodities.size() > 0) {
-            userFavCommodityDao.delete(userFavCommodities.get(0));
+    public Boolean deleteFavCommodity(int id) {
+        UserFavCommodity userFavCommodity = userFavCommodityDao.get(UserFavCommodity.class, id);
+        if (userFavCommodity != null) {
+            userFavCommodityDao.delete(userFavCommodity);
             return true;
         }
         return false;
@@ -96,5 +92,17 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
         map.put("id2", commodityId);
         List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
         return userFavCommodities != null && userFavCommodities.size() > 0;
+    }
+
+    @Override
+    public Boolean deleteAllFavCommodity(Integer userId) {
+        String HQL = "from UserFavCommodity where userId=:id";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", userId);
+        List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
+        if (!userFavCommodities.isEmpty()) {
+            userFavCommodities.removeAll(userFavCommodities);
+        }
+        return true;
     }
 }

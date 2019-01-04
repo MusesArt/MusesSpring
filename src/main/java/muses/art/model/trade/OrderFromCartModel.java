@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class OrderFromCartModel {
     private ArrayList<Integer> cartIds;
     private Integer addressId;
+    private Integer userId;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public ArrayList<Integer> getCartIds() {
         return cartIds;
