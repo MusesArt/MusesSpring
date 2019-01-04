@@ -66,6 +66,10 @@ public class Order { // 订单
         this.address = address;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public Integer getId() {
         return id;
     }

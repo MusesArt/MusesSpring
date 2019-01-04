@@ -17,7 +17,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "comment")
+    @Column(name = "comment", length = 512)
     private String comment; // 评论内容
 
     @ManyToOne(fetch = FetchType.LAZY)

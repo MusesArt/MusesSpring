@@ -1,6 +1,11 @@
 package muses.art.entity.user;
 
+import muses.art.entity.commodity.Commodity;
 import muses.art.entity.filter.Filter;
+import muses.art.entity.operation.Comment;
+import muses.art.entity.operation.UserFavCommodity;
+import muses.art.entity.trade.Address;
+import muses.art.entity.trade.Order;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -46,11 +51,36 @@ public class User { // 用户个人信息
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.REMOVE)
     private List<Filter> favFilters; // 用户喜欢的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.REMOVE)
-    private List<Filter> favCommodities; // 用户喜欢的所有商品 一对多
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<UserFavCommodity> favCommodities; // 用户喜欢的所有商品 一对多
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Order> orders;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Comment> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Address> addresses;
 
     @Column(name = "token")
     private String token;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public String getToken() {
         return token;
@@ -76,11 +106,11 @@ public class User { // 用户个人信息
         this.favFilters = favFilters;
     }
 
-    public List<Filter> getFavCommodities() {
+    public List<UserFavCommodity> getFavCommodities() {
         return favCommodities;
     }
 
-    public void setFavCommodities(List<Filter> favCommodities) {
+    public void setFavCommodities(List<UserFavCommodity> favCommodities) {
         this.favCommodities = favCommodities;
     }
 
@@ -162,6 +192,14 @@ public class User { // 用户个人信息
 
     public void setFilters(List<Filter> filters) {
         this.filters = filters;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

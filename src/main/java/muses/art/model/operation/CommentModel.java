@@ -10,7 +10,6 @@ public class CommentModel {
     private String username; // 用户名
     private Date date; // 填写日期
     private Integer praise; // 点赞数
-    private Integer message; // 评论数
     private String content; // 评论内容
     private String commodityInfo; // 订单信息
     private List<String> images; // 图像列表 一对多
@@ -46,14 +45,6 @@ public class CommentModel {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Integer getMessage() {
-        return message;
-    }
-
-    public void setMessage(Integer message) {
-        this.message = message;
     }
 
     public String getContent() {
@@ -104,7 +95,6 @@ public class CommentModel {
                 ", username='" + username + '\'' +
                 ", date=" + date +
                 ", praise=" + praise +
-                ", message=" + message +
                 ", content='" + content + '\'' +
                 ", commodityInfo='" + commodityInfo + '\'' +
                 ", images=" + images +
