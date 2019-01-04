@@ -50,10 +50,11 @@ public class CartServiceImpl implements CartService {
         cart.setCommodityId(commodityId);
         cart.setNumber(number);
         cart.setDetail(detail);
+        Commodity commodity = commodityDao.get(Commodity.class, commodityId);
         Parameter parameter = parameterDao.get(Parameter.class, parameterId);
         String image = parameter.getImage();
         if (image == null || image.length() == 0) { // 属性没有图
-            cart.setImage(cart.getCommodity().getCoverImage());
+            cart.setImage(commodity.getCoverImage());
         } else { // 属性有图
             cart.setImage(image);
         }
