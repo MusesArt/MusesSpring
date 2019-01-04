@@ -1,7 +1,6 @@
 package muses.art.entity.user;
 
 import muses.art.entity.filter.Filter;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,7 +40,7 @@ public class User { // 用户个人信息
     @Column(name = "level")
     private Integer level; // 用户等级
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner", cascade = CascadeType.DETACH)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
     private List<Filter> filters; // 用户制作的所有滤镜 一对多
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.REMOVE)

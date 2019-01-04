@@ -4,6 +4,7 @@ import muses.art.dao.trade.CartDao;
 import muses.art.dao.trade.OrderDao;
 import muses.art.entity.trade.Cart;
 import muses.art.entity.trade.Order;
+import muses.art.model.trade.CartModel;
 import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
 import muses.art.service.trade.OrderService;
@@ -33,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
             Cart cart = cartDao.get(Cart.class, cartId);
             amount.updateAndGet(v -> v + cart.getNumber() * cart.getCommodity().getDiscountPrice());
         });
-        return null;
+        return amount.get();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.get(Order.class, id);
         if (order == null) return false;
         order.setPayStatus(payStatus);
-        if (payStatus == "payed") order.setPayTime(new Timestamp(System.currentTimeMillis()));
+        if (payStatus.equals("未支付")) order.setPayTime(new Timestamp(System.currentTimeMillis()));
         orderDao.update(order);
         return true;
     }
@@ -147,6 +148,19 @@ public class OrderServiceImpl implements OrderService {
             orderModels.add(orderModel);
         }
         return orderModels;
+    }
+
+    public List<CartModel> entity2model(List<Cart> carts) {
+        if (carts.isEmpty()) return null;
+        List<CartModel> cartModels = new ArrayList<>();
+        carts.forEach(cart -> {
+            CartModel cartModel = new CartModel();
+            cartModel.setUserId(cart.getUserId());
+            cartModel.setAddTime(cart.getAddTime());
+            cartModel.setCommodityId(cart.getCommodityId());
+            cartModels.add(cartModel);
+        });
+        return cartModels;
     }
 
 }
