@@ -44,10 +44,10 @@ public class User { // 用户个人信息
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
     private List<Filter> filters; // 用户制作的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.REMOVE)
     private List<Filter> favFilters; // 用户喜欢的所有滤镜 一对多
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.DETACH)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.REMOVE)
     private List<Filter> favCommodities; // 用户喜欢的所有商品 一对多
 
     @Column(name = "token")

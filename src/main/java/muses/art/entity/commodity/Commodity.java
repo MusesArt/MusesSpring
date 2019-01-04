@@ -23,9 +23,6 @@ public class Commodity {
     @Column(name = "sold_num")
     private Integer soldNum; // 销量
 
-    @Column(name = "favorite_num")
-    private Integer favoriteNum; // 收藏数
-
     @Column(name = "goods_num")
     private Integer goodsNum; // 库存数
 
@@ -44,9 +41,6 @@ public class Commodity {
     @Column(name = "ship_free")
     private Integer shipFree; // 是否包邮
 
-    @Column(name = "is_new")
-    private Boolean isNew; // 是否新品
-
     @Column(name = "is_hot")
     private Boolean isHot; // 是否热门
 
@@ -59,7 +53,11 @@ public class Commodity {
     @Column(name = "cover_image")
     private String coverImage; // 封面图片地址
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity")
+    @Column(name = "information", length = 1024)
+    private String information; // 商品具体信息
+
+    // 若商品删除，则其所属的所有图片可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity", cascade = CascadeType.REMOVE)
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -68,6 +66,10 @@ public class Commodity {
 
     @Column(name = "category_id")
     private Integer categoryId; // 类别id
+
+    // 若商品删除，则其所属的所有参数可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity", cascade = CascadeType.REMOVE)
+    private List<Attribute> attributes;
 
     public Integer getCategoryId() {
         return categoryId;
@@ -115,14 +117,6 @@ public class Commodity {
 
     public void setSoldNum(Integer soldNum) {
         this.soldNum = soldNum;
-    }
-
-    public Integer getFavoriteNum() {
-        return favoriteNum;
-    }
-
-    public void setFavoriteNum(Integer favoriteNum) {
-        this.favoriteNum = favoriteNum;
     }
 
     public Integer getGoodsNum() {
@@ -173,14 +167,6 @@ public class Commodity {
         this.shipFree = shipFree;
     }
 
-    public Boolean isNew() {
-        return isNew;
-    }
-
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
-    }
-
     public Boolean isHot() {
         return isHot;
     }
@@ -229,5 +215,23 @@ public class Commodity {
         this.category = category;
     }
 
+    public Boolean getHot() {
+        return isHot;
+    }
 
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
+    }
 }

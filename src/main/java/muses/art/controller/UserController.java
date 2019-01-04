@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.POST)
-    public @ResponseBody StatusModel<TokenModel> registerByMobile(@RequestParam("userId") Integer id,
+    public @ResponseBody StatusModel<TokenModel> changePassword(@RequestParam("userId") Integer id,
                                                                   @RequestParam("old") String oldPassword,
                                                                   @RequestParam("new") String newPassword) {
         UserModel user = userService.findUserById(id);

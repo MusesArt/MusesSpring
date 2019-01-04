@@ -41,15 +41,19 @@ public class CommentServiceImpl implements CommentService {
             Comment commentObject = new Comment();
             commentObject.setComment(comment);
             OrderCommodity orderCommodity = commodityDao.get(OrderCommodity.class, orderCommodityId);
-            Commodity commodity = orderCommodity.getCommodity();
-            Order order = orderCommodity.getOrder();
-            commentObject.setCommodityId(commodity.getId());
-            commentObject.setUserId(order.getUser().getId());
-            commentObject.setOrderId(order.getId());
-            commentObject.setOrderCommodityId(orderCommodityId);
-            commentObject.setAddTime(new Date(System.currentTimeMillis()));
-            commentDao.save(commentObject);
-            return true;
+            if (orderCommodity != null) {
+                Commodity commodity = orderCommodity.getCommodity();
+                Order order = orderCommodity.getOrder();
+                commentObject.setCommodityId(commodity.getId());
+                commentObject.setUserId(order.getUser().getId());
+                commentObject.setOrderId(order.getId());
+                commentObject.setOrderCommodityId(orderCommodityId);
+                commentObject.setAddTime(new Date(System.currentTimeMillis()));
+                commentDao.save(commentObject);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
