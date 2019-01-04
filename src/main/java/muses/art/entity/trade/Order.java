@@ -32,14 +32,14 @@ public class Order { // 订单
     @Column(name = "pay_time")
     private Date payTime; // 支付时间
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 订单用户对象 多对一
 
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", insertable = false, updatable = false)
     private Address address; // 订单地址对象 多对一
 

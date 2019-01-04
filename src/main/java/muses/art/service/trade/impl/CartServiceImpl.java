@@ -6,10 +6,13 @@ import muses.art.entity.commodity.Commodity;
 import muses.art.entity.trade.Cart;
 import muses.art.model.trade.CartModel;
 import muses.art.service.trade.CartService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.print.attribute.standard.Destination;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +70,8 @@ public class CartServiceImpl implements CartService {
         map.put("id", userId);
         List<Cart> carts = cartDao.find(SQL, map);
         List<CartModel> cartModels = new ArrayList<>();
-        return cartDao.getModelMapper().map(carts, cartModels.getClass());
+        carts.forEach(cart->cartModels.add(cartDao.getModelMapper().map(cart, CartModel.class)));
+        return cartModels;
     }
 
     @Override
@@ -77,7 +81,7 @@ public class CartServiceImpl implements CartService {
         map.put("uid", userId);
         map.put("cid", commodityId);
         List<Cart> carts = cartDao.find(SQL, map);
-        return carts.get(0);
+        return carts.isEmpty()?null:carts.get(0);
     }
 
 }

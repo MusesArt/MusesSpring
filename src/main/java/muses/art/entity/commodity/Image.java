@@ -16,14 +16,14 @@ public class Image {
     @Column(name = "image_url")
     private String imageUrl; // 图像url
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "commodity_id")
     private Integer commodityId; // 商品id
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "comment_id", insertable = false, updatable = false)
     private Comment comment; // 评论对象 多对一
 

@@ -16,11 +16,14 @@ public class OrderCommodity { // 订购的商品
     @Column(name = "add_time")
     private Date addTime; // 下单时间
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "number")
+    private Integer number; //商品数量
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
@@ -35,6 +38,14 @@ public class OrderCommodity { // 订购的商品
 
     @Column(name = "brief")
     private String brief; // 简介
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 
     public Integer getOrderId() {
         return orderId;
