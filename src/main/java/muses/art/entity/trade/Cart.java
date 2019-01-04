@@ -25,14 +25,17 @@ public class Cart { // 购物车
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Integer userId;  // 用户id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "commodity_id")
-    private Integer commodityId;
+    private Integer commodityId; // 商品id
+
+    @Column(name = "detail")
+    private String detail; // 商品详细信息
 
     public Integer getUserId() {
         return userId;
@@ -90,4 +93,11 @@ public class Cart { // 购物车
         this.commodity = commodity;
     }
 
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 }

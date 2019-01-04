@@ -2,6 +2,7 @@ package muses.art.model.trade;
 
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
+import muses.art.model.commodity.CommodityListModel;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,8 +12,17 @@ public class CartModel implements Serializable {
     private Integer number;
     protected Date addTime;
     private Integer userId;
-    private Commodity commodity;
+    private CommodityListModel commodity;
     private Integer commodityId;
+    private String detail;
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public Integer getId() {
         return id;
@@ -46,11 +56,11 @@ public class CartModel implements Serializable {
         this.userId = userId;
     }
 
-    public Commodity getCommodity() {
+    public CommodityListModel getCommodity() {
         return commodity;
     }
 
-    public void setCommodity(Commodity commodity) {
+    public void setCommodity(CommodityListModel commodity) {
         this.commodity = commodity;
     }
 

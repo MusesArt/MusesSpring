@@ -21,7 +21,7 @@ public class OrderModel {
 
     private Integer userId;
 
-    private Integer addressId;
+    private String address;
 
     public Integer getId() {
         return id;
@@ -87,11 +87,11 @@ public class OrderModel {
         this.userId = userId;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

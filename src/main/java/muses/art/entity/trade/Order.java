@@ -39,12 +39,8 @@ public class Order { // 订单
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", insertable = false, updatable = false)
-    private Address address; // 订单地址对象 多对一
-
-    @Column(name = "address_id")
-    private Integer addressId;
+    @Column(name = "address")
+    private String address; // 订单地址-冗余数据
 
     // 刪除订单时，删除订单内的所有商品快照
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.REMOVE)
@@ -66,12 +62,8 @@ public class Order { // 订单
         this.userId = userId;
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Integer getId() {
@@ -136,14 +128,6 @@ public class Order { // 订单
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
 }

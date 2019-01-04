@@ -35,45 +35,6 @@ public interface OrderService {
      */
     Integer createOrderFromCart(OrderFromCartModel orderFromCartModel, int userId);
 
-
-    /**
-     * 增加待支付订单
-     *
-     * @param orderModel 订单model
-     * @param userId     用户id
-     * @param addressId  地址id
-     * @return Boolean
-     */
-    Boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId);
-
-    /**
-     * 增加已支付订单
-     *
-     * @param orderModel 订单model
-     * @param userId     用户id
-     * @param addressId  地址id
-     * @return Boolean
-     */
-    Boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId);
-
-
-    /**
-     * 更改待支付订单为已支付
-     *
-     * @param id 订单id
-     * @return Boolean
-     */
-    Boolean updateOrderStatus(int id);
-
-
-    /**
-     * 用户取消订单
-     * @param id 订单id
-     * @return Boolean
-     */
-    Boolean cancelOrder(int id);
-
-
     /**
      * 修改订单
      *
@@ -81,15 +42,6 @@ public interface OrderService {
      * @return Boolean
      */
     Boolean updateOrder(OrderModel orderModel);
-
-
-    /**
-     * 得到订单详细信息
-     * @param id 订单id
-     * @return OrderModel
-     */
-    OrderModel getOrderById(int id);
-
 
     /**
      * 分页列出某用户订单信息

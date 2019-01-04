@@ -12,6 +12,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/comment")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class CommentController {
 
     @Autowired
@@ -20,6 +21,7 @@ public class CommentController {
     @Autowired
     private CommentPraiseService commentPraiseService;
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{commodityId}/{page}/", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<PageModel<CommentModel>> findCommentByCommodityId(@PathVariable Integer page,
@@ -30,6 +32,7 @@ public class CommentController {
         return new StatusModel<>("获取评论列表成功", StatusModel.OK, pageModel);
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel<CommentModel> addComment(@RequestParam("comment") String comment,
@@ -42,6 +45,7 @@ public class CommentController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public @ResponseBody
     StatusModel<CommentModel> deleteComment(@RequestParam("orderCommodityId") Integer orderCommodityId) {
@@ -54,6 +58,7 @@ public class CommentController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<CommentModel> findCommentByOrderCommodityID(@RequestParam("orderCommodityId") Integer orderCommodityId) {
@@ -65,6 +70,7 @@ public class CommentController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/praise", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel<CommentModel> addPraiseByCommentIdAndUserId(@RequestParam("commentId") Integer commentId,
@@ -76,6 +82,8 @@ public class CommentController {
             return new StatusModel<>("点赞失败", StatusModel.ERROR);
         }
     }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/praise", method = RequestMethod.DELETE)
     public @ResponseBody StatusModel<CommentModel> deletePraiseByCommentIdAndUserId(@RequestParam("commentId") Integer commentId,
                                                                                     @RequestParam("userId") Integer userId) {

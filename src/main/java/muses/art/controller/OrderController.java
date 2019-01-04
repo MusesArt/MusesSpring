@@ -14,6 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/order")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class OrderController {
 
     @Autowired
@@ -23,6 +24,7 @@ public class OrderController {
     @Autowired
     private OrderCommodityService orderCommodityService;
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<List<OrderModel>> listOrder(@PathVariable int user_id) {
@@ -36,6 +38,7 @@ public class OrderController {
         return statusModel;
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{order_id}", method = RequestMethod.PUT)
     public @ResponseBody
     StatusModel updateOrder(@RequestBody OrderModel orderModel, @PathVariable int order_id) {
@@ -49,6 +52,7 @@ public class OrderController {
         return statusModel;
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{order_id}", method = RequestMethod.DELETE)
     public @ResponseBody
     StatusModel deleteOrder(@PathVariable int order_id) {
@@ -63,6 +67,7 @@ public class OrderController {
         return statusModel;
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel addOrder(@RequestBody OrderFromCartModel orderFromCartModel, @PathVariable int user_id) {

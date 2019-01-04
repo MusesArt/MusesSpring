@@ -15,12 +15,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/commodity")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class CommodityController {
 
     @Autowired
     private CommodityService commodityService;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<PageModel<CommodityListModel>> getCommoditiesPage(@PathVariable int page, @RequestParam int size,
@@ -62,6 +64,7 @@ public class CommodityController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "list/{page}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<List<CommodityListModel>> getCommodities(@PathVariable Integer page, @RequestParam Integer size,
@@ -103,6 +106,7 @@ public class CommodityController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<CommodityDetailModel> getCommodity(@PathVariable int id) {
@@ -115,6 +119,7 @@ public class CommodityController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
     StatusModel<CommodityDetailModel> deleteCommodity(@PathVariable int id) {

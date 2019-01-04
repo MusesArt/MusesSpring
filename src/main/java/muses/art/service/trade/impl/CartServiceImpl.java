@@ -29,8 +29,8 @@ public class CartServiceImpl implements CartService {
     private CommodityDao commodityDao;
 
     @Override
-    public Boolean addToCart(Integer userId, Integer commodityId, Integer number) {
-        Cart cart = findCartExist(userId, commodityId);
+    public Boolean addToCart(Integer userId, Integer commodityId, String detail, Integer number) {
+        Cart cart = findCartExist(userId, commodityId, detail);
         if (commodityDao.get(Commodity.class, commodityId) == null) return false;
         if (cart != null) {
             cart.setNumber(cart.getNumber() + 1);
@@ -41,6 +41,7 @@ public class CartServiceImpl implements CartService {
         cart.setUserId(userId);
         cart.setCommodityId(commodityId);
         cart.setNumber(number);
+        cart.setDetail(detail);
         cart.setAddTime(new Timestamp(System.currentTimeMillis()));
         cartDao.save(cart);
         return true;
@@ -75,13 +76,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart findCartExist(Integer userId, Integer commodityId) {
-        String SQL = "from Cart where userId=:uid and commodityId=:cid";
+    public Cart findCartExist(Integer userId, Integer commodityId, String detail) {
+        String SQL = "from Cart where userId=:uid and commodityId=:cid and detail=:detail";
         Map<String, Object> map = new HashMap<>();
         map.put("uid", userId);
         map.put("cid", commodityId);
+        map.put("detail", detail);
         List<Cart> carts = cartDao.find(SQL, map);
-        return carts.isEmpty()?null:carts.get(0);
+        return carts.isEmpty() ? null : carts.get(0);
     }
+
+
 
 }

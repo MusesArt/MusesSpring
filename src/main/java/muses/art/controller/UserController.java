@@ -8,14 +8,12 @@ import muses.art.service.user.VerifyCodeService;
 import muses.art.util.Hasher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 @RequestMapping("api/user")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
 
     @Autowired
@@ -24,6 +22,7 @@ public class UserController {
     @Autowired
     private VerifyCodeService verifyCodeService;
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/login/username", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> loginByUsername(@RequestParam("username") String username,
                                                        @RequestParam("password") String password) {
@@ -31,6 +30,7 @@ public class UserController {
         return login(user, password);
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/login/mobile", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> loginByMobile(@RequestParam("mobile") String mobile,
                                                                  @RequestParam("password") String password) {
@@ -38,6 +38,7 @@ public class UserController {
         return login(user, password);
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> registerByMobile(@RequestParam("mobile") String mobile,
                                                                   @RequestParam("password") String password,
@@ -52,6 +53,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/password", method = RequestMethod.POST)
     public @ResponseBody StatusModel<TokenModel> changePassword(@RequestParam("userId") Integer id,
                                                                   @RequestParam("old") String oldPassword,
@@ -68,6 +70,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public @ResponseBody StatusModel<TokenModel> deleteByUserId(@RequestParam("userId") Integer id,
                                                                   @RequestParam("password") String password) {
