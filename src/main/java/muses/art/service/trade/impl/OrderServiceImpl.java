@@ -4,10 +4,9 @@ import muses.art.dao.trade.CartDao;
 import muses.art.dao.trade.OrderDao;
 import muses.art.entity.trade.Cart;
 import muses.art.entity.trade.Order;
-import muses.art.entity.trade.OrderCommodity;
+import muses.art.model.trade.CartModel;
 import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
-import muses.art.service.trade.OrderCommodityService;
 import muses.art.service.trade.OrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @Transactional
@@ -27,10 +24,18 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Autowired
-    private OrderCommodityService orderCommodityService;
-
-    @Autowired
     private CartDao cartDao;
+
+    @Override
+    public Float calculateAmount(List<Integer> cartIds) {
+        if (cartIds.isEmpty())return null;
+        AtomicReference<Float> amount = new AtomicReference<>(0f);
+        cartIds.forEach(cartId-> {
+            Cart cart = cartDao.get(Cart.class, cartId);
+            amount.updateAndGet(v -> v + cart.getNumber() * cart.getCommodity().getDiscountPrice());
+        });
+        return amount.get();
+    }
 
     @Override
     public List<OrderModel> listOrders(Integer userId) {
@@ -40,7 +45,8 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orders = orderDao.find(SQL, map);
         if (orders.isEmpty()) return null;
         List<OrderModel> orderModels = new ArrayList<>();
-        return orderDao.getModelMapper().map(orders, orderModels.getClass());
+        orders.forEach(order -> orderModels.add(orderDao.getModelMapper().map(order, OrderModel.class)));
+        return orderModels;
     }
 
     @Override
@@ -48,7 +54,6 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.get(Order.class, id);
         if (order == null) return false;
         orderDao.delete(order);
-        order.getOrderCommodities().forEach(orderCommodity1 -> orderCommodityService.delete(orderCommodity1.getId()));
         return true;
     }
 
@@ -57,33 +62,23 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.get(Order.class, id);
         if (order == null) return false;
         order.setPayStatus(payStatus);
-        if (payStatus == "payed") order.setPayTime(new Timestamp(System.currentTimeMillis()));
+        if (payStatus.equals("未支付")) order.setPayTime(new Timestamp(System.currentTimeMillis()));
         orderDao.update(order);
         return true;
     }
 
     @Override
-    public Order createOrderFromCart(OrderFromCartModel orderFromCartModel) {
-        ArrayList<Integer> cartIds = orderFromCartModel.getCartIds();
+    public Integer createOrderFromCart(OrderFromCartModel orderFromCartModel, int userId) {
         Integer addressId = orderFromCartModel.getAddressId();
-        ArrayList<OrderCommodity> orderCommodities = new ArrayList<>();
+        if (addressId==null) return null;
         Order order = new Order();
-        cartIds.forEach(cartId -> {
-            OrderCommodity orderCommodity = new OrderCommodity();
-            Cart cart = cartDao.get(Cart.class, cartId);
-            if (cart == null) return;
-            orderCommodity.setCommodityId(cart.getCommodityId());
-            orderCommodity.setOrderId(order.getId());
-            orderCommodity.setBrief(cart.getCommodity().getBrief());
-            orderCommodity.setPrice(cart.getCommodity().getDiscountPrice());
-            orderCommodities.add(orderCommodity);
-        });
-        if (cartIds.size() != orderCommodities.size()) return null;
-        order.setOrderCommodities(orderCommodities);
+        order.setUserId(userId);
         order.setPayStatus("-1");
         order.setAddressId(addressId);
+        order.setOrderAmount(calculateAmount(orderFromCartModel.getCartIds()));
+        order.setOrderSN(UUID.randomUUID().toString().replace("-", ""));
         orderDao.save(order);
-        return order;
+        return order.getId();
     }
 
     @Override
@@ -153,6 +148,19 @@ public class OrderServiceImpl implements OrderService {
             orderModels.add(orderModel);
         }
         return orderModels;
+    }
+
+    public List<CartModel> entity2model(List<Cart> carts) {
+        if (carts.isEmpty()) return null;
+        List<CartModel> cartModels = new ArrayList<>();
+        carts.forEach(cart -> {
+            CartModel cartModel = new CartModel();
+            cartModel.setUserId(cart.getUserId());
+            cartModel.setAddTime(cart.getAddTime());
+            cartModel.setCommodityId(cart.getCommodityId());
+            cartModels.add(cartModel);
+        });
+        return cartModels;
     }
 
 }

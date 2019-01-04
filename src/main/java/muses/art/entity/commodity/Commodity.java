@@ -57,7 +57,6 @@ public class Commodity {
     private String information; // 商品具体信息
 
     // 若商品删除，则其所属的所有图片可以删除
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity", cascade = CascadeType.REMOVE)
     private List<Image> images; // 商品图片列表 一对多
 
     @ManyToOne(fetch = FetchType.LAZY)

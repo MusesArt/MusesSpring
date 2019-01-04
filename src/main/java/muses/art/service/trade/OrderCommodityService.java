@@ -1,18 +1,19 @@
 package muses.art.service.trade;
 
-import muses.art.entity.trade.OrderCommodity;
+import java.util.List;
 
 public interface OrderCommodityService {
     /**
      *
-     * @param orderCommodity
+     * @param cartIds 购物车id
+     * @param orderId 订单id
      * @return
      */
-    Boolean add(OrderCommodity orderCommodity);
+    Boolean add(List<Integer> cartIds, Integer orderId);
 
     /**
-     * @param id 订购的商品id
+     * @param orderId 订单id
      * @return
      */
-    Boolean delete(Integer id);
+    Boolean delete(Integer orderId);
 }

@@ -4,7 +4,9 @@ import muses.art.dao.common.BaseDao;
 import org.hibernate.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.convention.NamingConventions;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -185,7 +187,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         modelMapper.getConfiguration()
                 .setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
-                .setSourceNamingConvention(NamingConventions.JAVABEANS_MUTATOR);
+                .setSourceNamingConvention(NamingConventions.JAVABEANS_MUTATOR)
+                .setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper;
     }
 

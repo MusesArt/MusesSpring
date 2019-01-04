@@ -1,6 +1,5 @@
 package muses.art.service.trade;
 
-import muses.art.entity.trade.Order;
 import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
 
@@ -9,6 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
+    Float calculateAmount(List<Integer> cartIds);
     /**
      * @param userId 用户id
      * @return
@@ -33,7 +33,7 @@ public interface OrderService {
      * @param orderFromCartModel
      * @return
      */
-    Order createOrderFromCart(OrderFromCartModel orderFromCartModel);
+    Integer createOrderFromCart(OrderFromCartModel orderFromCartModel, int userId);
 
 
     /**
