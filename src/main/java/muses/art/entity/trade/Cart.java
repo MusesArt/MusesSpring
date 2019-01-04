@@ -37,6 +37,17 @@ public class Cart { // 购物车
     @Column(name = "detail")
     private String detail; // 商品详细信息
 
+    @Column(name = "image")
+    private String image; // 冗余图像地址
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Integer getUserId() {
         return userId;
     }

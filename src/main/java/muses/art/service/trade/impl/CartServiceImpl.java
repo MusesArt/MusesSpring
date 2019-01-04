@@ -2,7 +2,9 @@ package muses.art.service.trade.impl;
 
 import muses.art.dao.commodity.CommodityDao;
 import muses.art.dao.trade.CartDao;
+import muses.art.dao.trade.ParameterDao;
 import muses.art.entity.commodity.Commodity;
+import muses.art.entity.commodity.Parameter;
 import muses.art.entity.trade.Cart;
 import muses.art.model.commodity.CommodityListModel;
 import muses.art.model.trade.CartModel;
@@ -27,11 +29,15 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartDao cartDao;
+
     @Autowired
     private CommodityDao commodityDao;
 
+    @Autowired
+    private ParameterDao parameterDao;
+
     @Override
-    public Boolean addToCart(Integer userId, Integer commodityId, String detail, Integer number) {
+    public Boolean addToCart(Integer userId, Integer commodityId, String detail, Integer number, Integer parameterId) {
         Cart cart = findCartExist(userId, commodityId, detail);
         if (commodityDao.get(Commodity.class, commodityId) == null) return false;
         if (cart != null) {
@@ -44,6 +50,13 @@ public class CartServiceImpl implements CartService {
         cart.setCommodityId(commodityId);
         cart.setNumber(number);
         cart.setDetail(detail);
+        Parameter parameter = parameterDao.get(Parameter.class, parameterId);
+        String image = parameter.getImage();
+        if (image == null || image.length() == 0) { // 属性没有图
+            cart.setImage(cart.getCommodity().getCoverImage());
+        } else { // 属性有图
+            cart.setImage(image);
+        }
         cart.setAddTime(new Timestamp(System.currentTimeMillis()));
         cartDao.save(cart);
         return true;
@@ -94,7 +107,5 @@ public class CartServiceImpl implements CartService {
         List<Cart> carts = cartDao.find(SQL, map);
         return carts.isEmpty() ? null : carts.get(0);
     }
-
-
 
 }

@@ -13,7 +13,7 @@ public interface CartService {
      * @param number      商品数量
      * @return 操作状态
      */
-    Boolean addToCart(Integer userId, Integer commodityId, String detail, Integer number);
+    Boolean addToCart(Integer userId, Integer commodityId, String detail, Integer number, Integer parameterId);
 
     /**
      * @param id 购物车id

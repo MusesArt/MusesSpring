@@ -4,6 +4,7 @@ import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
 import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.commodity.CommodityListModel;
+import muses.art.model.commodity.SearchModel;
 import muses.art.service.commodity.CommodityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +24,13 @@ public class CommodityController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/page/{page}", method = RequestMethod.GET)
+    @RequestMapping(value = "/page/{page}", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel<PageModel<CommodityListModel>> getCommoditiesPage(@PathVariable int page, @RequestParam int size,
-                                                                  @RequestParam int sortType, @RequestParam Boolean isASC,
-                                                                  @RequestParam String keyword) {
-        switch (sortType) {
+    StatusModel<PageModel<CommodityListModel>> getCommoditiesPage(@PathVariable int page, @RequestBody SearchModel searchModel) {
+        System.out.println(searchModel);
+        switch (searchModel.getSortType()) {
             case 0:
-                PageModel<CommodityListModel> timeModels = commodityService.findCommoditiesPageOrderByTime(keyword, page, size, isASC);
+                PageModel<CommodityListModel> timeModels = commodityService.findCommoditiesPageOrderByTime(searchModel.getKeyword(), page, searchModel.getSize(), searchModel.getAsc());
                 if (timeModels != null) {
                     return new StatusModel<>(timeModels);
                 } else {
@@ -38,7 +38,7 @@ public class CommodityController {
                     return new StatusModel<>("获取时间排序分页商品列表信息失败");
                 }
             case 1:
-                PageModel<CommodityListModel> priceModels = commodityService.findCommoditiesPageOrderByPrice(keyword, page, size, isASC);
+                PageModel<CommodityListModel> priceModels = commodityService.findCommoditiesPageOrderByPrice(searchModel.getKeyword(), page, searchModel.getSize(), searchModel.getAsc());
                 if (priceModels != null) {
                     return new StatusModel<>(priceModels);
                 } else {
@@ -46,7 +46,7 @@ public class CommodityController {
                     return new StatusModel<>("获取价格排序分页商品列表信息失败");
                 }
             case 2:
-                PageModel<CommodityListModel> salesVolumeModel = commodityService.findCommoditiesPageOrderBySalesVolume(keyword, page, size, isASC);
+                PageModel<CommodityListModel> salesVolumeModel = commodityService.findCommoditiesPageOrderBySalesVolume(searchModel.getKeyword(), page, searchModel.getSize(), searchModel.getAsc());
                 if (salesVolumeModel != null) {
                     return new StatusModel<>(salesVolumeModel);
                 } else {
@@ -54,7 +54,7 @@ public class CommodityController {
                     return new StatusModel<>("获取销量排序分页商品列表信息失败");
                 }
             default:
-                PageModel<CommodityListModel> models = commodityService.findCommoditiesPage(keyword, page, size);
+                PageModel<CommodityListModel> models = commodityService.findCommoditiesPage(searchModel.getKeyword(), page, searchModel.getSize());
                 if (models != null) {
                     return new StatusModel<>(models);
                 } else {
@@ -65,14 +65,12 @@ public class CommodityController {
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "list/{page}", method = RequestMethod.GET)
+    @RequestMapping(value = "list/{page}", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel<List<CommodityListModel>> getCommodities(@PathVariable Integer page, @RequestParam Integer size,
-                                                         @RequestParam Integer sortType, @RequestParam Boolean isASC,
-                                                         @RequestParam String keyword) {
-        switch (sortType) {
+    StatusModel<List<CommodityListModel>> getCommodities(@PathVariable Integer page, @RequestBody SearchModel searchModel) {
+        switch (searchModel.getSortType()) {
             case 0:
-                List<CommodityListModel> timeModels = commodityService.findCommoditiesOrderByTime(keyword, page, size, isASC);
+                List<CommodityListModel> timeModels = commodityService.findCommoditiesOrderByTime(searchModel.getKeyword(), page, searchModel.getSize(), searchModel.getAsc());
                 if (timeModels != null) {
                     return new StatusModel<>(timeModels);
                 } else {
@@ -80,7 +78,7 @@ public class CommodityController {
                     return new StatusModel<>("获取时间排序商品列表信息失败");
                 }
             case 1:
-                List<CommodityListModel> priceModels = commodityService.findCommoditiesOrderByPrice(keyword, page, size, isASC);
+                List<CommodityListModel> priceModels = commodityService.findCommoditiesOrderByPrice(searchModel.getKeyword(), page, searchModel.getSize(), searchModel.getAsc());
                 if (priceModels != null) {
                     return new StatusModel<>(priceModels);
                 } else {
@@ -88,7 +86,7 @@ public class CommodityController {
                     return new StatusModel<>("获取价格排序商品列表信息失败");
                 }
             case 2:
-                List<CommodityListModel> salesVolumeModel = commodityService.findCommoditiesOrderBySalesVolume(keyword, page, size, isASC);
+                List<CommodityListModel> salesVolumeModel = commodityService.findCommoditiesOrderBySalesVolume(searchModel.getKeyword(), page, searchModel.getSize(), searchModel.getAsc());
                 if (salesVolumeModel != null) {
                     return new StatusModel<>(salesVolumeModel);
                 } else {
@@ -96,7 +94,7 @@ public class CommodityController {
                     return new StatusModel<>("获取销量排序商品列表信息失败");
                 }
             default:
-                List<CommodityListModel> models = commodityService.findCommodities(keyword, page, size);
+                List<CommodityListModel> models = commodityService.findCommodities(searchModel.getKeyword(), page, searchModel.getSize());
                 if (models != null) {
                     return new StatusModel<>(models);
                 } else {

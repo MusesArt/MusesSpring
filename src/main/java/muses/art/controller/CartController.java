@@ -63,7 +63,8 @@ public class CartController {
     public @ResponseBody
     StatusModel addToCart(@RequestBody CartModel cartModel, @PathVariable int userId) {
         StatusModel statusModel;
-        Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getDetail(), cartModel.getNumber());
+        Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(),
+                cartModel.getDetail(), cartModel.getNumber(), cartModel.getParameterId());
         if (!status) {
             statusModel = new StatusModel("购物车数据更新失败");
         } else {

@@ -14,6 +14,15 @@ public class CartModel implements Serializable {
     private CommodityListModel commodity;
     private Integer commodityId;
     private String detail;
+    private Integer parameterId;
+
+    public Integer getParameterId() {
+        return parameterId;
+    }
+
+    public void setParameterId(Integer parameterId) {
+        this.parameterId = parameterId;
+    }
 
     public String getDetail() {
         return detail;
