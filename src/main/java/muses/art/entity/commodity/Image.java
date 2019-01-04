@@ -1,6 +1,9 @@
 package muses.art.entity.commodity;
 
+
+import lombok.extern.apachecommons.CommonsLog;
 import muses.art.entity.operation.Comment;
+
 import javax.persistence.*;
 
 @Entity

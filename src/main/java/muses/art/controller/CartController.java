@@ -62,7 +62,7 @@ public class CartController {
         StatusModel statusModel;
         Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getNumber());
         if (!status) {
-            statusModel = new StatusModel("购物车内已有此商品");
+            statusModel = new StatusModel("购物车数据更新失败");
         } else {
             statusModel = new StatusModel("购物车数据更新成功", StatusModel.OK);
         }

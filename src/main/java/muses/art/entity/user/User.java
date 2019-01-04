@@ -1,7 +1,6 @@
 package muses.art.entity.user;
 
 import muses.art.entity.filter.Filter;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Date;

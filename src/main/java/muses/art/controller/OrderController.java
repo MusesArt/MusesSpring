@@ -1,6 +1,5 @@
 package muses.art.controller;
 
-import muses.art.entity.trade.Order;
 import muses.art.model.base.StatusModel;
 import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
@@ -30,7 +29,7 @@ public class OrderController {
         StatusModel<List<OrderModel>> statusModel;
         List<OrderModel> orderModels = orderService.listOrders(user_id);
         if (orderModels == null) {
-            statusModel = new StatusModel<>("订单数据获取异常");
+            statusModel = new StatusModel<>("没有订单");
         } else {
             statusModel = new StatusModel<>(orderModels);
         }
@@ -52,9 +51,10 @@ public class OrderController {
 
     @RequestMapping(value = "/{order_id}", method = RequestMethod.DELETE)
     public @ResponseBody
-    StatusModel deleteFromOrder(@PathVariable int order_id) {
+    StatusModel deleteOrder(@PathVariable int order_id) {
         StatusModel statusModel;
         Boolean status = orderService.deleteOrder(order_id);
+        orderCommodityService.delete(order_id);
         if (!status) {
             statusModel = new StatusModel<>("无此订单");
         } else {
@@ -67,13 +67,14 @@ public class OrderController {
     public @ResponseBody
     StatusModel addOrder(@RequestBody OrderFromCartModel orderFromCartModel, @PathVariable int user_id) {
         StatusModel statusModel;
-        Order order = orderService.createOrderFromCart(orderFromCartModel);
-        if (order == null) {
+        Integer orderId = orderService.createOrderFromCart(orderFromCartModel, user_id);
+        if (orderId == null) {
             statusModel = new StatusModel<>("订单创建失败");
         } else {
-            order.getOrderCommodities().forEach(orderCommodity -> orderCommodityService.add(orderCommodity));
-            orderFromCartModel.getCartIds().forEach(cartid -> {
-                cartService.deleteFromCart(cartid);
+            List<Integer> cartIds = orderFromCartModel.getCartIds();
+            orderCommodityService.add(cartIds, orderId);
+            cartIds.forEach(cartId -> {
+                cartService.deleteFromCart(cartId);
             });
             statusModel = new StatusModel<>("订单创建成功", "0");
         }
