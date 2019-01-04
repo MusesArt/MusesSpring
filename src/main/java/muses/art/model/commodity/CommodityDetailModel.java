@@ -1,5 +1,7 @@
 package muses.art.model.commodity;
 
+import muses.art.entity.commodity.Attribute;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,11 +19,12 @@ public class CommodityDetailModel {
     private String brief; // 商品简介
     private String description; // 商品详情webview地址
     private Integer shipFree; // 是否包邮
-    private Boolean isNew; // 是否新品
     private Boolean isHot; // 是否热门
     private Date updateTime; //更新时间
     private String coverImage; // 封面图片地址
     private List<String> imageUrls; // 商品图片链接列表
+    private List<AttributeModel> attributes;
+    private String information;
 
     public Integer getId() {
         return id;
@@ -119,14 +122,6 @@ public class CommodityDetailModel {
         this.shipFree = shipFree;
     }
 
-    public Boolean isNew() {
-        return isNew;
-    }
-
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
-    }
-
     public Boolean isHot() {
         return isHot;
     }
@@ -157,5 +152,21 @@ public class CommodityDetailModel {
 
     public void setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public List<AttributeModel> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<AttributeModel> attributes) {
+        this.attributes = attributes;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 }

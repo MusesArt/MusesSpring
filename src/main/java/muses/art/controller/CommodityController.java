@@ -115,4 +115,15 @@ public class CommodityController {
         }
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    StatusModel<CommodityDetailModel> deleteCommodity(@PathVariable int id) {
+        boolean flag = commodityService.deleteCommodity(id);
+        if (flag) {
+            return new StatusModel<>("删除成功", StatusModel.OK);
+        } else {
+            return new StatusModel<>("商品不存在", StatusModel.ERROR);
+        }
+    }
+
 }

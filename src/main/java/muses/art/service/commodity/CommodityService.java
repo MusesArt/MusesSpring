@@ -31,7 +31,7 @@ public interface CommodityService {
      * 删除商品
      * @param commodityId 商品 id
      */
-    void deleteCommodity(int commodityId);
+    Boolean deleteCommodity(int commodityId);
 
     /**
      * 获得单个商品信息

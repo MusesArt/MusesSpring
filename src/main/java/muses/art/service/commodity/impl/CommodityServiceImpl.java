@@ -1,12 +1,18 @@
 package muses.art.service.commodity.impl;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import muses.art.dao.commodity.CommodityDao;
+import muses.art.entity.commodity.Attribute;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.commodity.Image;
+import muses.art.entity.commodity.Parameter;
 import muses.art.model.base.PageModel;
+import muses.art.model.commodity.AttributeModel;
 import muses.art.model.commodity.CommodityDetailModel;
 import muses.art.model.commodity.CommodityListModel;
+import muses.art.model.commodity.ParameterModel;
 import muses.art.service.commodity.CommodityService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,9 +50,14 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public void deleteCommodity(int commodityId) {
+    public Boolean deleteCommodity(int commodityId) {
         Commodity commodity = commodityDao.get(Commodity.class, commodityId);
-        commodityDao.delete(commodity);
+        if (commodity != null) {
+            commodityDao.delete(commodity);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -174,18 +185,7 @@ public class CommodityServiceImpl implements CommodityService {
 
     //更新商品
     private Commodity detailModel2entity(Commodity commodity, CommodityDetailModel model) {
-
-        commodity.setCommoditySN(model.getCommoditySN());
-        commodity.setName(model.getName());
-        commodity.setClickNum(model.getClickNum());
-        commodity.setSoldNum(model.getSoldNum());
-        commodity.setGoodsNum(model.getGoodsNum());
-        commodity.setOriginalPrice(model.getOriginalPrice());
-        commodity.setDiscountPrice(model.getDiscountPrice());
-        commodity.setBrief(model.getBrief());
-        commodity.setDescription(model.getDescription());
-        commodity.setShipFree(model.getShipFree());
-        commodity.setHot(model.isHot());
+        BeanUtils.copyProperties(commodity, model);
         commodity.setUpdateTime(new Date(System.currentTimeMillis()));
         return commodity;
     }
@@ -194,21 +194,22 @@ public class CommodityServiceImpl implements CommodityService {
     private CommodityDetailModel entity2detailModel(Commodity commodity) {
         if (commodity != null) {
             CommodityDetailModel model = new CommodityDetailModel();
-            model.setId(commodity.getId());
-            model.setCommoditySN(commodity.getCommoditySN());
-            model.setName(commodity.getName());
-            model.setClickNum(commodity.getClickNum());
-            model.setSoldNum(commodity.getSoldNum());
-            model.setGoodsNum(commodity.getGoodsNum());
-            model.setOriginalPrice(commodity.getOriginalPrice());
-            model.setDiscountPrice(commodity.getDiscountPrice());
-            model.setBrief(commodity.getBrief());
-            model.setDescription(commodity.getDescription());
-            model.setShipFree(commodity.getShipFree());
-            model.setHot(commodity.isHot());
-            model.setUpdateTime(commodity.getUpdateTime());
-            model.setCoverImage(commodity.getCoverImage());
+            BeanUtils.copyProperties(commodity, model);
             model.setImageUrls(entity2imageUrls(commodity.getImages()));
+            List<AttributeModel> attributeModels = new ArrayList<>();
+            for (Attribute attribute : commodity.getAttributes()) {
+                AttributeModel attributeModel = new AttributeModel();
+                BeanUtils.copyProperties(attribute, attributeModel);
+                List<ParameterModel> parameterModels = new ArrayList<>();
+                for (Parameter parameter:attribute.getParameters()) {
+                    ParameterModel parameterModel = new ParameterModel();
+                    BeanUtils.copyProperties(parameter, parameterModel);
+                    parameterModels.add(parameterModel);
+                }
+                attributeModel.setParameters(parameterModels);
+                attributeModels.add(attributeModel);
+            }
+            model.setAttributes(attributeModels);
             return model;
         } else {
             return null;
@@ -219,11 +220,7 @@ public class CommodityServiceImpl implements CommodityService {
     private CommodityListModel entity2listModel(Commodity commodity) {
         if (commodity != null) {
             CommodityListModel model = new CommodityListModel();
-            model.setId(commodity.getId());
-            model.setBrief(commodity.getBrief());
-            model.setCoverImage(commodity.getCoverImage());
-            model.setDiscountPrice(commodity.getDiscountPrice());
-            model.setName(commodity.getName());
+            BeanUtils.copyProperties(commodity, model);
             return model;
         }
         return null;

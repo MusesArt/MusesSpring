@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
             user.setMobile(mobile);
             user.setLevel(0);
             user.setToken(generateToken());
+            user.setAvatar("https://s1.ax1x.com/2018/06/22/PpsPDf.jpg");
             userDao.save(user);
             return true;
         }

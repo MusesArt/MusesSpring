@@ -35,7 +35,7 @@ public class Commodity {
     @Column(name = "brief")
     private String brief; // 商品简介
 
-    @Column(name = "description")
+    @Column(name = "description", length = 4096)
     private String description; // 商品详情webview地址
 
     @Column(name = "ship_free")
