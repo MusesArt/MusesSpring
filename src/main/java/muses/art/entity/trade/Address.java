@@ -122,5 +122,8 @@ public class Address { // 收货地址
         this.user = user;
     }
 
-
+    @Override
+    public String toString() {
+        return province+city+district+address+";"+signerName+";"+signerMobile;
+    }
 }

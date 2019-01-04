@@ -4,10 +4,12 @@ import muses.art.dao.commodity.CommodityDao;
 import muses.art.dao.trade.CartDao;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.trade.Cart;
+import muses.art.model.commodity.CommodityListModel;
 import muses.art.model.trade.CartModel;
 import muses.art.service.trade.CartService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,7 +73,14 @@ public class CartServiceImpl implements CartService {
         map.put("id", userId);
         List<Cart> carts = cartDao.find(SQL, map);
         List<CartModel> cartModels = new ArrayList<>();
-        carts.forEach(cart->cartModels.add(cartDao.getModelMapper().map(cart, CartModel.class)));
+        carts.forEach(cart->{
+            CartModel cartModel = cartDao.getModelMapper().map(cart, CartModel.class);
+            Commodity commodity = commodityDao.get(Commodity.class, cartModel.getCommodityId());
+            CommodityListModel commodityListModel = new CommodityListModel();
+            BeanUtils.copyProperties(commodity, commodityListModel);
+            cartModel.setCommodity(commodityListModel);
+            cartModels.add(cartModel);
+        });
         return cartModels;
     }
 

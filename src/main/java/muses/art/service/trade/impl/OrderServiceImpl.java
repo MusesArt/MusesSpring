@@ -3,6 +3,7 @@ package muses.art.service.trade.impl;
 import muses.art.dao.trade.AddressDao;
 import muses.art.dao.trade.CartDao;
 import muses.art.dao.trade.OrderDao;
+import muses.art.entity.trade.Address;
 import muses.art.entity.trade.Cart;
 import muses.art.entity.trade.Order;
 import muses.art.model.trade.CartModel;
@@ -78,7 +79,8 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setUserId(userId);
         order.setPayStatus("-1");
-//        order.setAddress(addressDao.find());
+        Address address = addressDao.get(Address.class, addressId);
+        order.setAddress(address.toString());
         order.setOrderAmount(calculateAmount(orderFromCartModel.getCartIds()));
         order.setOrderSN(UUID.randomUUID().toString().replace("-", ""));
         orderDao.save(order);
@@ -99,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
         Map<String,Object> map = new HashMap<>();
         map.put("userId", userId);
         List<Order> orders = orderDao.find(hql,map,start,max);
-        List<OrderModel> orderModels = new ArrayList<OrderModel>();
+        List<OrderModel> orderModels = new ArrayList<>();
         for(Order order : orders) {
             OrderModel orderModel = new OrderModel();
             BeanUtils.copyProperties(order, orderModel);

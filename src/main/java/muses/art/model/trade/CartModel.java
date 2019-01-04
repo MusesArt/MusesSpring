@@ -10,7 +10,6 @@ import java.util.Date;
 public class CartModel implements Serializable {
     private Integer id;
     private Integer number;
-    protected Date addTime;
     private Integer userId;
     private CommodityListModel commodity;
     private Integer commodityId;
@@ -38,14 +37,6 @@ public class CartModel implements Serializable {
 
     public void setNumber(Integer number) {
         this.number = number;
-    }
-
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
     }
 
     public Integer getUserId() {
