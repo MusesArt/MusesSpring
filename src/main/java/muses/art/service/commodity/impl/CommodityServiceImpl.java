@@ -1,6 +1,5 @@
 package muses.art.service.commodity.impl;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import muses.art.dao.commodity.CommodityDao;
 import muses.art.entity.commodity.Attribute;
 import muses.art.entity.commodity.Commodity;
