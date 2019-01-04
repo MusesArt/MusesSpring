@@ -17,8 +17,6 @@ public class AddressModel {
 
     private String signerMobile; // 签收人手机
 
-    private Date addTime; // 添加时间
-
     private Integer userId;
 
     public Integer getId() {
@@ -75,14 +73,6 @@ public class AddressModel {
 
     public void setSignerMobile(String signerMobile) {
         this.signerMobile = signerMobile;
-    }
-
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
     }
 
     public Integer getUserId() {
