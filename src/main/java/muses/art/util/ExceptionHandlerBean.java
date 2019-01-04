@@ -1,19 +1,17 @@
-//package muses.art.util;
-//
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.ControllerAdvice;
-//import org.springframework.web.bind.annotation.ExceptionHandler;
-//import org.springframework.web.context.request.WebRequest;
-//import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-//
-//import java.io.IOException;
-//
-//@ControllerAdvice
-//public class ExceptionHandlerBean extends ResponseEntityExceptionHandler {
-//
-//     @ExceptionHandler({DataNotFoundException.class})
-//     public ResponseEntity<Object> handleDataNotFoundException(RuntimeException ex, WebRequest request) throws IOException {
-//
-//         return ;
-//    }
-//}
+package muses.art.util;
+
+import muses.art.model.base.StatusModel;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+@ControllerAdvice
+class GlobalDefaultExceptionHandler {
+    @ExceptionHandler(value = Exception.class)
+    public @ResponseBody StatusModel defaultErrorHandler() {
+        return new StatusModel("出现异常，请联系管理员");
+    }
+}
+
+

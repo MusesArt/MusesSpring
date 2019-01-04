@@ -37,7 +37,9 @@ public class OrderServiceImpl implements OrderService {
         AtomicReference<Float> amount = new AtomicReference<>(0f);
         cartIds.forEach(cartId-> {
             Cart cart = cartDao.get(Cart.class, cartId);
-            amount.updateAndGet(v -> v + cart.getNumber() * cart.getCommodity().getDiscountPrice());
+            if (cart != null) {
+                amount.updateAndGet(v -> v + cart.getNumber() * cart.getCommodity().getDiscountPrice());
+            }
         });
         return amount.get();
     }
