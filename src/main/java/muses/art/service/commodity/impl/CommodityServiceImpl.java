@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("Duplicates")
 @Service
 @Transactional()
 public class CommodityServiceImpl implements CommodityService {
@@ -180,14 +179,12 @@ public class CommodityServiceImpl implements CommodityService {
         commodity.setName(model.getName());
         commodity.setClickNum(model.getClickNum());
         commodity.setSoldNum(model.getSoldNum());
-        commodity.setFavoriteNum(model.getFavoriteNum());
         commodity.setGoodsNum(model.getGoodsNum());
         commodity.setOriginalPrice(model.getOriginalPrice());
         commodity.setDiscountPrice(model.getDiscountPrice());
         commodity.setBrief(model.getBrief());
         commodity.setDescription(model.getDescription());
         commodity.setShipFree(model.getShipFree());
-        commodity.setNew(model.isNew());
         commodity.setHot(model.isHot());
         commodity.setUpdateTime(new Date(System.currentTimeMillis()));
         return commodity;
@@ -202,14 +199,12 @@ public class CommodityServiceImpl implements CommodityService {
             model.setName(commodity.getName());
             model.setClickNum(commodity.getClickNum());
             model.setSoldNum(commodity.getSoldNum());
-            model.setFavoriteNum(commodity.getFavoriteNum());
             model.setGoodsNum(commodity.getGoodsNum());
             model.setOriginalPrice(commodity.getOriginalPrice());
             model.setDiscountPrice(commodity.getDiscountPrice());
             model.setBrief(commodity.getBrief());
             model.setDescription(commodity.getDescription());
             model.setShipFree(commodity.getShipFree());
-            model.setNew(commodity.isNew());
             model.setHot(commodity.isHot());
             model.setUpdateTime(commodity.getUpdateTime());
             model.setCoverImage(commodity.getCoverImage());
