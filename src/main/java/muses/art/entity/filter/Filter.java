@@ -23,7 +23,7 @@ public class Filter {
     @Column(name = "vip_only")
     private Boolean VipOnly; // 是否需要VIP
 
-    @Column(name = "public_data")
+    @Column(name = "publish_date")
     private Date publishData; // 发布日期
 
     @Column(name = "description")

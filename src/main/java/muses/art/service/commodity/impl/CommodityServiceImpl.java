@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional()
+@Transactional
 public class CommodityServiceImpl implements CommodityService {
 
     @Autowired
