@@ -1,5 +1,6 @@
 package muses.art.controller;
 
+import muses.art.entity.operation.Comment;
 import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
 import muses.art.model.operation.CommentModel;
@@ -25,19 +26,17 @@ public class CommentController {
     @RequestMapping(value = "/{commodityId}/{page}/", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<PageModel<CommentModel>> findCommentByCommodityId(@PathVariable Integer page,
-                                                             @PathVariable Integer commodityId,
-                                                             @RequestParam("size") Integer size) {
-        List<CommentModel> comments = commentService.findCommentByCommodityIdAndPage(commodityId, page, size);
-        PageModel<CommentModel> pageModel = commentService.findCommentPage(comments, page, size);
+                                                             @PathVariable Integer commodityId) {
+        List<CommentModel> comments = commentService.findCommentByCommodityIdAndPage(commodityId, page, 10);
+        PageModel<CommentModel> pageModel = commentService.findCommentPage(comments, page, 10);
         return new StatusModel<>("获取评论列表成功", StatusModel.OK, pageModel);
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel<CommentModel> addComment(@RequestParam("comment") String comment,
-                                         @RequestParam("orderCommodityId") Integer orderCommodityId) {
-        Boolean flag = commentService.addComment(comment, orderCommodityId);
+    StatusModel<CommentModel> addComment(@RequestBody CommentModel commentModel) {
+        Boolean flag = commentService.addComment(commentModel.getContent(), commentModel.getOrderCommodityId());
         if (flag) {
             return new StatusModel<>("添加评论成功", StatusModel.OK);
         } else {
@@ -48,8 +47,8 @@ public class CommentController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public @ResponseBody
-    StatusModel<CommentModel> deleteComment(@RequestParam("orderCommodityId") Integer orderCommodityId) {
-        CommentModel commentModel = commentService.findCommentByOrderCommodityId(orderCommodityId);
+    StatusModel<CommentModel> deleteComment(@RequestBody CommentModel c) {
+        CommentModel commentModel = commentService.findCommentByOrderCommodityId(c.getOrderCommodityId());
         if (commentModel != null) {
             commentService.deleteComment(commentModel.getId());
             return new StatusModel<>("删除评论成功", StatusModel.OK);
@@ -61,8 +60,8 @@ public class CommentController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody
-    StatusModel<CommentModel> findCommentByOrderCommodityID(@RequestParam("orderCommodityId") Integer orderCommodityId) {
-        CommentModel commentModel = commentService.findCommentByOrderCommodityId(orderCommodityId);
+    StatusModel<CommentModel> findCommentByOrderCommodityID(@RequestBody CommentModel c) {
+        CommentModel commentModel = commentService.findCommentByOrderCommodityId(c.getOrderCommodityId());
         if (commentModel != null) {
             return new StatusModel<>("获取评论成功", StatusModel.OK, commentModel);
         } else {
@@ -73,9 +72,8 @@ public class CommentController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/praise", method = RequestMethod.POST)
     public @ResponseBody
-    StatusModel<CommentModel> addPraiseByCommentIdAndUserId(@RequestParam("commentId") Integer commentId,
-                                                            @RequestParam("userId") Integer userId) {
-        Boolean flag = commentPraiseService.addPraise(userId, commentId);
+    StatusModel<CommentModel> addPraiseByCommentIdAndUserId(@RequestBody CommentModel c) {
+        Boolean flag = commentPraiseService.addPraise(c.getUserId(), c.getCommentId());
         if (flag) {
             return new StatusModel<>("点赞成功", StatusModel.OK);
         } else {
@@ -85,9 +83,8 @@ public class CommentController {
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/praise", method = RequestMethod.DELETE)
-    public @ResponseBody StatusModel<CommentModel> deletePraiseByCommentIdAndUserId(@RequestParam("commentId") Integer commentId,
-                                                                                    @RequestParam("userId") Integer userId) {
-        Boolean flag = commentPraiseService.deletePraise(userId, commentId);
+    public @ResponseBody StatusModel<CommentModel> deletePraiseByCommentIdAndUserId(@RequestBody CommentModel c) {
+        Boolean flag = commentPraiseService.deletePraise(c.getUserId(), c.getCommentId());
         if (flag) {
             return new StatusModel<>("取消点赞成功", StatusModel.OK);
         } else {

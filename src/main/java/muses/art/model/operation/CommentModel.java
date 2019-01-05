@@ -14,6 +14,33 @@ public class CommentModel {
     private String commodityInfo; // 订单信息
     private List<String> images; // 图像列表 一对多
     private Integer star; // 评分
+    private Integer orderCommodityId;
+    private Integer userId;
+    private Integer commentId;
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getOrderCommodityId() {
+        return orderCommodityId;
+    }
+
+    public void setOrderCommodityId(Integer orderCommodityId) {
+        this.orderCommodityId = orderCommodityId;
+    }
 
     public Integer getId() {
         return id;

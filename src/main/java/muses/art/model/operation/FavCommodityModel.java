@@ -7,6 +7,24 @@ public class FavCommodityModel { // 根据收藏夹写
     private Float price; // 商品现价
     private Float collectPrice; // 商品收藏价
     private String message; // 消息
+    private Integer userId;
+    private Integer commodityId;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(Integer commodityId) {
+        this.commodityId = commodityId;
+    }
 
     public String getSrc() {
         return src;

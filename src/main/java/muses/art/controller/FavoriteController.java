@@ -18,11 +18,11 @@ public class FavoriteController {
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public @ResponseBody StatusModel addFavCommodity(@RequestParam Integer userId, @RequestParam Integer commodityId) {
-        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(userId, commodityId) != null) {
+    public @ResponseBody StatusModel addFavCommodity(@RequestBody FavCommodityModel f) {
+        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(f.getUserId(), f.getCommodityId()) != null) {
             return new StatusModel("请勿重复添加收藏", StatusModel.ERROR);
         } else {
-            userFavCommodityService.addFavCommodity(userId, commodityId);
+            userFavCommodityService.addFavCommodity(f.getUserId(), f.getCommodityId());
             return new StatusModel("添加收藏成功", StatusModel.OK);
         }
     }
@@ -40,8 +40,8 @@ public class FavoriteController {
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody StatusModel listFavCommodity(@RequestParam Integer userId) {
-        List<FavCommodityModel> userFavCommodities = userFavCommodityService.findFavCommodityByUserId(userId);
+    public @ResponseBody StatusModel listFavCommodity(@RequestBody FavCommodityModel f) {
+        List<FavCommodityModel> userFavCommodities = userFavCommodityService.findFavCommodityByUserId(f.getUserId());
         if (userFavCommodities != null) {
             return new StatusModel("加载收藏夹成功", StatusModel.OK);
         } else {
@@ -51,8 +51,8 @@ public class FavoriteController {
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    public @ResponseBody StatusModel deleteALlFavCommodity(@RequestParam Integer userId) {
-        boolean flag = userFavCommodityService.deleteAllFavCommodity(userId);
+    public @ResponseBody StatusModel deleteALlFavCommodity(@RequestBody FavCommodityModel f) {
+        boolean flag = userFavCommodityService.deleteAllFavCommodity(f.getUserId());
         if (flag) {
             return new StatusModel("清空收藏夹成功", StatusModel.OK);
         } else {
