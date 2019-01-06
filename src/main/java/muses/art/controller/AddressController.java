@@ -18,17 +18,17 @@ public class AddressController {
 
     // 返回该用户所有的地址
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public @ResponseBody StatusModel<List<AddressModel>> getAllAddress(@RequestParam int userId) {
+    @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
+    public @ResponseBody StatusModel<List<AddressModel>> getAllAddress(@PathVariable int userId) {
         List<AddressModel> addressModels = addressService.findAllAddressByUserId(userId);
         return new StatusModel<>("获取地址列表成功", StatusModel.OK, addressModels);
     }
 
     // 清空该用户的地址
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/list", method = RequestMethod.DELETE)
-    public @ResponseBody StatusModel deleteAddress(@RequestParam(value = "Id") int id) {
-        List<AddressModel> addressModels = addressService.findAllAddressByUserId(id);
+    @RequestMapping(value = "/list/{userId}", method = RequestMethod.DELETE)
+    public @ResponseBody StatusModel deleteAddress(@PathVariable int userId) {
+        List<AddressModel> addressModels = addressService.findAllAddressByUserId(userId);
         if (addressModels != null) {
             for (AddressModel addressModel : addressModels) {
                 addressService.deleteAddress(addressModel.getId());
