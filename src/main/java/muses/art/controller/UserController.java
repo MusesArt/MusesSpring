@@ -7,6 +7,7 @@ import muses.art.model.user.UserModel;
 import muses.art.service.user.UserService;
 import muses.art.service.user.VerifyCodeService;
 import muses.art.util.Hasher;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -84,8 +85,9 @@ public class UserController {
         if (user != null) {
             if (Hasher.checkPassword(password, user.getPassword())) {
                 TokenModel tokenModel = new TokenModel();
-                tokenModel.setToken(user.getToken());
+                BeanUtils.copyProperties(user, tokenModel);
                 tokenModel.setUserId(user.getId());
+                tokenModel.setUsername(user.getNickname());
                 return new StatusModel<>(tokenModel);
             }
         }

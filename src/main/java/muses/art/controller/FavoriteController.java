@@ -19,7 +19,7 @@ public class FavoriteController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public @ResponseBody StatusModel addFavCommodity(@RequestBody FavCommodityModel f) {
-        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(f.getUserId(), f.getCommodityId()) != null) {
+        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(f.getUserId(), f.getCommodityId())) {
             return new StatusModel("请勿重复添加收藏", StatusModel.ERROR);
         } else {
             userFavCommodityService.addFavCommodity(f.getUserId(), f.getCommodityId());
@@ -51,12 +51,34 @@ public class FavoriteController {
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    public @ResponseBody StatusModel deleteALlFavCommodity(@RequestBody FavCommodityModel f) {
+    public @ResponseBody StatusModel deleteAllFavCommodity(@RequestBody FavCommodityModel f) {
         boolean flag = userFavCommodityService.deleteAllFavCommodity(f.getUserId());
         if (flag) {
             return new StatusModel("清空收藏夹成功", StatusModel.OK);
         } else {
             return new StatusModel("清空收藏夹失败", StatusModel.ERROR);
+        }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/count/{userId}", method = RequestMethod.POST)
+    public @ResponseBody StatusModel countFavCommodity(@PathVariable Integer userId) {
+        List<FavCommodityModel> favs = userFavCommodityService.findFavCommodityByUserId(userId);
+        if (favs != null) {
+            Integer count = favs.size();
+            return new StatusModel<>("请求成功", StatusModel.OK, count);
+        } else {
+            return new StatusModel<>("请求失败", StatusModel.ERROR);
+        }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{userId}/{commodityId}", method = RequestMethod.GET)
+    public @ResponseBody StatusModel getFavCommodity(@PathVariable Integer userId, @PathVariable Integer commodityId) {
+        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(userId, commodityId)) {
+            return new StatusModel("已收藏", StatusModel.ERROR);
+        } else {
+            return new StatusModel("未收藏", StatusModel.OK);
         }
     }
 }

@@ -136,6 +136,7 @@ public class UserServiceImpl implements UserService {
             userModel.setMobile(user.getMobile());
             userModel.setToken(user.getToken());
             userModel.setPassword(user.getPassword());
+            userModel.setNickname(user.getNickname());
             return userModel;
         } else {
             return null;
