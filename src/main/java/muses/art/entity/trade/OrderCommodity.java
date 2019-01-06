@@ -39,6 +39,17 @@ public class OrderCommodity { // 订购的商品
     @Column(name = "brief")
     private String brief; // 简介
 
+    @Column(name = "image")
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Integer getNumber() {
         return number;
     }
