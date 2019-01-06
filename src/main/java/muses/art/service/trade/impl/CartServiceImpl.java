@@ -99,7 +99,12 @@ public class CartServiceImpl implements CartService {
     public CartModel getCart(Integer id) {
         Cart cart = cartDao.get(Cart.class, id);
         if (cart == null) return null;
-        return cartDao.getModelMapper().map(cart, CartModel.class);
+        CartModel cartModel = cartDao.getModelMapper().map(cart, CartModel.class);
+        Commodity commodity = commodityDao.get(Commodity.class, cartModel.getCommodityId());
+        CommodityListModel commodityListModel = new CommodityListModel();
+        BeanUtils.copyProperties(commodity, commodityListModel);
+        cartModel.setCommodity(commodityListModel);
+        return cartModel;
     }
 
 
