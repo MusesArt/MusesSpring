@@ -85,6 +85,7 @@ public class UserController {
             if (Hasher.checkPassword(password, user.getPassword())) {
                 TokenModel tokenModel = new TokenModel();
                 tokenModel.setToken(user.getToken());
+                tokenModel.setUserId(user.getId());
                 return new StatusModel<>(tokenModel);
             }
         }
