@@ -85,13 +85,13 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     }
 
     @Override
-    public Boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId) {
+    public List<UserFavCommodity> findFavCommodityByUserIdAndCommodityId(int userId, int commodityId) {
         String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
         map.put("id2", commodityId);
         List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
-        return userFavCommodities != null && userFavCommodities.size() > 0;
+        return userFavCommodities;
     }
 
     @Override

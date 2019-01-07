@@ -19,11 +19,13 @@ public class FavoriteController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public @ResponseBody StatusModel addFavCommodity(@RequestBody FavCommodityModel f) {
-        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(f.getUserId(), f.getCommodityId())) {
-            return new StatusModel("请勿重复添加收藏", StatusModel.ERROR);
+        if (!userFavCommodityService.findFavCommodityByUserIdAndCommodityId(f.getUserId(), f.getCommodityId()).isEmpty()) {
+            Integer id = userFavCommodityService.findFavCommodityByUserIdAndCommodityId(f.getUserId(), f.getCommodityId()).get(0).getId();
+            return new StatusModel<>("请勿重复添加收藏", StatusModel.ERROR, id);
         } else {
             userFavCommodityService.addFavCommodity(f.getUserId(), f.getCommodityId());
-            return new StatusModel("添加收藏成功", StatusModel.OK);
+            Integer id = userFavCommodityService.findFavCommodityByUserIdAndCommodityId(f.getUserId(), f.getCommodityId()).get(0).getId();
+            return new StatusModel<>("添加收藏成功", StatusModel.OK, id);
         }
     }
 
@@ -75,10 +77,11 @@ public class FavoriteController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{userId}/{commodityId}", method = RequestMethod.GET)
     public @ResponseBody StatusModel getFavCommodity(@PathVariable Integer userId, @PathVariable Integer commodityId) {
-        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(userId, commodityId)) {
-            return new StatusModel("已收藏", StatusModel.ERROR);
-        } else {
+        if (userFavCommodityService.findFavCommodityByUserIdAndCommodityId(userId, commodityId).isEmpty()) {
             return new StatusModel("未收藏", StatusModel.OK);
+        } else {
+            Integer id = userFavCommodityService.findFavCommodityByUserIdAndCommodityId(userId, commodityId).get(0).getId();
+            return new StatusModel<>("已收藏", StatusModel.ERROR, id);
         }
     }
 }
