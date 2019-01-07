@@ -1,5 +1,6 @@
 package muses.art.service.operation;
 
+import muses.art.entity.operation.UserFavCommodity;
 import muses.art.model.operation.FavCommodityModel;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public interface UserFavCommodityService { // 用户收藏商品
      * @param commodityId 商品id
      * @return
      */
-    Boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId);
+    List<UserFavCommodity> findFavCommodityByUserIdAndCommodityId(int userId, int commodityId);
 
     /**
      * 清空某用户的收藏夹

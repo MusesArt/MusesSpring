@@ -31,6 +31,20 @@ public class CartController {
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{cartId}", method = RequestMethod.GET)
+    public @ResponseBody
+    StatusModel<CartModel> getCart(@PathVariable int cartId) {
+        StatusModel<CartModel> statusModel;
+        CartModel cartModel = cartService.getCart(cartId);
+        if (cartModel == null) {
+            statusModel = new StatusModel<>("购物车数据获取异常");
+        } else {
+            statusModel = new StatusModel<>(cartModel);
+        }
+        return statusModel;
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{cartId}", method = RequestMethod.PUT)
     public @ResponseBody
     StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cartId) {

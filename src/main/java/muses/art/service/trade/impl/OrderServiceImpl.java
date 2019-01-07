@@ -2,11 +2,14 @@ package muses.art.service.trade.impl;
 
 import muses.art.dao.trade.AddressDao;
 import muses.art.dao.trade.CartDao;
+import muses.art.dao.trade.OrderCommodityDao;
 import muses.art.dao.trade.OrderDao;
 import muses.art.entity.trade.Address;
 import muses.art.entity.trade.Cart;
 import muses.art.entity.trade.Order;
+import muses.art.entity.trade.OrderCommodity;
 import muses.art.model.trade.CartModel;
+import muses.art.model.trade.OrderCommodityModel;
 import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
 import muses.art.service.trade.OrderService;
@@ -31,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private AddressDao addressDao;
 
+    @Autowired
+    private OrderCommodityDao orderCommodityDao;
+
     @Override
     public Float calculateAmount(List<Integer> cartIds) {
         if (cartIds.isEmpty())return null;
@@ -52,7 +58,26 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orders = orderDao.find(SQL, map);
         if (orders.isEmpty()) return null;
         List<OrderModel> orderModels = new ArrayList<>();
-        orders.forEach(order -> orderModels.add(orderDao.getModelMapper().map(order, OrderModel.class)));
+        orders.forEach(order -> {
+            OrderModel orderModel = orderDao.getModelMapper().map(order, OrderModel.class);
+            String HQL = "from OrderCommodity where orderId=:orderId";
+            Map<String, Object> map1 = new HashMap<>();
+            map1.put("orderId", order.getId());
+            List<OrderCommodity> orderCommodities = orderCommodityDao.find(HQL, map1);
+            List<OrderCommodityModel> orderCommodityModels = new ArrayList<>();
+            for (OrderCommodity o : orderCommodities) {
+                OrderCommodityModel orderCommodityModel = new OrderCommodityModel();
+                orderCommodityModel.setAddTime(o.getAddTime());
+                orderCommodityModel.setBrief(o.getBrief());
+                orderCommodityModel.setCommodityId(orderCommodityModel.getCommodityId());
+                orderCommodityModel.setId(o.getId());
+                orderCommodityModel.setOrderId(o.getOrderId());
+                orderCommodityModel.setPrice(o.getPrice());
+                orderCommodityModels.add(orderCommodityModel);
+            }
+            orderModel.setOrderCommodityModels(orderCommodityModels);
+            orderModels.add(orderModel);
+        });
         return orderModels;
     }
 

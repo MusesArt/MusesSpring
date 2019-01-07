@@ -9,14 +9,11 @@ import muses.art.entity.trade.Cart;
 import muses.art.model.commodity.CommodityListModel;
 import muses.art.model.trade.CartModel;
 import muses.art.service.trade.CartService;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.print.attribute.standard.Destination;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,6 +94,19 @@ public class CartServiceImpl implements CartService {
         });
         return cartModels;
     }
+
+    @Override
+    public CartModel getCart(Integer id) {
+        Cart cart = cartDao.get(Cart.class, id);
+        if (cart == null) return null;
+        CartModel cartModel = cartDao.getModelMapper().map(cart, CartModel.class);
+        Commodity commodity = commodityDao.get(Commodity.class, cartModel.getCommodityId());
+        CommodityListModel commodityListModel = new CommodityListModel();
+        BeanUtils.copyProperties(commodity, commodityListModel);
+        cartModel.setCommodity(commodityListModel);
+        return cartModel;
+    }
+
 
     @Override
     public Cart findCartExist(Integer userId, Integer commodityId, String detail) {
