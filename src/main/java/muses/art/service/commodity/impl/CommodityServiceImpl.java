@@ -68,7 +68,7 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<CommodityListModel> findCommodities(String keyword, int page, int size) {
         if ("".equals(keyword) || keyword == null) { // 没有搜索关键词
-            String HQL = "from Commodity order by name asc, soldNum desc, discountPrice asc, updateTime asc";
+            String HQL = "from Commodity order by name asc, soldNum desc, discountPrice asc, updateTime desc";
             List<Commodity> commodities = commodityDao.find(HQL, page, size);
             return entity2listModel(commodities);
         } else { // 有搜索关键词
