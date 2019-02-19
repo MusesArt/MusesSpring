@@ -24,9 +24,10 @@ public interface CartService {
     /**
      * @param id     购物车id
      * @param number 商品数量
+     * @param detail 商品属性详情
      * @return
      */
-    Boolean updateCart(Integer id, Integer number);
+    Boolean updateCart(Integer id, Integer number, String detail);
 
     /**
      * @param userId 用户id
