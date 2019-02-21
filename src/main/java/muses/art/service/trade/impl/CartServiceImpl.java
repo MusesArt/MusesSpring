@@ -80,7 +80,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartModel> listCart(Integer userId) {
-        String SQL = "from Cart where userId=:id";
+        String SQL = "from Cart where userId=:id order by addTime desc";
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
         List<Cart> carts = cartDao.find(SQL, map);
