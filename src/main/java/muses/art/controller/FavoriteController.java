@@ -41,9 +41,9 @@ public class FavoriteController {
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody StatusModel listFavCommodity(@RequestBody FavCommodityModel f) {
-        List<FavCommodityModel> userFavCommodities = userFavCommodityService.findFavCommodityByUserId(f.getUserId());
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    public @ResponseBody StatusModel listFavCommodity(@PathVariable Integer userId) {
+        List<FavCommodityModel> userFavCommodities = userFavCommodityService.findFavCommodityByUserId(userId);
         if (userFavCommodities != null) {
            return new StatusModel(userFavCommodities);
         } else {
