@@ -65,6 +65,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     private FavCommodityModel entity2model(UserFavCommodity userFavCommodity) {
         FavCommodityModel fav = new FavCommodityModel();
         Commodity commodity = userFavCommodity.getCommodity();
+        fav.setId(userFavCommodity.getId());
         fav.setCommodityId(commodity.getId());
         fav.setContent(commodity.getBrief());
         if (commodity.getDiscountPrice() < userFavCommodity.getPrice()) {

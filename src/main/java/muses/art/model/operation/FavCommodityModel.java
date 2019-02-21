@@ -1,6 +1,7 @@
 package muses.art.model.operation;
 
 public class FavCommodityModel { // 根据收藏夹写
+    private int id;
     private String src; // 图片地址
     private String title; // 商品标题
     private String content; // 商品简介
@@ -9,6 +10,14 @@ public class FavCommodityModel { // 根据收藏夹写
     private String message; // 消息
     private Integer userId;
     private Integer commodityId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Integer getUserId() {
         return userId;
