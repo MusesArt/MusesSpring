@@ -63,7 +63,7 @@ public class FavoriteController {
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/count/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/count/{userId}", method = RequestMethod.GET)
     public @ResponseBody StatusModel countFavCommodity(@PathVariable Integer userId) {
         List<FavCommodityModel> favs = userFavCommodityService.findFavCommodityByUserId(userId);
         if (favs != null) {
