@@ -3,7 +3,6 @@ package muses.art.entity.trade;
 
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,7 +17,6 @@ public class Cart { // 购物车
     @Column(name = "number")
     private Integer number; // 数量
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HHmmss")
     @Column(name = "add_time")
     private Date addTime; // 添加时间
 
@@ -27,14 +25,28 @@ public class Cart { // 购物车
     private User user; // 用户对象 多对一
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Integer userId;  // 用户id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "commodity_id")
-    private Integer commodityId;
+    private Integer commodityId; // 商品id
+
+    @Column(name = "detail")
+    private String detail; // 商品详细信息
+
+    @Column(name = "image")
+    private String image; // 冗余图像地址
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -73,7 +85,7 @@ public class Cart { // 购物车
     }
 
     public void setAddTime(Date addTime) {
-        this.addTime = new Date();
+        this.addTime = addTime;
     }
 
     public User getUser() {
@@ -92,4 +104,11 @@ public class Cart { // 购物车
         this.commodity = commodity;
     }
 
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 }

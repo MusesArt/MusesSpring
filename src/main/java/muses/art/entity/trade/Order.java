@@ -3,7 +3,7 @@ package muses.art.entity.trade;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
@@ -39,14 +39,11 @@ public class Order { // 订单
     @Column(name = "user_id")
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", insertable = false, updatable = false)
-    private Address address; // 订单地址对象 多对一
+    @Column(name = "address")
+    private String address; // 订单地址-冗余数据
 
-    @Column(name = "address_id")
-    private Integer addressId;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    // 刪除订单时，删除订单内的所有商品快照
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<OrderCommodity> orderCommodities;
 
     public List<OrderCommodity> getOrderCommodities() {
@@ -65,12 +62,12 @@ public class Order { // 订单
         this.userId = userId;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public String getAddress() {
+        return address;
     }
 
     public Integer getId() {
@@ -135,14 +132,6 @@ public class Order { // 订单
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
 }

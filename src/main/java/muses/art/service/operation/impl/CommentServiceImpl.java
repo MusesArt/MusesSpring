@@ -1,9 +1,12 @@
 package muses.art.service.operation.impl;
 
 import muses.art.dao.operation.CommentDao;
+import muses.art.dao.trade.OrderCommodityDao;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.commodity.Image;
 import muses.art.entity.operation.Comment;
+import muses.art.entity.trade.Order;
+import muses.art.entity.trade.OrderCommodity;
 import muses.art.model.base.PageModel;
 import muses.art.model.commodity.CommodityListModel;
 import muses.art.model.operation.CommentModel;
@@ -26,28 +29,44 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentDao commentDao;
 
+    @Autowired
+    private OrderCommodityDao orderCommodityDao;
+
+
     @Override
-    public boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId) {
-        Comment commentObject = new Comment();
-        commentObject.setComment(comment);
-        commentObject.setCommodityId(commodityId);
-        commentObject.setUserId(userId);
-        commentObject.setOrderId(orderId);
-        commentObject.setOrderCommodityId(orderCommodityId);
-        commentObject.setAddTime(new Date(System.currentTimeMillis()));
-        commentDao.save(commentObject);
-        return true;
+    public Boolean addComment(String comment, Integer orderCommodityId) {
+        CommentModel commentModel = findCommentByOrderCommodityId(orderCommodityId);
+        if (commentModel != null) {
+            return false;
+        } else {
+            Comment commentObject = new Comment();
+            commentObject.setComment(comment);
+            OrderCommodity orderCommodity = orderCommodityDao.get(OrderCommodity.class, orderCommodityId);
+            if (orderCommodity != null) {
+                Commodity commodity = orderCommodity.getCommodity();
+                Order order = orderCommodity.getOrder();
+                commentObject.setCommodityId(commodity.getId());
+                commentObject.setUserId(order.getUser().getId());
+                commentObject.setOrderId(order.getId());
+                commentObject.setOrderCommodityId(orderCommodityId);
+                commentObject.setAddTime(new Date(System.currentTimeMillis()));
+                commentDao.save(commentObject);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     @Override
-    public boolean deleteComment(Integer id) {
+    public Boolean deleteComment(Integer id) {
         Comment comment = commentDao.get(Comment.class, id);
         commentDao.delete(comment);
         return true;
     }
 
     @Override
-    public boolean updateComment(Integer id, String content) {
+    public Boolean updateComment(Integer id, String content) {
         Comment comment = commentDao.get(Comment.class, id);
         comment.setComment(content);
         commentDao.update(comment);
@@ -79,11 +98,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentModel findCommentByOrderCommodityIdAndUserID(Integer commodityId, Integer userId) {
-        String SQL = "from Comment where userId=:id1 and orderCommodityId=:id2";
+    public CommentModel findCommentByOrderCommodityId(Integer orderCommodityId) {
+        String SQL = "from Comment where orderCommodityId=:id";
         Map<String, Object> map = new HashMap<>();
-        map.put("id1", userId);
-        map.put("id2", commodityId);
+        map.put("id", orderCommodityId);
         List<Comment> comments = commentDao.find(SQL, map);
         if (comments != null && comments.size() > 0) {
             return entity2model(comments.get(0));
@@ -99,12 +117,9 @@ public class CommentServiceImpl implements CommentService {
             commentModel.setHead(comment.getUser().getAvatar());
             commentModel.setUsername(comment.getUser().getUsername());
             commentModel.setDate(comment.getAddTime());
-            String HQL = "select count(*) from Comment where commodityId=:id";
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", comment.getCommodity().getId());
-            commentModel.setMessage(commentDao.count(HQL, map).intValue());
             commentModel.setContent(comment.getComment());
-//        commentModel.setCommodityInfo();
+            OrderCommodity orderCommodity = orderCommodityDao.get(OrderCommodity.class, comment.getOrderCommodityId());
+            commentModel.setCommodityInfo(orderCommodity.getBrief());
             List<String> images = new ArrayList<>();
             for (Image image : comment.getImages()) {
                 images.add(image.getImageUrl());

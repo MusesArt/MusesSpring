@@ -91,3 +91,15 @@ fabric.properties
 
 # JDBC & Hibernate configuration file
 config.properties
+
+# Target
+target/
+
+# iml
+*.iml
+
+# .idea
+/.idea
+
+
+

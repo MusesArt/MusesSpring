@@ -10,11 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -27,7 +23,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     private CommodityDao commodityDao;
 
     @Override
-    public boolean addFavCommodity(int userId, int commodityId) {
+    public Boolean addFavCommodity(int userId, int commodityId) {
         UserFavCommodity userFavCommodity = new UserFavCommodity();
         userFavCommodity.setUserId(userId);
         userFavCommodity.setCommodityId(commodityId);
@@ -38,14 +34,10 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     }
 
     @Override
-    public boolean deleteFavCommodity(int userId, int commodityId) {
-        String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
-        Map<String, Object> map = new HashMap<>();
-        map.put("id1", userId);
-        map.put("id2", commodityId);
-        List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
-        if (userFavCommodities != null && userFavCommodities.size() > 0) {
-            userFavCommodityDao.delete(userFavCommodities.get(0));
+    public Boolean deleteFavCommodity(int id) {
+        UserFavCommodity userFavCommodity = userFavCommodityDao.get(UserFavCommodity.class, id);
+        if (userFavCommodity != null) {
+            userFavCommodityDao.delete(userFavCommodity);
             return true;
         }
         return false;
@@ -73,6 +65,8 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     private FavCommodityModel entity2model(UserFavCommodity userFavCommodity) {
         FavCommodityModel fav = new FavCommodityModel();
         Commodity commodity = userFavCommodity.getCommodity();
+        fav.setId(userFavCommodity.getId());
+        fav.setCommodityId(commodity.getId());
         fav.setContent(commodity.getBrief());
         if (commodity.getDiscountPrice() < userFavCommodity.getPrice()) {
             fav.setMessage("降价通知");
@@ -93,15 +87,24 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
     }
 
     @Override
-    public boolean findFavCommodityByUserIdAndCommodityId(int userId, int commodityId) {
+    public List<UserFavCommodity> findFavCommodityByUserIdAndCommodityId(int userId, int commodityId) {
         String HQL = "from UserFavCommodity where userId=:id1 and commodityId=:id2";
         Map<String, Object> map = new HashMap<>();
         map.put("id1", userId);
         map.put("id2", commodityId);
         List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
-        if (userFavCommodities != null && userFavCommodities.size() > 0) {
-            return true;
+        return userFavCommodities;
+    }
+
+    @Override
+    public Boolean deleteAllFavCommodity(Integer userId) {
+        String HQL = "from UserFavCommodity where userId=:id";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", userId);
+        List<UserFavCommodity> userFavCommodities = userFavCommodityDao.find(HQL, map);
+        if (!userFavCommodities.isEmpty()) {
+            userFavCommodities.removeAll(userFavCommodities);
         }
-        return false;
+        return true;
     }
 }

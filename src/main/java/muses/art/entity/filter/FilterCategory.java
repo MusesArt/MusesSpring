@@ -14,7 +14,8 @@ public class FilterCategory { // 滤镜类别
     @Column(name = "category_name")
     private String categoryName; // 艺术类别名称
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+    // 滤镜类别被删除时，滤镜不能删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.MERGE)
     private List<Filter> filters; // 该类别下的所有滤镜 一对多
 
     public Integer getId() {

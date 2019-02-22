@@ -16,64 +16,73 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
     public @ResponseBody
-    StatusModel<List<CartModel>> listCart(@PathVariable int user_id) {
-        StatusModel<List<CartModel>> statusModel = new StatusModel<>();
-        List<CartModel> CartModels = cartService.listCart(user_id);
-        if (CartModels == null) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("购物车数据获取异常");
-            statusModel.setData(null);
+    StatusModel<List<CartModel>> listCart(@PathVariable int userId) {
+        StatusModel<List<CartModel>> statusModel;
+        List<CartModel> cartModels = cartService.listCart(userId);
+        if (cartModels == null) {
+            statusModel = new StatusModel<>("购物车数据获取异常");
         } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("");
-            statusModel.setData(CartModels);
+            statusModel = new StatusModel<>(cartModels);
         }
         return statusModel;
     }
 
-    @RequestMapping(value = "/{cart_id}", method = RequestMethod.PUT)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{cartId}", method = RequestMethod.GET)
     public @ResponseBody
-    StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cart_id) {
-        StatusModel statusModel = new StatusModel();
-        Boolean status = cartService.UpdateCart(cart_id, cartModel.getNumber());
-        if (!status) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("购物车内无此商品");
+    StatusModel<CartModel> getCart(@PathVariable int cartId) {
+        StatusModel<CartModel> statusModel;
+        CartModel cartModel = cartService.getCart(cartId);
+        if (cartModel == null) {
+            statusModel = new StatusModel<>("购物车数据获取异常");
         } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("购物车数据更新成功");
+            statusModel = new StatusModel<>(cartModel);
         }
         return statusModel;
     }
 
-    @RequestMapping(value = "/{cart_id}", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{cartId}", method = RequestMethod.PUT)
     public @ResponseBody
-    StatusModel deleteFromCart(@PathVariable int cart_id) {
-        StatusModel statusModel = new StatusModel();
-        Boolean status = cartService.deleteFromCart(cart_id);
+    StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cartId) {
+        StatusModel statusModel;
+        Boolean status = cartService.updateCart(cartId, cartModel.getNumber(), cartModel.getDetail());
         if (!status) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("购物车内无此商品");
+            statusModel = new StatusModel("购物车内无此商品");
         } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("删除成功");
+            statusModel = new StatusModel("购物车数据更新成功", StatusModel.OK);
         }
         return statusModel;
     }
 
-    @RequestMapping(value = "/{user_id}", method = RequestMethod.POST)
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{cartId}", method = RequestMethod.DELETE)
     public @ResponseBody
-    StatusModel addToCart(@RequestBody CartModel cartModel, @PathVariable int user_id) {
-        StatusModel statusModel = new StatusModel();
-        Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getNumber());
+    StatusModel deleteFromCart(@PathVariable int cartId) {
+        StatusModel statusModel;
+        Boolean status = cartService.deleteFromCart(cartId);
         if (!status) {
-            statusModel.setErrorCode(-1);
-            statusModel.setErrorMsg("购物车内已有此商品");
+            statusModel = new StatusModel("购物车内无此商品");
         } else {
-            statusModel.setErrorCode(0);
-            statusModel.setErrorMsg("购物车数据更新成功");
+            statusModel = new StatusModel("删除成功", StatusModel.OK);
+        }
+        return statusModel;
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
+    public @ResponseBody
+    StatusModel addToCart(@RequestBody CartModel cartModel, @PathVariable int userId) {
+        StatusModel statusModel;
+        Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(),
+                cartModel.getDetail(), cartModel.getNumber(), cartModel.getParameterId());
+        if (!status) {
+            statusModel = new StatusModel("购物车数据更新失败");
+        } else {
+            statusModel = new StatusModel("购物车数据更新成功", StatusModel.OK);
         }
         return statusModel;
     }

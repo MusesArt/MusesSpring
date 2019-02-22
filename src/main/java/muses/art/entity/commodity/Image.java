@@ -1,6 +1,7 @@
 package muses.art.entity.commodity;
 
 
+import lombok.extern.apachecommons.CommonsLog;
 import muses.art.entity.operation.Comment;
 
 import javax.persistence.*;
@@ -20,14 +21,14 @@ public class Image {
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "commodity_id")
-    private Integer commodityId;
+    private Integer commodityId; // 商品id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id", insertable = false, updatable = false)
     private Comment comment; // 评论对象 多对一
 
     @Column(name = "comment_id")
-    private Integer commentId;
+    private Integer commentId; // 评论id
 
     public Integer getCommodityId() {
         return commodityId;

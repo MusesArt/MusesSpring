@@ -4,7 +4,7 @@ package muses.art.entity.trade;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -122,5 +122,8 @@ public class Address { // 收货地址
         this.user = user;
     }
 
-
+    @Override
+    public String toString() {
+        return province+city+district+address+";"+signerName+";"+signerMobile;
+    }
 }

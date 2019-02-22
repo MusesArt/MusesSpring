@@ -1,28 +1,52 @@
 package muses.art.model.operation;
 
-import muses.art.entity.commodity.Image;
-
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class CommentModel {
 
-    private int id; // 评论id
+    private Integer id; // 评论id
     private String head; // 头像地址
     private String username; // 用户名
     private Date date; // 填写日期
-    private int praise; // 点赞数
-    private int message; // 评论数
+    private Integer praise; // 点赞数
     private String content; // 评论内容
     private String commodityInfo; // 订单信息
     private List<String> images; // 图像列表 一对多
-    private int star; // 评分
+    private Integer star; // 评分
+    private Integer orderCommodityId;
+    private Integer userId;
+    private Integer commentId;
 
-    public int getId() {
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getOrderCommodityId() {
+        return orderCommodityId;
+    }
+
+    public void setOrderCommodityId(Integer orderCommodityId) {
+        this.orderCommodityId = orderCommodityId;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,14 +74,6 @@ public class CommentModel {
         this.date = date;
     }
 
-    public int getMessage() {
-        return message;
-    }
-
-    public void setMessage(int message) {
-        this.message = message;
-    }
-
     public String getContent() {
         return content;
     }
@@ -74,19 +90,19 @@ public class CommentModel {
         this.images = images;
     }
 
-    public int getStar() {
+    public Integer getStar() {
         return star;
     }
 
-    public void setStar(int star) {
+    public void setStar(Integer star) {
         this.star = star;
     }
 
-    public int getPraise() {
+    public Integer getPraise() {
         return praise;
     }
 
-    public void setPraise(int praise) {
+    public void setPraise(Integer praise) {
         this.praise = praise;
     }
 
@@ -106,7 +122,6 @@ public class CommentModel {
                 ", username='" + username + '\'' +
                 ", date=" + date +
                 ", praise=" + praise +
-                ", message=" + message +
                 ", content='" + content + '\'' +
                 ", commodityInfo='" + commodityInfo + '\'' +
                 ", images=" + images +
