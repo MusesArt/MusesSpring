@@ -74,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
                 orderCommodityModel.setOrderId(o.getOrderId());
                 orderCommodityModel.setPrice(o.getPrice());
                 orderCommodityModel.setImage(o.getCommodity().getCoverImage());
-
+                orderCommodityModel.setNumber(o.getNumber());
                 orderCommodityModels.add(orderCommodityModel);
             }
             orderModel.setOrderCommodityModels(orderCommodityModels);
