@@ -182,8 +182,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size) {
-        int totalNum = commentDao.count("select count(*) from Comment").intValue();
+    public PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size, int commodityId) {
+        String HQL = "select count(*) from Comment where commodityId=:id";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", commodityId);
+        int totalNum = commentDao.count(HQL, map).intValue();
         PageModel<CommentModel> pageModel = new PageModel<>();
         pageModel.setDataList(models);
         pageModel.setCurrentPage(page);

@@ -29,7 +29,7 @@ public class CommentController {
     StatusModel<PageModel<CommentModel>> findCommentByCommodityId(@PathVariable Integer page,
                                                              @PathVariable Integer commodityId) {
         List<CommentModel> comments = commentService.findCommentByCommodityIdAndPage(commodityId, page, 10);
-        PageModel<CommentModel> pageModel = commentService.findCommentPage(comments, page, 10);
+        PageModel<CommentModel> pageModel = commentService.findCommentPage(comments, page, 10, commodityId);
         return new StatusModel<>("获取评论列表成功", StatusModel.OK, pageModel);
     }
 
@@ -96,6 +96,13 @@ public class CommentController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{commodityId}/count", method = RequestMethod.GET)
     public @ResponseBody StatusModel<CommentInfoModel> getCommentInfoByCommodityId(@PathVariable Integer commodityId) {
+        CommentInfoModel cim = commentService.getCommentInfoByCommodityId(commodityId);
+        return new StatusModel<>("获取评论信息成功", StatusModel.OK, cim);
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{commodityId}/withImage", method = RequestMethod.GET)
+    public @ResponseBody StatusModel<CommentInfoModel> getCommentWithImageByCommodityId(@PathVariable Integer commodityId) {
         CommentInfoModel cim = commentService.getCommentInfoByCommodityId(commodityId);
         return new StatusModel<>("获取评论信息成功", StatusModel.OK, cim);
     }
