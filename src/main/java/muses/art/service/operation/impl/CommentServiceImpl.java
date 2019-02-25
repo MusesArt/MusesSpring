@@ -9,6 +9,7 @@ import muses.art.entity.trade.Order;
 import muses.art.entity.trade.OrderCommodity;
 import muses.art.model.base.PageModel;
 import muses.art.model.commodity.CommodityListModel;
+import muses.art.model.operation.CommentInfoModel;
 import muses.art.model.operation.CommentModel;
 import muses.art.service.operation.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +152,33 @@ public class CommentServiceImpl implements CommentService {
         map.put("id", commodityId);
         List<Comment> comments = commentDao.find(HQL, map, page, size);
         return entity2model(comments);
+    }
+
+    @Override
+    public CommentInfoModel getCommentInfoByCommodityId(int commodityId) {
+        CommentInfoModel cim = new CommentInfoModel();
+        String SQL = "from Comment where commodityId=:id";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", commodityId);
+        List<Comment> comments = commentDao.find(SQL, map);
+        int goodCount = 0, middleCount = 0, badCount = 0, withImageCount = 0;
+        for (Comment comment : comments) {
+            if (comment.getCommentLevel() == 0) {
+                goodCount++;
+            } else if (comment.getCommentLevel() == 1) {
+                middleCount++;
+            } else if (comment.getCommentLevel() == 2) {
+                badCount++;
+            }
+            if (comment.getImages().size() > 0) {
+                withImageCount++;
+            }
+        }
+        cim.setGoodCount(goodCount);
+        cim.setMiddleCount(middleCount);
+        cim.setBadCount(badCount);
+        cim.setWithImageCount(withImageCount);
+        return cim;
     }
 
     @Override

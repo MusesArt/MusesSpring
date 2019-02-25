@@ -27,6 +27,9 @@ public class Comment {
     @Column(name = "user_id")
     private Integer userId;
 
+    @Column(name = "comment_level")
+    private Integer commentLevel;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
@@ -163,4 +166,11 @@ public class Comment {
         this.images = images;
     }
 
+    public Integer getCommentLevel() {
+        return commentLevel;
+    }
+
+    public void setCommentLevel(Integer commentLevel) {
+        this.commentLevel = commentLevel;
+    }
 }

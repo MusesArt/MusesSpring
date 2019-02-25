@@ -1,6 +1,7 @@
 package muses.art.service.operation;
 
 import muses.art.model.base.PageModel;
+import muses.art.model.operation.CommentInfoModel;
 import muses.art.model.operation.CommentModel;
 
 import java.util.List;
@@ -53,7 +54,6 @@ public interface CommentService {
     /**
      * 查找用户是否给某个订单商品进行评论
      * @param commodityId 商品id
-     * @param userId 用户id
      * @return
      */
     CommentModel findCommentByOrderCommodityId(Integer commodityId);
@@ -76,5 +76,11 @@ public interface CommentService {
      */
     List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size);
 
+    /**
+     * 获取商品评论信息
+     * @param commodityId 商品id
+     * @return
+     */
+    CommentInfoModel getCommentInfoByCommodityId(int commodityId);
 
 }

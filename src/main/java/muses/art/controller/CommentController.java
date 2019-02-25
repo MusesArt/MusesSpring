@@ -3,6 +3,7 @@ package muses.art.controller;
 import muses.art.entity.operation.Comment;
 import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
+import muses.art.model.operation.CommentInfoModel;
 import muses.art.model.operation.CommentModel;
 import muses.art.service.operation.CommentPraiseService;
 import muses.art.service.operation.CommentService;
@@ -90,6 +91,13 @@ public class CommentController {
         } else {
             return new StatusModel<>("取消点赞失败", StatusModel.ERROR);
         }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{commodityId}/count", method = RequestMethod.GET)
+    public @ResponseBody StatusModel<CommentInfoModel> getCommentInfoByCommodityId(@PathVariable Integer commodityId) {
+        CommentInfoModel cim = commentService.getCommentInfoByCommodityId(commodityId);
+        return new StatusModel<>("获取评论信息成功", StatusModel.OK, cim);
     }
 
 }
