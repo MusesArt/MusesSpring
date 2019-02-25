@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +59,20 @@ public class UserServiceImpl implements UserService {
         User user = userDao.get(User.class, userId);
         if (user != null) {
             user.setPassword(generateEncryptedPassword(password));
+            userDao.update(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean updateInformation(Integer userId, Integer gender, Date birthday, String email, String nickname) {
+        User user = userDao.get(User.class, userId);
+        if (user != null) {
+            user.setGender(gender);
+            user.setBirthday(birthday);
+            user.setEmail(email);
+            user.setNickname(nickname);
             userDao.update(user);
             return true;
         }

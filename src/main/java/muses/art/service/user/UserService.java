@@ -2,6 +2,8 @@ package muses.art.service.user;
 
 import muses.art.model.user.UserModel;
 
+import java.util.Date;
+
 public interface UserService {
 
     /**
@@ -27,6 +29,17 @@ public interface UserService {
      * @return
      */
     Boolean updatePassword(Integer userId, String password);
+
+    /**
+     * 修改用户个人信息
+     * @param userId 用户id
+     * @param gender 性别
+     * @param birthday 生日
+     * @param email 邮箱
+     * @param nickname 昵称
+     * @return
+     */
+    Boolean updateInformation(Integer userId, Integer gender, Date birthday, String email, String nickname);
 
     /**
      * 判断用户名是否已经被使用

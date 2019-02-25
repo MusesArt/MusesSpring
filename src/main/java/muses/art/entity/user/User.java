@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames={"nickname"})})
 public class User { // 用户个人信息
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

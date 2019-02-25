@@ -81,6 +81,35 @@ public class UserController {
         }
     }
 
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/info/{token}", method = RequestMethod.GET)
+    public @ResponseBody StatusModel<UserModel> getUserInfoByToken(@PathVariable String token) {
+        UserModel user = userService.findUserByToken(token);
+        if (user == null) { // 用户存在
+            return new StatusModel<>("该用户不存在", StatusModel.ERROR);
+        } else {
+            return new StatusModel<>("请求成功", StatusModel.OK, user);
+        }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/info/", method = RequestMethod.PUT)
+    public @ResponseBody StatusModel<UserModel> updateUserInfoByToken(@RequestBody UserModel info) {
+        String token = info.getToken();
+        UserModel user = userService.findUserByToken(token);
+        if (user == null) { // 用户存在
+            return new StatusModel<>("该用户不存在", StatusModel.ERROR);
+        } else {
+            Boolean flag = userService.updateInformation(user.getId(), info.getGender(), info.getBirthday(), info.getEmail(), info.getNickname());
+            if (flag) {
+                return new StatusModel<>("修改成功", StatusModel.OK);
+            } else {
+                return new StatusModel<>("修改失败", StatusModel.ERROR);
+            }
+        }
+    }
+
     private StatusModel<TokenModel> login(UserModel user, String password) {
         if (user != null) {
             if (Hasher.checkPassword(password, user.getPassword())) {
