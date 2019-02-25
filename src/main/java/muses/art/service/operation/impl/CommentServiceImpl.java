@@ -146,8 +146,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size) {
+    public List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size, String filter) {
         String HQL = "from Comment where commodityId=:id";
+        switch (filter) {
+            case "good": HQL += " and commentLevel=0"; break;
+            case "middle": HQL += " and commentLevel=1"; break;
+            case "bad": HQL += " and commentLevel=2"; break;
+            case "withImage": HQL += " and images.size > 0"; break;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("id", commodityId);
         List<Comment> comments = commentDao.find(HQL, map, page, size);
@@ -182,8 +188,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size, int commodityId) {
+    public PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size, int commodityId, String filter) {
         String HQL = "select count(*) from Comment where commodityId=:id";
+        switch (filter) {
+            case "good": HQL += " and commentLevel=0"; break;
+            case "middle": HQL += " and commentLevel=1"; break;
+            case "bad": HQL += " and commentLevel=2"; break;
+            case "withImage": HQL += " and images.size > 0"; break;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("id", commodityId);
         int totalNum = commentDao.count(HQL, map).intValue();

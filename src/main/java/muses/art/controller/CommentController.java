@@ -24,12 +24,13 @@ public class CommentController {
     private CommentPraiseService commentPraiseService;
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/{commodityId}/{page}/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{commodityId}/{page}/{filter}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<PageModel<CommentModel>> findCommentByCommodityId(@PathVariable Integer page,
-                                                             @PathVariable Integer commodityId) {
-        List<CommentModel> comments = commentService.findCommentByCommodityIdAndPage(commodityId, page, 10);
-        PageModel<CommentModel> pageModel = commentService.findCommentPage(comments, page, 10, commodityId);
+                                                             @PathVariable Integer commodityId,
+                                                                  @PathVariable String filter) {
+        List<CommentModel> comments = commentService.findCommentByCommodityIdAndPage(commodityId, page, 10, filter);
+        PageModel<CommentModel> pageModel = commentService.findCommentPage(comments, page, 10, commodityId, filter);
         return new StatusModel<>("获取评论列表成功", StatusModel.OK, pageModel);
     }
 

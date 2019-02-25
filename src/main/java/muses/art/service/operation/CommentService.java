@@ -65,7 +65,7 @@ public interface CommentService {
      * @param size 每页的数量
      * @return
      */
-    PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size, int commodityId);
+    PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size, int commodityId, String filter);
 
     /**
      * 分页获取评论
@@ -74,7 +74,7 @@ public interface CommentService {
      * @param size 每页的数量
      * @return
      */
-    List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size);
+    List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size, String filter);
 
     /**
      * 获取商品评论信息
