@@ -153,6 +153,7 @@ public class CommentServiceImpl implements CommentService {
             case "middle": HQL += " and commentLevel=1"; break;
             case "bad": HQL += " and commentLevel=2"; break;
             case "withImage": HQL += " and images.size > 0"; break;
+            default: HQL += " order by addTime desc";
         }
         Map<String, Object> map = new HashMap<>();
         map.put("id", commodityId);
@@ -195,6 +196,7 @@ public class CommentServiceImpl implements CommentService {
             case "middle": HQL += " and commentLevel=1"; break;
             case "bad": HQL += " and commentLevel=2"; break;
             case "withImage": HQL += " and images.size > 0"; break;
+            default: HQL += " order by addTime desc";
         }
         Map<String, Object> map = new HashMap<>();
         map.put("id", commodityId);
