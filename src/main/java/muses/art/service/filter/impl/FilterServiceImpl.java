@@ -3,6 +3,7 @@ package muses.art.service.filter.impl;
 import muses.art.dao.filter.FilterDao;
 import muses.art.entity.filter.Filter;
 import muses.art.model.base.PageModel;
+import muses.art.model.commodity.SearchModel;
 import muses.art.model.filter.FilterInfoModel;
 import muses.art.model.operation.CommentModel;
 import muses.art.service.filter.FilterService;
@@ -45,6 +46,7 @@ public class FilterServiceImpl implements FilterService {
         Filter filter = filterDao.get(Filter.class, id);
         if (filter != null) {
             BeanUtils.copyProperties(filterInfoModel, filter);
+            // TODO 根据需求细化更新属性
             filterDao.update(filter);
             return true;
         } else {
@@ -95,8 +97,24 @@ public class FilterServiceImpl implements FilterService {
     }
 
     @Override
-    public PageModel<FilterInfoModel> searchFilters(String keyword, int page, int size) {
-        return null;
+    public PageModel<FilterInfoModel> searchFilters(SearchModel searchModel) {
+        int size = searchModel.getSize();
+        int page = searchModel.getPage();
+        String keyword = searchModel.getKeyword();
+        String HQL = "from Filter where filterName like :name or description like :description order by publishData asc";
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", keyword);
+        map.put("description", keyword);
+        List<Filter> filters = filterDao.find(HQL, map, page, size);
+        int totalNum = filterDao.find(HQL, map).size();
+        List<FilterInfoModel> filterInfoModels = entity2model(filters);
+        PageModel<FilterInfoModel> pageModel = new PageModel<>();
+        pageModel.setDataList(filterInfoModels);
+        pageModel.setCurrentPage(page);
+        pageModel.setPageCount(totalNum % size == 0 ? totalNum / size : totalNum / size + 1);
+        pageModel.setTotalNum(totalNum);
+        pageModel.setPageSize(size);
+        return pageModel;
     }
 
     private List<FilterInfoModel> entity2model(List<Filter> filters) {

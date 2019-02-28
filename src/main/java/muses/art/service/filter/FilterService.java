@@ -1,6 +1,7 @@
 package muses.art.service.filter;
 
 import muses.art.model.base.PageModel;
+import muses.art.model.commodity.SearchModel;
 import muses.art.model.filter.FilterInfoModel;
 
 
@@ -50,10 +51,9 @@ public interface FilterService {
 
     /**
      * 搜索滤镜
-     * @param keyword 搜索关键词
-     * @param page 页数
+     * @param searchModel 搜索参数
      * @return
      */
-    PageModel<FilterInfoModel> searchFilters(String keyword, int page, int size);
+    PageModel<FilterInfoModel> searchFilters(SearchModel searchModel);
 
 }
