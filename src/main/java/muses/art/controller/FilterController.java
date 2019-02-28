@@ -1,6 +1,7 @@
 package muses.art.controller;
 
 import muses.art.model.base.PageModel;
+import muses.art.model.base.StatusModel;
 import muses.art.model.filter.FilterInfoModel;
 import muses.art.service.filter.FilterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,4 +36,18 @@ public class FilterController {
             return new PageModel<>();
         }
     }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public StatusModel<FilterInfoModel> addFilter(@RequestBody FilterInfoModel filterInfoModel) {
+        boolean flag = filterService.addFilter(filterInfoModel);
+        if (flag) {
+            return new StatusModel<>("添加滤镜成功", StatusModel.OK);
+        } else {
+            return new StatusModel<>("添加滤镜失败", StatusModel.ERROR);
+        }
+    }
+
+
 }
