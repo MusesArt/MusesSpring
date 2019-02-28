@@ -12,6 +12,15 @@ public class FilterInfoModel {
     private Integer smooth;             // 平滑度
     private Date publishData;           // 发布日期
     private Boolean VipOnly;
+    private String description; // 滤镜描述
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Boolean getVipOnly() {
         return VipOnly;
