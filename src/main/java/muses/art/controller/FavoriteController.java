@@ -45,7 +45,7 @@ public class FavoriteController {
     public @ResponseBody StatusModel listFavCommodity(@PathVariable Integer userId) {
         List<FavCommodityModel> userFavCommodities = userFavCommodityService.findFavCommodityByUserId(userId);
         if (userFavCommodities != null) {
-           return new StatusModel(userFavCommodities);
+           return new StatusModel("加载收藏夹成功", StatusModel.OK,userFavCommodities);
         } else {
             return new StatusModel("加载收藏夹失败", StatusModel.ERROR);
         }

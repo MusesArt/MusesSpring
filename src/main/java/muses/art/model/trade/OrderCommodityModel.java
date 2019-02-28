@@ -9,12 +9,21 @@ public class OrderCommodityModel {
     private Integer id;
     private Date addTime;
     private Order order;
+    private Integer number;
     private Commodity commodity;
     private Integer orderId;
     private Integer commodityId;
     private Float price;
     private String brief;
     private String image;
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 
     public String getImage() {
         return image;

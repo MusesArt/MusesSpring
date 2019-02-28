@@ -44,7 +44,7 @@ public class OrderCommodityServiceImpl implements OrderCommodityService {
 
     @Override
     public Boolean delete(Integer orderId) {
-        String SQL = "from Cart where orderId=:oid";
+        String SQL = "from OrderCommodity where orderId=:oid";
         Map<String, Object> map = new HashMap<>();
         map.put("oid", orderId);
         List<OrderCommodity> orderCommodities = orderCommodityDao.find(SQL, map);
