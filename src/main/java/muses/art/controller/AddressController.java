@@ -78,8 +78,32 @@ public class AddressController {
         if (flag) {
             return new StatusModel<>("删除地址成功", StatusModel.OK);
         } else {
-            return new StatusModel<>("删除地址失敗", StatusModel.ERROR);
+            return new StatusModel<>("删除地址失败", StatusModel.ERROR);
         }
     }
 
+    @ResponseBody
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/default", method = RequestMethod.POST)
+    public StatusModel<AddressModel> setDefaultAddress(@RequestBody AddressModel addressModel) {
+        Boolean flag = addressService.setDefaultAddress(addressModel);
+        if (flag) {
+            return new StatusModel<>("设置默认地址成功", StatusModel.OK);
+        } else {
+            return new StatusModel<>("设置默认地址失败", StatusModel.ERROR);
+        }
+    }
+
+
+    @ResponseBody
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/default/{userId}", method = RequestMethod.GET)
+    public StatusModel<AddressModel> getDefaultAddress(@PathVariable int userId) {
+        AddressModel addressModel = addressService.getDefaultAddress(userId);
+        if (addressModel != null) {
+            return new StatusModel<>("获取默认地址成功", StatusModel.OK, addressModel);
+        } else {
+            return new StatusModel<>("未设置默认地址", StatusModel.ERROR);
+        }
+    }
 }

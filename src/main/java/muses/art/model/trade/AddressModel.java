@@ -19,6 +19,16 @@ public class AddressModel {
 
     private Integer userId;
 
+    private Boolean defaultAddress;
+
+    public Boolean getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Boolean defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
+
     public Integer getId() {
         return id;
     }

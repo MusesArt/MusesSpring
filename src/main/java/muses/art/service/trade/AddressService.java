@@ -9,7 +9,6 @@ public interface AddressService {
     /**
      * 添加地址
      * @param addressModel
-     * @param id 用户id
      * @return
      */
     Boolean addAddress(AddressModel addressModel);
@@ -43,6 +42,19 @@ public interface AddressService {
      * @return
      */
     List<AddressModel> findAllAddressByUserId(int id);
+
+    /**
+     * 设置默认地址
+     * @return
+     */
+    Boolean setDefaultAddress(AddressModel addressModel);
+
+    /**
+     * 获取用户默认收货地址
+     * @param userId 用户id
+     * @return
+     */
+    AddressModel getDefaultAddress(int userId);
 
 
 }

@@ -42,6 +42,17 @@ public class Address { // 收货地址
     @Column(name = "user_id")
     private Integer userId;
 
+    @Column(name = "default_address")
+    private Boolean defaultAddress;
+
+    public Boolean getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Boolean defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
+
     public Integer getUserId() {
         return userId;
     }

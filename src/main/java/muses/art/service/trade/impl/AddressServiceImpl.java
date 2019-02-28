@@ -68,6 +68,39 @@ public class AddressServiceImpl implements AddressService {
         return entity2model(addresses);
     }
 
+    @Override
+    public Boolean setDefaultAddress(AddressModel addressModel) {
+        int userId = addressModel.getUserId();
+        String hql = "from Address where userId =:userId";
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        List<Address> addresses = addressDao.find(hql, map);
+        for (Address address : addresses) {
+            address.setDefaultAddress(false);
+            addressDao.update(address);
+        }
+        Address address = addressDao.get(Address.class, addressModel.getId());
+        if (address != null) {
+            address.setDefaultAddress(true);
+            addressDao.update(address);
+            return true;
+        }
+        return false;
+    }
+
+    public AddressModel getDefaultAddress(int userId) {
+        String HQL = "from Address where userId =:userId and defaultAddress = true";
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        Address address = addressDao.get(HQL, map);
+        AddressModel addressModel = new AddressModel();
+        if (address != null) {
+            BeanUtils.copyProperties(address, addressModel);
+            return addressModel;
+        }
+        return null;
+    }
+
     private AddressModel entity2model(Address address) {
         if (address != null) {
             AddressModel addressModel = new AddressModel();
