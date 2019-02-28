@@ -4,15 +4,16 @@ package muses.art.util;
  * Requires Java8 (but should be easy to port to older JREs)
  * Currently it would work only for pbkdf2_sha256 algorithm
  */
+
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 import java.util.Random;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 
 public class Hasher {
@@ -104,7 +105,7 @@ public class Hasher {
         return String.format("%s$%d$%s$%s", algorithm, iterations, salt, hash);
     }
 
-    public static boolean checkPassword(String password, String hashedPassword) {
+    public static Boolean checkPassword(String password, String hashedPassword) {
         // hashedPassword consist of: ALGORITHM, ITERATIONS_NUMBER, SALT and
         // HASH; parts are joined with dollar character ("$")
         String[] parts = hashedPassword.split("\\$");

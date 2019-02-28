@@ -22,7 +22,7 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
     private VerifyCodeDao verifyCodeDao;
 
     @Override
-    public boolean addVerifyCode(String mobile, String code) {
+    public Boolean addVerifyCode(String mobile, String code) {
         VerifyCode verifyCode = new VerifyCode();
         verifyCode.setCode(code);
         verifyCode.setMobile(mobile);

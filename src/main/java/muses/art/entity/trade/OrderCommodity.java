@@ -3,7 +3,7 @@ package muses.art.entity.trade;
 import muses.art.entity.commodity.Commodity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -20,31 +20,53 @@ public class OrderCommodity { // 订购的商品
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order; // 订单对象 多对一
 
+    @Column(name = "number")
+    private Integer number; //商品数量
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commodity_id", insertable = false, updatable = false)
     private Commodity commodity; // 商品对象 多对一
 
     @Column(name = "order_id")
-    private Integer orderId; // 订单ip
+    private Integer orderId; // 订单id
 
     @Column(name = "commodity_id")
     private Integer commodityId; // 商品id
 
     @Column(name = "price")
-    private float price; // 成交价
+    private Float price; // 成交价
 
     @Column(name = "brief")
     private String brief; // 简介
+
+    @Column(name = "image")
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 
     public Integer getOrderId() {
         return orderId;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

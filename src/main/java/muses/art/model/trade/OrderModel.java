@@ -2,7 +2,8 @@ package muses.art.model.trade;
 
 import muses.art.entity.trade.Address;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
 
 public class OrderModel {
     private Integer id;
@@ -21,7 +22,17 @@ public class OrderModel {
 
     private Integer userId;
 
-    private Integer addressId;
+    private String address;
+
+    private List<OrderCommodityModel> orderCommodityModels;
+
+    public List<OrderCommodityModel> getOrderCommodityModels() {
+        return orderCommodityModels;
+    }
+
+    public void setOrderCommodityModels(List<OrderCommodityModel> orderCommodityModels) {
+        this.orderCommodityModels = orderCommodityModels;
+    }
 
     public Integer getId() {
         return id;
@@ -87,11 +98,11 @@ public class OrderModel {
         this.userId = userId;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

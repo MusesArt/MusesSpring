@@ -1,13 +1,13 @@
 package muses.art.entity.operation;
 
-import muses.art.entity.trade.Order;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.commodity.Image;
+import muses.art.entity.trade.Order;
 import muses.art.entity.trade.OrderCommodity;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +17,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "comment")
+    @Column(name = "comment", length = 512)
     private String comment; // 评论内容
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,6 +26,9 @@ public class Comment {
 
     @Column(name = "user_id")
     private Integer userId;
+
+    @Column(name = "comment_level")
+    private Integer commentLevel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
@@ -48,11 +51,24 @@ public class Comment {
     @Column(name = "commodity_id")
     private Integer commodityId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment")
+    // 评论被删除时，其所属的所有图片可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.REMOVE)
     private List<Image> images; // 图像列表 一对多
 
     @Column(name = "add_time")
     private Date addTime;
+
+    // 评论被删除时，所有点赞记录可以删除
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.REMOVE)
+    private List<CommentPraise> praises;
+
+    public List<CommentPraise> getPraises() {
+        return praises;
+    }
+
+    public void setPraises(List<CommentPraise> praises) {
+        this.praises = praises;
+    }
 
     public OrderCommodity getOrderCommodity() {
         return orderCommodity;
@@ -150,4 +166,11 @@ public class Comment {
         this.images = images;
     }
 
+    public Integer getCommentLevel() {
+        return commentLevel;
+    }
+
+    public void setCommentLevel(Integer commentLevel) {
+        this.commentLevel = commentLevel;
+    }
 }

@@ -1,6 +1,7 @@
 package muses.art.service.operation;
 
 import muses.art.model.base.PageModel;
+import muses.art.model.operation.CommentInfoModel;
 import muses.art.model.operation.CommentModel;
 
 import java.util.List;
@@ -9,20 +10,17 @@ public interface CommentService {
     /**
      *
      * @param comment 评论内容
-     * @param commodityId 商品id
-     * @param orderId 订单id
-     * @param userId 用户id
      * @param orderCommodityId 订单商品id
      * @return
      */
-    boolean addComment(String comment, Integer commodityId, Integer orderId, Integer userId, Integer orderCommodityId);
+    Boolean addComment(String comment, Integer orderCommodityId);
 
     /**
      *
      * @param id 评论id
      * @return
      */
-    boolean deleteComment(Integer id);
+    Boolean deleteComment(Integer id);
 
     /**
      *
@@ -30,7 +28,7 @@ public interface CommentService {
      * @param content 评论内容
      * @return
      */
-    boolean updateComment(Integer id, String content);
+    Boolean updateComment(Integer id, String content);
 
     /**
      * 根据用户id查找评论
@@ -56,10 +54,9 @@ public interface CommentService {
     /**
      * 查找用户是否给某个订单商品进行评论
      * @param commodityId 商品id
-     * @param userId 用户id
      * @return
      */
-    CommentModel findCommentByOrderCommodityIdAndUserID(Integer commodityId, Integer userId);
+    CommentModel findCommentByOrderCommodityId(Integer commodityId);
 
 
     /**
@@ -68,7 +65,7 @@ public interface CommentService {
      * @param size 每页的数量
      * @return
      */
-    PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size);
+    PageModel<CommentModel> findCommentPage(List<CommentModel> models, int page, int size, int commodityId, String filter);
 
     /**
      * 分页获取评论
@@ -77,7 +74,13 @@ public interface CommentService {
      * @param size 每页的数量
      * @return
      */
-    List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size);
+    List<CommentModel> findCommentByCommodityIdAndPage(int commodityId, int page, int size, String filter);
 
+    /**
+     * 获取商品评论信息
+     * @param commodityId 商品id
+     * @return
+     */
+    CommentInfoModel getCommentInfoByCommodityId(int commodityId);
 
 }

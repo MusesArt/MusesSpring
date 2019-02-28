@@ -1,5 +1,7 @@
 package muses.art.dao.common;
 
+import org.modelmapper.ModelMapper;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
@@ -212,5 +214,7 @@ public interface BaseDao<T> {
      * @return 数目
      */
     BigInteger countBySql(String sql, Map<String, Object> params);
+
+    ModelMapper getModelMapper();
 
 }

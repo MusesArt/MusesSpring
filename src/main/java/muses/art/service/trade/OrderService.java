@@ -1,61 +1,47 @@
 package muses.art.service.trade;
 
+import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
 
 import java.util.List;
 
+
 public interface OrderService {
 
+    Float calculateAmount(List<Integer> cartIds);
     /**
-     * 增加待支付订单
-     * @param orderModel 订单model
-     * @param userId     用户id
-     * @param addressId  地址id
-     * @return boolean
-     */
-    boolean addOrderOfNoPay(OrderModel orderModel, int userId, int addressId);
-
-    /**
-     * 增加已支付订单
-     * @param orderModel 订单model
      * @param userId 用户id
-     * @param addressId 地址id
-     * @return boolean
+     * @return
      */
-    boolean addOrderOfPay(OrderModel orderModel, int userId, int addressId);
-
+    List<OrderModel> listOrders(Integer userId);
 
     /**
-     * 更改待支付订单为已支付
      * @param id 订单id
-     * @return boolean
+     * @return
      */
-    boolean updateOrderStatus(int id);
-
+    Boolean deleteOrder(Integer id);
 
     /**
-     * 用户取消订单
-     * @param id 订单id
-     * @return boolean
+     * @param id        订单id
+     * @param payStatus 支付状态
+     * @return
      */
-    boolean cancelOrder(int id);
+    Boolean updateOrder(Integer id, String payStatus);
 
+    /**
+     *
+     * @param orderFromCartModel
+     * @return
+     */
+    Integer createOrderFromCart(OrderFromCartModel orderFromCartModel, int userId);
 
     /**
      * 修改订单
+     *
      * @param orderModel 订单model
-     * @return boolean
+     * @return Boolean
      */
-    boolean updateOrder(OrderModel orderModel);
-
-
-    /**
-     * 得到订单详细信息
-     * @param id 订单id
-     * @return OrderModel
-     */
-    OrderModel getOrderById(int id);
-
+    Boolean updateOrder(OrderModel orderModel);
 
     /**
      * 分页列出某用户订单信息

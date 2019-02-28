@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public boolean addNewUser(String username, String password, String mobile) {
+    public Boolean addNewUser(String username, String password, String mobile) {
         if (findUsernameIsUsed(username) || findMobileIsUsed(mobile)) { // 若用户名或手机号被使用
             return false;
         } else {
@@ -30,7 +31,9 @@ public class UserServiceImpl implements UserService {
             user.setPassword(generateEncryptedPassword(password));
             user.setMobile(mobile);
             user.setLevel(0);
+            user.setNickname("User_" + mobile);
             user.setToken(generateToken());
+            user.setAvatar("https://s1.ax1x.com/2018/06/22/PpsPDf.jpg");
             userDao.save(user);
             return true;
         }
@@ -41,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(Integer id) {
+    public Boolean deleteUser(Integer id) {
         User user = userDao.get(User.class, id);
         if (user != null) {
             userDao.delete(user);
@@ -52,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updatePassword(Integer userId, String password) {
+    public Boolean updatePassword(Integer userId, String password) {
         User user = userDao.get(User.class, userId);
         if (user != null) {
             user.setPassword(generateEncryptedPassword(password));
@@ -63,7 +66,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean findUsernameIsUsed(String username) {
+    public Boolean updateInformation(Integer userId, Integer gender, Date birthday, String email, String nickname) {
+        User user = userDao.get(User.class, userId);
+        if (user != null) {
+            user.setGender(gender);
+            user.setBirthday(birthday);
+            user.setEmail(email);
+            user.setNickname(nickname);
+            userDao.update(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean findUsernameIsUsed(String username) {
         String HQL = "from User where username=:name";
         Map<String, Object> map = new HashMap<>();
         map.put("name", username);
@@ -75,7 +92,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean findMobileIsUsed(String mobile) {
+    public Boolean findMobileIsUsed(String mobile) {
         String HQL = "from User where mobile=:mobile";
         Map<String, Object> map = new HashMap<>();
         map.put("mobile", mobile);
@@ -110,6 +127,15 @@ public class UserServiceImpl implements UserService {
         return entity2model(user);
     }
 
+    @Override
+    public UserModel findUserByToken(String token) {
+        String HQL = "from User where token=:token";
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        User user = userDao.get(HQL, map);
+        return entity2model(user);
+    }
+
     public String generateEncryptedPassword(String password) {
         return new Hasher().encode(password, 20000);
     }
@@ -126,6 +152,8 @@ public class UserServiceImpl implements UserService {
             userModel.setMobile(user.getMobile());
             userModel.setToken(user.getToken());
             userModel.setPassword(user.getPassword());
+            userModel.setNickname(user.getNickname());
+            userModel.setUsername(user.getUsername());
             return userModel;
         } else {
             return null;

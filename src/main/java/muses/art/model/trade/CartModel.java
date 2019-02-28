@@ -2,19 +2,35 @@ package muses.art.model.trade;
 
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
-import org.springframework.format.annotation.DateTimeFormat;
+import muses.art.model.commodity.CommodityListModel;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CartModel {
+public class CartModel implements Serializable {
     private Integer id;
     private Integer number;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    protected Date addTime;
-    private User user;
     private Integer userId;
-    private Commodity commodity;
+    private CommodityListModel commodity;
     private Integer commodityId;
+    private String detail;
+    private Integer parameterId;
+
+    public Integer getParameterId() {
+        return parameterId;
+    }
+
+    public void setParameterId(Integer parameterId) {
+        this.parameterId = parameterId;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public Integer getId() {
         return id;
@@ -32,23 +48,6 @@ public class CartModel {
         this.number = number;
     }
 
-    public Date getAddTime() {
-        return addTime;
-    }
-
-
-    public void setAddTime(Date addTime) {
-        this.addTime = new Date();
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Integer getUserId() {
         return userId;
     }
@@ -57,11 +56,11 @@ public class CartModel {
         this.userId = userId;
     }
 
-    public Commodity getCommodity() {
+    public CommodityListModel getCommodity() {
         return commodity;
     }
 
-    public void setCommodity(Commodity commodity) {
+    public void setCommodity(CommodityListModel commodity) {
         this.commodity = commodity;
     }
 

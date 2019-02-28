@@ -19,57 +19,118 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDao addressDao;
 
-
     @Override
-    public boolean addAddress(AddressModel addressModel, int id) {
+    public Boolean addAddress(AddressModel addressModel) {
         Date data = new Date();
-        java.sql.Date now = new java.sql.Date(data.getTime());
-        addressModel.setAddTime(now);
-        Address address = new Address();
-        BeanUtils.copyProperties(addressModel,address);
-        address.setUserId(id);
+        java.util.Date now = new java.util.Date(data.getTime());
+        Address address = model2entity(addressModel);
+        address.setAddTime(now);
         addressDao.save(address);
         return true;
     }
 
     @Override
-    public boolean deleteAddress(int id) {
-        Address address = addressDao.get(Address.class,id);
-        addressDao.delete(address);
-        return true;
+    public Boolean deleteAddress(int id) {
+        Address address = addressDao.get(Address.class, id);
+        System.out.println(address);
+        if (address != null) {
+            addressDao.delete(address);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean updateAddressById(AddressModel addressModel, int id) {
-        Address address = new Address();
-        BeanUtils.copyProperties(addressModel,address);
-        address.setId(id);
-        addressDao.update(address);
-        return true;
+    public Boolean updateAddress(AddressModel addressModel) {
+        Address address = addressDao.get(Address.class, addressModel.getId());
+        if (address != null) {
+            BeanUtils.copyProperties(addressModel, address);
+            address.setAddTime(new java.util.Date(new Date().getTime()));
+            addressDao.update(address);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public AddressModel findAddressById(int id) {
-        Address address = addressDao.get(Address.class,id);
-        AddressModel addressModel = new AddressModel();
-        BeanUtils.copyProperties(address,addressModel);
-        return addressModel;
+        Address address = addressDao.get(Address.class, id);
+        return entity2model(address);
     }
 
 
     @Override
     public List<AddressModel> findAllAddressByUserId(int id) {
         String hql = "from Address add where add.userId = :userId";
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",id);
-        List<Address> list = addressDao.find(hql,map);
-        List<AddressModel> addressModels = new ArrayList<>();
-        for(Address address : list){
-            AddressModel addressModel = new AddressModel();
-            BeanUtils.copyProperties(address,addressModel);
-            addressModels.add(addressModel);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", id);
+        List<Address> addresses = addressDao.find(hql, map);
+        return entity2model(addresses);
+    }
+
+    @Override
+    public Boolean setDefaultAddress(AddressModel addressModel) {
+        int userId = addressModel.getUserId();
+        String hql = "from Address where userId =:userId";
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        List<Address> addresses = addressDao.find(hql, map);
+        for (Address address : addresses) {
+            address.setDefaultAddress(false);
+            addressDao.update(address);
         }
-        return addressModels;
+        Address address = addressDao.get(Address.class, addressModel.getId());
+        if (address != null) {
+            address.setDefaultAddress(true);
+            addressDao.update(address);
+            return true;
+        }
+        return false;
+    }
+
+    public AddressModel getDefaultAddress(int userId) {
+        String HQL = "from Address where userId =:userId and defaultAddress = true";
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        Address address = addressDao.get(HQL, map);
+        AddressModel addressModel = new AddressModel();
+        if (address != null) {
+            BeanUtils.copyProperties(address, addressModel);
+            return addressModel;
+        }
+        return null;
+    }
+
+    private AddressModel entity2model(Address address) {
+        if (address != null) {
+            AddressModel addressModel = new AddressModel();
+            BeanUtils.copyProperties(address, addressModel);
+            return addressModel;
+        } else {
+            return null;
+        }
+    }
+
+    private List<AddressModel> entity2model(List<Address> addresses) {
+        List<AddressModel> addressModels = new ArrayList<>();
+        if (addresses != null && addresses.size() > 0) {
+            for (Address address : addresses) {
+                addressModels.add(entity2model(address));
+            }
+            return addressModels;
+        }
+        return null;
+    }
+
+
+    private Address model2entity(AddressModel addressModel) {
+        if (addressModel != null) {
+            Address address = new Address();
+            BeanUtils.copyProperties(addressModel, address);
+            return address;
+        } else {
+            return null;
+        }
     }
 
 }

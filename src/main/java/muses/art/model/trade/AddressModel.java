@@ -1,6 +1,6 @@
 package muses.art.model.trade;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class AddressModel {
     private Integer id;
@@ -17,9 +17,17 @@ public class AddressModel {
 
     private String signerMobile; // 签收人手机
 
-    private Date addTime; // 添加时间
-
     private Integer userId;
+
+    private Boolean defaultAddress;
+
+    public Boolean getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Boolean defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
 
     public Integer getId() {
         return id;
@@ -75,14 +83,6 @@ public class AddressModel {
 
     public void setSignerMobile(String signerMobile) {
         this.signerMobile = signerMobile;
-    }
-
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
     }
 
     public Integer getUserId() {

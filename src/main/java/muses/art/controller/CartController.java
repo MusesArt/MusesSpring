@@ -16,6 +16,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
     public @ResponseBody
     StatusModel<List<CartModel>> listCart(@PathVariable int userId) {
@@ -29,11 +30,26 @@ public class CartController {
         return statusModel;
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/{cartId}", method = RequestMethod.GET)
+    public @ResponseBody
+    StatusModel<CartModel> getCart(@PathVariable int cartId) {
+        StatusModel<CartModel> statusModel;
+        CartModel cartModel = cartService.getCart(cartId);
+        if (cartModel == null) {
+            statusModel = new StatusModel<>("购物车数据获取异常");
+        } else {
+            statusModel = new StatusModel<>(cartModel);
+        }
+        return statusModel;
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{cartId}", method = RequestMethod.PUT)
     public @ResponseBody
     StatusModel updateCart(@RequestBody CartModel cartModel, @PathVariable int cartId) {
         StatusModel statusModel;
-        Boolean status = cartService.UpdateCart(cartId, cartModel.getNumber());
+        Boolean status = cartService.updateCart(cartId, cartModel.getNumber(), cartModel.getDetail());
         if (!status) {
             statusModel = new StatusModel("购物车内无此商品");
         } else {
@@ -42,6 +58,7 @@ public class CartController {
         return statusModel;
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{cartId}", method = RequestMethod.DELETE)
     public @ResponseBody
     StatusModel deleteFromCart(@PathVariable int cartId) {
@@ -55,13 +72,15 @@ public class CartController {
         return statusModel;
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel addToCart(@RequestBody CartModel cartModel, @PathVariable int userId) {
         StatusModel statusModel;
-        Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getNumber());
+        Boolean status = cartService.addToCart(cartModel.getUserId(), cartModel.getCommodityId(),
+                cartModel.getDetail(), cartModel.getNumber(), cartModel.getParameterId());
         if (!status) {
-            statusModel = new StatusModel("购物车内已有此商品");
+            statusModel = new StatusModel("购物车数据更新失败");
         } else {
             statusModel = new StatusModel("购物车数据更新成功", StatusModel.OK);
         }

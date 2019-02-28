@@ -21,9 +21,9 @@ public class Filter {
     private String coverImage; // 滤镜封面图像地址
 
     @Column(name = "vip_only")
-    private boolean VipOnly; // 是否需要VIP
+    private Boolean VipOnly; // 是否需要VIP
 
-    @Column(name = "public_data")
+    @Column(name = "publish_date")
     private Date publishData; // 发布日期
 
     @Column(name = "description")
@@ -42,6 +42,54 @@ public class Filter {
 
     @Column(name = "owner_id")
     private Integer ownerId; // 作者id
+
+    @Column(name = "upload_id")
+    private Integer uploadId; // 滤镜在gpu上的id
+
+    @Column(name = "brush_size")
+    private Integer brushSize;
+
+    @Column(name = "brush_intensity")
+    private Integer brushIntensity;
+
+    @Column(name = "smooth")
+    private Integer smooth;
+
+    public Integer getBrushSize() {
+        return brushSize;
+    }
+
+    public void setBrushSize(Integer brushSize) {
+        this.brushSize = brushSize;
+    }
+
+    public Integer getBrushIntensity() {
+        return brushIntensity;
+    }
+
+    public void setBrushIntensity(Integer brushIntensity) {
+        this.brushIntensity = brushIntensity;
+    }
+
+    public Integer getSmooth() {
+        return smooth;
+    }
+
+    public void setSmooth(Integer smooth) {
+        this.smooth = smooth;
+    }
+
+    public Boolean getVipOnly() {
+        return VipOnly;
+    }
+
+    public Integer getUploadId() {
+        return uploadId;
+    }
+
+    public void setUploadId(Integer uploadId) {
+        this.uploadId = uploadId;
+    }
 
     public Integer getCategoryId() {
         return categoryId;
@@ -83,11 +131,11 @@ public class Filter {
         this.coverImage = coverImage;
     }
 
-    public boolean isVipOnly() {
+    public Boolean isVipOnly() {
         return VipOnly;
     }
 
-    public void setVipOnly(boolean vipOnly) {
+    public void setVipOnly(Boolean vipOnly) {
         VipOnly = vipOnly;
     }
 
