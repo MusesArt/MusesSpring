@@ -62,6 +62,17 @@ public class Comment {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.REMOVE)
     private List<CommentPraise> praises;
 
+    @Column(name = "star")
+    private Integer star;
+
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
+    }
+
     public List<CommentPraise> getPraises() {
         return praises;
     }

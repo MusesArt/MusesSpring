@@ -12,6 +12,7 @@ import muses.art.model.commodity.CommodityListModel;
 import muses.art.model.operation.CommentInfoModel;
 import muses.art.model.operation.CommentModel;
 import muses.art.service.operation.CommentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -35,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public Boolean addComment(String comment, Integer orderCommodityId) {
+    public Boolean addComment(String comment, Integer orderCommodityId, Integer star) {
         CommentModel commentModel = findCommentByOrderCommodityId(orderCommodityId);
         if (commentModel != null) {
             return false;
@@ -51,6 +52,7 @@ public class CommentServiceImpl implements CommentService {
                 commentObject.setOrderId(order.getId());
                 commentObject.setOrderCommodityId(orderCommodityId);
                 commentObject.setAddTime(new Date(System.currentTimeMillis()));
+                commentObject.setStar(star);
                 commentDao.save(commentObject);
                 return true;
             } else {
@@ -114,11 +116,12 @@ public class CommentServiceImpl implements CommentService {
     private CommentModel entity2model(Comment comment) {
         if (comment != null) {
             CommentModel commentModel = new CommentModel();
-            commentModel.setId(comment.getId());
+            BeanUtils.copyProperties(comment, commentModel);
             commentModel.setHead(comment.getUser().getAvatar());
             commentModel.setUsername(comment.getUser().getUsername());
             commentModel.setDate(comment.getAddTime());
             commentModel.setContent(comment.getComment());
+            commentModel.setPraise(getCommentPraiseCount(comment.getId())); // 获取点赞数
             OrderCommodity orderCommodity = orderCommodityDao.get(OrderCommodity.class, comment.getOrderCommodityId());
             commentModel.setCommodityInfo(orderCommodity.getBrief());
             List<String> images = new ArrayList<>();
@@ -126,11 +129,18 @@ public class CommentServiceImpl implements CommentService {
                 images.add(image.getImageUrl());
             }
             commentModel.setImages(images);
-            commentModel.setStar(5);
+            commentModel.setStar(comment.getStar()==null?5:comment.getStar());
             return commentModel;
         } else {
             return null;
         }
+    }
+
+    private int getCommentPraiseCount(int commentId) {
+        String HQL = "select count(*) from CommentPraise where commentId=:id";
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", commentId);
+        return commentDao.count(HQL, map).intValue();
     }
 
     private List<CommentModel> entity2model(List<Comment> comments) {

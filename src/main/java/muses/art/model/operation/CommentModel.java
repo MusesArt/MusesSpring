@@ -16,15 +16,7 @@ public class CommentModel {
     private Integer star; // 评分
     private Integer orderCommodityId;
     private Integer userId;
-    private Integer commentId;
 
-    public Integer getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
 
     public Integer getUserId() {
         return userId;
