@@ -82,17 +82,17 @@ public class AddressController {
         }
     }
 
-    @ResponseBody
-    @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/default", method = RequestMethod.POST)
-    public StatusModel<AddressModel> setDefaultAddress(@RequestBody AddressModel addressModel) {
-        Boolean flag = addressService.setDefaultAddress(addressModel);
-        if (flag) {
-            return new StatusModel<>("设置默认地址成功", StatusModel.OK);
-        } else {
-            return new StatusModel<>("设置默认地址失败", StatusModel.ERROR);
-        }
-    }
+//    @ResponseBody
+//    @CrossOrigin(origins = "*", maxAge = 3600)
+//    @RequestMapping(value = "/default", method = RequestMethod.POST)
+//    public StatusModel<AddressModel> setDefaultAddress(@RequestBody AddressModel addressModel) {
+//        Boolean flag = addressService.setDefaultAddress(addressModel);
+//        if (flag) {
+//            return new StatusModel<>("设置默认地址成功", StatusModel.OK);
+//        } else {
+//            return new StatusModel<>("设置默认地址失败", StatusModel.ERROR);
+//        }
+//    }
 
 
     @ResponseBody
