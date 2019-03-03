@@ -25,10 +25,10 @@ public class FilterController {
         PageModel<FilterInfoModel> pageModel = null;
         switch (key) {
             case "category":
-                pageModel = filterService.findFiltersByCategoryId(id, page, 10);
+                pageModel = filterService.findFiltersByCategoryId(id, page, 15);
                 break;
             case "user":
-                pageModel = filterService.findFiltersByUserId(id, page, 10);
+                pageModel = filterService.findFiltersByUserId(id, page, 15);
                 break;
         }
         if (pageModel != null) {
