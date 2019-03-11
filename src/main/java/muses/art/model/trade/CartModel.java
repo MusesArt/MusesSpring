@@ -15,6 +15,15 @@ public class CartModel implements Serializable {
     private Integer commodityId;
     private String detail;
     private String parameter;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getParameter() {
         return parameter;

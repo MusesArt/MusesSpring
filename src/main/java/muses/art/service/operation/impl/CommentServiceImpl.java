@@ -123,7 +123,7 @@ public class CommentServiceImpl implements CommentService {
             commentModel.setContent(comment.getComment());
             commentModel.setPraise(getCommentPraiseCount(comment.getId())); // 获取点赞数
             OrderCommodity orderCommodity = orderCommodityDao.get(OrderCommodity.class, comment.getOrderCommodityId());
-            commentModel.setCommodityInfo(orderCommodity.getBrief());
+            commentModel.setCommodityInfo(orderCommodity.getDetail());
             List<String> images = new ArrayList<>();
             for (Image image : comment.getImages()) {
                 images.add(image.getImageUrl());
