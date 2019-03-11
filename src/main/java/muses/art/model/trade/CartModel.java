@@ -14,14 +14,14 @@ public class CartModel implements Serializable {
     private CommodityListModel commodity;
     private Integer commodityId;
     private String detail;
-    private Integer parameterId;
+    private String parameter;
 
-    public Integer getParameterId() {
-        return parameterId;
+    public String getParameter() {
+        return parameter;
     }
 
-    public void setParameterId(Integer parameterId) {
-        this.parameterId = parameterId;
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
     }
 
     public String getDetail() {

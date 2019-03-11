@@ -8,12 +8,9 @@ import java.util.List;
 public interface CartService {
 
     /**
-     * @param userId      用户id
-     * @param commodityId 商品id
-     * @param number      商品数量
      * @return 操作状态
      */
-    Boolean addToCart(Integer userId, Integer commodityId, String detail, Integer number, Integer parameterId);
+    Boolean addToCart(CartModel cartModel);
 
     /**
      * @param id 购物车id
