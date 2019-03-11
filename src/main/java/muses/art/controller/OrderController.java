@@ -42,7 +42,7 @@ public class OrderController {
         if (!status) {
             statusModel = new StatusModel<>("订单数据更新失败");
         } else {
-            statusModel = new StatusModel<>("订单数据更新成功", "0");
+            statusModel = new StatusModel<>("订单数据更新成功", StatusModel.OK);
         }
         return statusModel;
     }
@@ -57,7 +57,7 @@ public class OrderController {
         if (!status) {
             statusModel = new StatusModel<>("无此订单");
         } else {
-            statusModel = new StatusModel<>("删除成功", "0");
+            statusModel = new StatusModel<>("删除成功", StatusModel.OK);
         }
         return statusModel;
     }
@@ -77,7 +77,7 @@ public class OrderController {
             cartIds.forEach(cartId -> {
                 cartService.deleteFromCart(cartId); // 从购物车中移除商品
             });
-            statusModel = new StatusModel<>("订单创建成功", "0");
+            statusModel = new StatusModel<>("订单创建成功", StatusModel.OK);
         }
         return statusModel;
     }
