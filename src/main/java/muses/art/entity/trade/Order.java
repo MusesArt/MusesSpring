@@ -20,8 +20,8 @@ public class Order { // 订单
     @Column(name = "trade_no")
     private String tradeNo; // 交易号
 
-    @Column(name = "pay_status")
-    private String payStatus; // 订单状态
+    @Column(name = "status")
+    private Integer status; // 订单状态
 
     @Column(name = "post_script")
     private String postScript; // 订单留言
@@ -94,12 +94,12 @@ public class Order { // 订单
         this.tradeNo = tradeNo;
     }
 
-    public String getPayStatus() {
-        return payStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setPayStatus(String payStatus) {
-        this.payStatus = payStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getPostScript() {

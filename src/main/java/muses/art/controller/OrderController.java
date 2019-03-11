@@ -1,5 +1,6 @@
 package muses.art.controller;
 
+import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
 import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
@@ -25,17 +26,11 @@ public class OrderController {
     private OrderCommodityService orderCommodityService;
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/{user_id}/{status}/{page}", method = RequestMethod.GET)
     public @ResponseBody
-    StatusModel<List<OrderModel>> listOrder(@PathVariable int user_id) {
-        StatusModel<List<OrderModel>> statusModel;
-        List<OrderModel> orderModels = orderService.listOrders(user_id);
-        if (orderModels == null) {
-            statusModel = new StatusModel<>("没有订单");
-        } else {
-            statusModel = new StatusModel<>(orderModels);
-        }
-        return statusModel;
+    PageModel<OrderModel> listOrder(@PathVariable int user_id, @PathVariable int status, @PathVariable int page) {
+        PageModel<OrderModel> pageModel = orderService.listOrders(user_id, status, page);
+        return pageModel;
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -43,7 +38,7 @@ public class OrderController {
     public @ResponseBody
     StatusModel updateOrder(@RequestBody OrderModel orderModel, @PathVariable int order_id) {
         StatusModel statusModel;
-        Boolean status = orderService.updateOrder(order_id, orderModel.getPayStatus());
+        Boolean status = orderService.updateOrder(order_id, orderModel.getStatus());
         if (!status) {
             statusModel = new StatusModel<>("订单数据更新失败");
         } else {

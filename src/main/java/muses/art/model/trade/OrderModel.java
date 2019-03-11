@@ -12,7 +12,7 @@ public class OrderModel {
 
     private String tradeNo; // 交易号
 
-    private String payStatus; // 订单状态
+    private Integer status; // 订单状态
 
     private String postScript; // 订单留言
 
@@ -58,12 +58,12 @@ public class OrderModel {
         this.tradeNo = tradeNo;
     }
 
-    public String getPayStatus() {
-        return payStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setPayStatus(String payStatus) {
-        this.payStatus = payStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getPostScript() {
