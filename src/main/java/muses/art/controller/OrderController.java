@@ -30,9 +30,14 @@ public class OrderController {
     @ResponseBody
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/list/{user_id}/{status}/{page}", method = RequestMethod.GET)
-    public PageModel<OrderModel> listOrder(@PathVariable int user_id, @PathVariable int status, @PathVariable int page) {
+    public StatusModel<PageModel<OrderModel>> listOrder(@PathVariable int user_id, @PathVariable int status, @PathVariable int page) {
         PageModel<OrderModel> pageModel = orderService.listOrders(user_id, status, page);
-        return pageModel;
+        if (pageModel != null) {
+            return new StatusModel<>(pageModel);
+        } else {
+            return new StatusModel<>("无此类订单");
+        }
+
     }
 
     @ResponseBody

@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
@@ -41,9 +42,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Float calculateAmount(List<Integer> cartIds) {
-        if (cartIds.isEmpty())return null;
+        if (cartIds.isEmpty()) return null;
         AtomicReference<Float> amount = new AtomicReference<>(0f);
-        cartIds.forEach(cartId-> {
+        cartIds.forEach(cartId -> {
             Cart cart = cartDao.get(Cart.class, cartId);
             if (cart != null) {
                 amount.updateAndGet(v -> v + cart.getNumber() * cart.getCommodity().getDiscountPrice());
@@ -77,9 +78,7 @@ public class OrderServiceImpl implements OrderService {
             orderModel.setOrderCommodityModels(orderCommodityModels);
             orderModels.add(orderModel);
         });
-        PageModel<OrderModel> pageModel = new PageModel<>();
-        pageModel.setDataList(orderModels);
-        return pageModel;
+        return new PageModel<>(page, 5, count(userId, status), orderModels);
     }
 
     @Override
@@ -105,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public SimpleOrderModel createOrderFromCart(OrderFromCartModel orderFromCartModel, int userId) {
         Integer addressId = orderFromCartModel.getAddressId();
-        if (addressId==null) return null;
+        if (addressId == null) return null;
         Order order = new Order();
         order.setUserId(userId);
         order.setStatus(0); // 未付款
@@ -127,11 +126,25 @@ public class OrderServiceImpl implements OrderService {
         Address address = addressDao.get(Address.class, model.getAddressId());
         order.setAddress(address.toString());
         Commodity commodity = commodityDao.get(Commodity.class, model.getCommodityId());
-        order.setOrderAmount(model.getNumber()*commodity.getDiscountPrice());
+        order.setOrderAmount(model.getNumber() * commodity.getDiscountPrice());
         order.setOrderSN(UUID.randomUUID().toString().replace("-", ""));
         orderDao.save(order);
         SimpleOrderModel simpleOrderModel = new SimpleOrderModel();
         BeanUtils.copyProperties(order, simpleOrderModel);
         return simpleOrderModel;
+    }
+
+    private int count(Integer userId, Integer status) {
+        if (status == -1) { // 搜索全部订单
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", userId);
+            return orderDao.count("select count(*) from Order where userId=:id", map).intValue();
+        } else { // 有搜索指定订单
+            String HQL = "select count(*) from Order where userId=:id and status=:status";
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", userId);
+            map.put("status", status);
+            return orderDao.count(HQL, map).intValue();
+        }
     }
 }
