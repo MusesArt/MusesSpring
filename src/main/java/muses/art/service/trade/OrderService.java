@@ -3,7 +3,7 @@ package muses.art.service.trade;
 import muses.art.model.base.PageModel;
 import muses.art.model.trade.OrderFromCartModel;
 import muses.art.model.trade.OrderModel;
-
+import muses.art.model.trade.SimpleOrderModel;
 import java.util.List;
 
 
@@ -34,6 +34,6 @@ public interface OrderService {
      * @param orderFromCartModel
      * @return
      */
-    Integer createOrderFromCart(OrderFromCartModel orderFromCartModel, int userId);
+    SimpleOrderModel createOrderFromCart(OrderFromCartModel orderFromCartModel, int userId);
 
 }

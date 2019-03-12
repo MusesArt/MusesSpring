@@ -1,11 +1,7 @@
 package muses.art.model.trade;
 
-import muses.art.entity.commodity.Commodity;
-import muses.art.entity.user.User;
 import muses.art.model.commodity.CommodityListModel;
-
 import java.io.Serializable;
-import java.util.Date;
 
 public class CartModel implements Serializable {
     private Integer id;

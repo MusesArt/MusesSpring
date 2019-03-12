@@ -34,31 +34,42 @@ public class CartServiceImpl implements CartService {
     private ParameterDao parameterDao;
 
     @Override
-    public Boolean addToCart(Integer userId, Integer commodityId, String detail, Integer number, Integer parameterId) {
-        Cart cart = findCartExist(userId, commodityId, detail);
-        if (commodityDao.get(Commodity.class, commodityId) == null) return false;
+    public Boolean addToCart(CartModel cartModel) {
+        Cart cart = findCartExist(cartModel.getUserId(), cartModel.getCommodityId(), cartModel.getDetail());
+        Commodity commodity = commodityDao.get(Commodity.class, cartModel.getCommodityId());
+        if (commodity == null) return false;
         if (cart != null) {
             cart.setNumber(cart.getNumber() + 1);
             cartDao.update(cart);
             return true;
         }
         cart = new Cart();
-        cart.setUserId(userId);
-        cart.setCommodityId(commodityId);
-        cart.setNumber(number);
-        cart.setDetail(detail);
-        Commodity commodity = commodityDao.get(Commodity.class, commodityId);
-        Parameter parameter = parameterDao.get(Parameter.class, parameterId);
-        String image = parameter.getImage();
-        if (image == null || image.length() == 0) { // 属性没有图
-            cart.setImage(commodity.getCoverImage());
-        } else { // 属性有图
-            cart.setImage(image);
-        }
+        BeanUtils.copyProperties(cartModel, cart);
+        cart.setImage(getImage(commodity, cartModel.getParameter()));
         cart.setAddTime(new Timestamp(System.currentTimeMillis()));
         cartDao.save(cart);
         return true;
     }
+
+    private String getImage(Commodity commodity, String param) {
+        System.out.println(param);
+        String image = null;
+        if (param != null) {
+            String[] params = param.split(",");
+            for (int i = 0; i < params.length; i++ ) { // 遍历所有属性
+                Parameter parameter = parameterDao.get(Parameter.class, Integer.valueOf(params[i]));
+                System.out.println(parameter.getImage());
+                if (parameter != null && parameter.getImage() != null) { // 若属性有图，则将该图作为购物车图像
+                    image = parameter.getImage(); // 设置图像
+                }
+            }
+        }
+        if (image == null) { // 没有从属性中找到图像
+            image = commodity.getCoverImage(); // 使用商品封面图像作为购物车图像
+        }
+        return image;
+    }
+
 
     @Override
     public Boolean deleteFromCart(Integer id) {
@@ -69,11 +80,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Boolean updateCart(Integer id, Integer number, String detail) {
+    public Boolean updateCart(Integer id, Integer number, String detail, String parameter) {
         Cart cart = cartDao.get(Cart.class, id);
         if (cart == null) return false;
         cart.setNumber(number);
         cart.setDetail(detail);
+        cart.setParameter(parameter);
+        cart.setImage(getImage(cart.getCommodity(), parameter));
         cartDao.update(cart);
         return true;
     }
