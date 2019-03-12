@@ -3,6 +3,7 @@ package muses.art.controller;
 import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
 import muses.art.model.trade.OrderFromCartModel;
+import muses.art.model.trade.OrderFromCommodityModel;
 import muses.art.model.trade.OrderModel;
 import muses.art.model.trade.SimpleOrderModel;
 import muses.art.service.trade.CartService;
@@ -82,6 +83,19 @@ public class OrderController {
             cartIds.forEach(cartId -> {
                 cartService.deleteFromCart(cartId); // 从购物车中移除商品
             });
+            return new StatusModel<>("订单创建成功", StatusModel.OK, model);
+        }
+    }
+
+    @ResponseBody
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/addDirectly", method = RequestMethod.POST)
+    public StatusModel addOrderDirectly(@RequestBody OrderFromCommodityModel orderFromCommodityModel) {
+        SimpleOrderModel model = orderService.createOrderFromCommodity(orderFromCommodityModel);
+        if (model == null) {
+            return new StatusModel<>("订单创建失败");
+        } else { // 若订单创建成功
+            orderCommodityService.copy(orderFromCommodityModel, model.getId()); // 复制商品快照
             return new StatusModel<>("订单创建成功", StatusModel.OK, model);
         }
     }

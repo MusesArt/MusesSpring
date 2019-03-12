@@ -1,18 +1,17 @@
 package muses.art.service.trade.impl;
 
+import muses.art.dao.commodity.CommodityDao;
 import muses.art.dao.trade.AddressDao;
 import muses.art.dao.trade.CartDao;
 import muses.art.dao.trade.OrderCommodityDao;
 import muses.art.dao.trade.OrderDao;
+import muses.art.entity.commodity.Commodity;
 import muses.art.entity.trade.Address;
 import muses.art.entity.trade.Cart;
 import muses.art.entity.trade.Order;
 import muses.art.entity.trade.OrderCommodity;
 import muses.art.model.base.PageModel;
-import muses.art.model.trade.OrderCommodityModel;
-import muses.art.model.trade.OrderFromCartModel;
-import muses.art.model.trade.OrderModel;
-import muses.art.model.trade.SimpleOrderModel;
+import muses.art.model.trade.*;
 import muses.art.service.trade.OrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderCommodityDao orderCommodityDao;
+
+    @Autowired
+    private CommodityDao commodityDao;
 
     @Override
     public Float calculateAmount(List<Integer> cartIds) {
@@ -117,4 +119,19 @@ public class OrderServiceImpl implements OrderService {
         return simpleOrderModel;
     }
 
+    @Override
+    public SimpleOrderModel createOrderFromCommodity(OrderFromCommodityModel model) {
+        Order order = new Order();
+        order.setUserId(model.getUserId());
+        order.setStatus(0); // 未付款
+        Address address = addressDao.get(Address.class, model.getAddressId());
+        order.setAddress(address.toString());
+        Commodity commodity = commodityDao.get(Commodity.class, model.getCommodityId());
+        order.setOrderAmount(model.getNumber()*commodity.getDiscountPrice());
+        order.setOrderSN(UUID.randomUUID().toString().replace("-", ""));
+        orderDao.save(order);
+        SimpleOrderModel simpleOrderModel = new SimpleOrderModel();
+        BeanUtils.copyProperties(order, simpleOrderModel);
+        return simpleOrderModel;
+    }
 }
