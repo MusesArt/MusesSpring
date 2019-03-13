@@ -9,9 +9,6 @@ import muses.art.service.filter.FilterService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -39,8 +36,9 @@ public class FilterServiceImpl implements FilterService {
     }
 
     private void saveBase64Image(FilterInfoModel filterInfoModel) {
+        System.out.println("进入图像解码函数");
         byte[] image = Base64.decodeBase64(filterInfoModel.getBase64Image());
-        String imgFilePath = filterInfoModel.getUploadId()+".png"; // 指定图片要存放的位置
+        String imgFilePath = "src/main/webapp/image/filter_cover/"+filterInfoModel.getUploadId()+".png"; // 指定图片要存放的位置
         try {
             FileOutputStream out = new FileOutputStream(imgFilePath); // 新建一个文件输出器，并为它指定输出位置imgFilePath
             out.write(image); // 利用文件输出器将二进制格式decodedBytes输出
