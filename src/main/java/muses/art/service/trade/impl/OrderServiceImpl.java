@@ -55,10 +55,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PageModel<OrderModel> listOrders(Integer userId, Integer status, Integer page) {
-        String SQL = "from Order where userId=:id and status=:status";
+        String SQL;
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
-        map.put("status", status);
+        // TODO: 2019/3/13 按时间倒序获取订单
+        if (status != -1) {
+            SQL = "from Order where userId=:id and status=:status";
+            map.put("status", status);
+        } else {
+            SQL = "from Order where userId=:id";
+        }
         List<Order> orders = orderDao.find(SQL, map, page, 5);
         if (orders.isEmpty()) return null;
         List<OrderModel> orderModels = new ArrayList<>();
