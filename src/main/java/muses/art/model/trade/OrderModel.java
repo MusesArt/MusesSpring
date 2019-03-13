@@ -18,6 +18,8 @@ public class OrderModel {
 
     private Float orderAmount; // 订单金额
 
+    private Date addTime; //添加时间
+
     private Date payTime; // 支付时间
 
     private Integer userId;
@@ -64,6 +66,14 @@ public class OrderModel {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     public String getPostScript() {

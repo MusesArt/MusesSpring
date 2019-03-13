@@ -33,7 +33,7 @@ public class Order { // 订单
     private Date payTime; // 支付时间
 
     @Column(name = "add_time")
-    private Date addTime; // 支付时间
+    private Date addTime; // 添加时间
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
