@@ -12,7 +12,7 @@ public class OrderCommodityModel {
     private Integer commodityId;
     private Float price;
     private String title;
-    private String brief;
+    private String detail;
     private String image;
 
     public String getTitle() {
@@ -71,11 +71,11 @@ public class OrderCommodityModel {
         this.price = price;
     }
 
-    public String getBrief() {
-        return brief;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setBrief(String brief) {
-        this.brief = brief;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

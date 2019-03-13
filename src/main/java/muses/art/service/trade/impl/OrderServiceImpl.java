@@ -112,6 +112,7 @@ public class OrderServiceImpl implements OrderService {
         order.setAddress(address.toString());
         order.setOrderAmount(calculateAmount(orderFromCartModel.getCartIds()));
         order.setOrderSN(UUID.randomUUID().toString().replace("-", ""));
+        order.setAddTime(new Timestamp(System.currentTimeMillis()));
         orderDao.save(order);
         SimpleOrderModel simpleOrderModel = new SimpleOrderModel();
         BeanUtils.copyProperties(order, simpleOrderModel);
@@ -128,6 +129,7 @@ public class OrderServiceImpl implements OrderService {
         Commodity commodity = commodityDao.get(Commodity.class, model.getCommodityId());
         order.setOrderAmount(model.getNumber() * commodity.getDiscountPrice());
         order.setOrderSN(UUID.randomUUID().toString().replace("-", ""));
+        order.setAddTime(new Timestamp(System.currentTimeMillis()));
         orderDao.save(order);
         SimpleOrderModel simpleOrderModel = new SimpleOrderModel();
         BeanUtils.copyProperties(order, simpleOrderModel);

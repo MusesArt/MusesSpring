@@ -32,6 +32,9 @@ public class Order { // 订单
     @Column(name = "pay_time")
     private Date payTime; // 支付时间
 
+    @Column(name = "add_time")
+    private Date addTime; // 支付时间
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user; // 订单用户对象 多对一
@@ -134,4 +137,11 @@ public class Order { // 订单
         this.user = user;
     }
 
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
 }
