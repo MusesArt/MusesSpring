@@ -60,10 +60,10 @@ public class OrderServiceImpl implements OrderService {
         map.put("id", userId);
         // TODO: 2019/3/13 按时间倒序获取订单
         if (status != -1) {
-            SQL = "from Order where userId=:id and status=:status";
+            SQL = "from Order where userId=:id and status=:status order by addTime desc";
             map.put("status", status);
         } else {
-            SQL = "from Order where userId=:id";
+            SQL = "from Order where userId=:id order by addTime desc";
         }
         List<Order> orders = orderDao.find(SQL, map, page, 5);
         if (orders.isEmpty()) return null;
