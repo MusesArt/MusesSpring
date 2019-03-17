@@ -6,6 +6,7 @@ import muses.art.model.base.PageModel;
 import muses.art.model.commodity.SearchModel;
 import muses.art.model.filter.FilterInfoModel;
 import muses.art.service.filter.FilterService;
+import org.hibernate.engine.query.spi.HQLQueryPlan;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,7 +83,7 @@ public class FilterServiceImpl implements FilterService {
 
     @Override
     public PageModel<FilterInfoModel> findFiltersByUserId(Integer userId, int page, int size) {
-        String HQL = "from Filter where ownerId=:id";
+        String HQL = "from Filter where ownerId=:id order by id desc";
         Map<String, Object> map = new HashMap<>();
         map.put("id", userId);
         List<Filter> filters = filterDao.find(HQL, map, page, size);
@@ -119,10 +120,9 @@ public class FilterServiceImpl implements FilterService {
         int size = searchModel.getSize();
         int page = searchModel.getPage();
         String keyword = searchModel.getKeyword();
-        String HQL = "from Filter where filterName like :name or description like :description order by publishData asc";
+        String HQL = "from Filter where filterName like :name and checked=true order by publishDate asc";
         Map<String, Object> map = new HashMap<>();
-        map.put("name", keyword);
-        map.put("description", keyword);
+        map.put("name", "%"+keyword+"%");
         List<Filter> filters = filterDao.find(HQL, map, page, size);
         int totalNum = filterDao.find(HQL, map).size();
         List<FilterInfoModel> filterInfoModels = entity2model(filters);
@@ -133,6 +133,22 @@ public class FilterServiceImpl implements FilterService {
         pageModel.setTotalNum(totalNum);
         pageModel.setPageSize(size);
         return pageModel;
+    }
+
+    @Override
+    public Boolean useFilter(Integer uploadId) {
+        String HQL = "from Filter where uploadId=:uploadId";
+        Map<String, Object> map = new HashMap<>();
+        map.put("uploadId", uploadId);
+        List<Filter> filters = filterDao.find(HQL, map);
+        if (filters.size() > 0) {
+            Filter filter = filters.get(0);
+            filter.setUsageCount(filter.getUsageCount()+1);
+            filterDao.update(filter);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private List<FilterInfoModel> entity2model(List<Filter> filters) {

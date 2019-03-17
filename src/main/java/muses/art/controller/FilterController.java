@@ -98,5 +98,17 @@ public class FilterController {
         }
     }
 
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/use/{uploadId}", method = RequestMethod.GET)
+    @ResponseBody
+    public StatusModel useFilter(@PathVariable Integer uploadId) {
+        boolean state = filterService.useFilter(uploadId);
+        if (state) {
+            return new StatusModel("使用记录添加成功", StatusModel.OK);
+        } else {
+            return new StatusModel("该滤镜不存在", StatusModel.ERROR);
+        }
+    }
+
 
 }

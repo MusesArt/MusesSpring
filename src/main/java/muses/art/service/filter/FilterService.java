@@ -56,4 +56,6 @@ public interface FilterService {
      */
     PageModel<FilterInfoModel> searchFilters(SearchModel searchModel);
 
+    Boolean useFilter(Integer id);
+
 }

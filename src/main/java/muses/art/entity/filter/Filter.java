@@ -59,6 +59,17 @@ public class Filter {
     @Column(name = "checked")
     private Boolean checked;
 
+    @Column(name = "usage_count", columnDefinition="INT default 0")
+    private Integer usageCount;
+
+    public Integer getUsageCount() {
+        return usageCount;
+    }
+
+    public void setUsageCount(Integer usageCount) {
+        this.usageCount = usageCount;
+    }
+
     public Boolean getChecked() {
         return checked;
     }
