@@ -143,7 +143,7 @@ public class FilterServiceImpl implements FilterService {
         List<Filter> filters = filterDao.find(HQL, map);
         if (filters.size() > 0) {
             Filter filter = filters.get(0);
-            filter.setUsageCount(filter.getUsageCount()+1);
+            filter.setUsageCount(filter.getUsageCount()==null ? 1 : (filter.getUsageCount()+1));
             filterDao.update(filter);
             return true;
         } else {

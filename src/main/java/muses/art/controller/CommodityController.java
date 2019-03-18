@@ -1,5 +1,6 @@
 package muses.art.controller;
 
+import muses.art.entity.commodity.Commodity;
 import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
 import muses.art.model.commodity.CommodityDetailModel;
@@ -11,7 +12,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -119,13 +129,35 @@ public class CommodityController {
 
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody
-    StatusModel<CommodityDetailModel> deleteCommodity(@PathVariable int id) {
+    @ResponseBody
+    public StatusModel<CommodityDetailModel> deleteCommodity(@PathVariable int id) {
         boolean flag = commodityService.deleteCommodity(id);
         if (flag) {
             return new StatusModel<>("删除成功", StatusModel.OK);
         } else {
             return new StatusModel<>("商品不存在", StatusModel.ERROR);
+        }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public StatusModel<Integer> addCommodity(HttpServletRequest request) throws IOException {
+        MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
+        MultipartFile file = multipartRequest.getFile("photo");
+        String filename = file.getOriginalFilename();
+        filename = new Date().getTime() + filename;
+        System.out.println(filename);
+        String filePath = "src/main/webapp/image/create/"+filename;
+        File source = new File(filePath);
+        file.transferTo(source); // 保存用户上传的图片
+        int userId = Integer.parseInt(multipartRequest.getParameter("userId"));
+        Integer commodityId = commodityService.addCommodity(userId, filename);
+        if (commodityId != null) {
+            return new StatusModel<>("添加商品成功", StatusModel.OK, commodityId);
+        } else {
+            return new StatusModel<>("出现异常，请不要联系吉皮", StatusModel.ERROR);
         }
     }
 
