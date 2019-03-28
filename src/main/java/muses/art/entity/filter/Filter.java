@@ -1,6 +1,7 @@
 package muses.art.entity.filter;
 
 
+import lombok.extern.apachecommons.CommonsLog;
 import muses.art.entity.user.User;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class Filter {
     private Boolean VipOnly; // 是否需要VIP
 
     @Column(name = "publish_date")
-    private Date publishData; // 发布日期
+    private Date publishDate; // 发布日期
 
     @Column(name = "description")
     private String description; // 滤镜描述
@@ -54,6 +55,28 @@ public class Filter {
 
     @Column(name = "smooth")
     private Integer smooth;
+
+    @Column(name = "checked")
+    private Boolean checked;
+
+    @Column(name = "usage_count", columnDefinition="INT default 0")
+    private Integer usageCount;
+
+    public Integer getUsageCount() {
+        return usageCount;
+    }
+
+    public void setUsageCount(Integer usageCount) {
+        this.usageCount = usageCount;
+    }
+
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
 
     public Integer getBrushSize() {
         return brushSize;
@@ -139,12 +162,12 @@ public class Filter {
         VipOnly = vipOnly;
     }
 
-    public Date getPublishData() {
-        return publishData;
+    public Date getPublishDate() {
+        return publishDate;
     }
 
-    public void setPublishData(Date publishData) {
-        this.publishData = publishData;
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
     }
 
     public String getDescription() {

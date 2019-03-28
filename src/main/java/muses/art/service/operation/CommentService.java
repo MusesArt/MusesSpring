@@ -13,7 +13,7 @@ public interface CommentService {
      * @param orderCommodityId 订单商品id
      * @return
      */
-    Boolean addComment(String comment, Integer orderCommodityId);
+    Boolean addComment(String comment, Integer orderCommodityId, Integer star);
 
     /**
      *

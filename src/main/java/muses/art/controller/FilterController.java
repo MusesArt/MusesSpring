@@ -25,10 +25,10 @@ public class FilterController {
         PageModel<FilterInfoModel> pageModel = null;
         switch (key) {
             case "category":
-                pageModel = filterService.findFiltersByCategoryId(id, page, 10);
+                pageModel = filterService.findFiltersByCategoryId(id, page, 15);
                 break;
             case "user":
-                pageModel = filterService.findFiltersByUserId(id, page, 10);
+                pageModel = filterService.findFiltersByUserId(id, page, 15);
                 break;
         }
         if (pageModel != null) {
@@ -95,6 +95,18 @@ public class FilterController {
             return pageModel;
         } else {
             return new PageModel<>();
+        }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/use/{uploadId}", method = RequestMethod.GET)
+    @ResponseBody
+    public StatusModel useFilter(@PathVariable Integer uploadId) {
+        boolean state = filterService.useFilter(uploadId);
+        if (state) {
+            return new StatusModel("使用记录添加成功", StatusModel.OK);
+        } else {
+            return new StatusModel("该滤镜不存在", StatusModel.ERROR);
         }
     }
 

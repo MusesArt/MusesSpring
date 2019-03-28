@@ -1,5 +1,7 @@
 package muses.art.service.trade;
 
+import muses.art.model.trade.OrderFromCommodityModel;
+
 import java.util.List;
 
 public interface OrderCommodityService {
@@ -16,4 +18,6 @@ public interface OrderCommodityService {
      * @return
      */
     Boolean delete(Integer orderId);
+
+    Boolean copy(OrderFromCommodityModel orderFromCommodityModel, Integer orderId);
 }

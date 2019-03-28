@@ -38,7 +38,7 @@ public class CommentController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel<CommentModel> addComment(@RequestBody CommentModel commentModel) {
-        Boolean flag = commentService.addComment(commentModel.getContent(), commentModel.getOrderCommodityId());
+        Boolean flag = commentService.addComment(commentModel.getContent(), commentModel.getOrderCommodityId(), commentModel.getStar());
         if (flag) {
             return new StatusModel<>("添加评论成功", StatusModel.OK);
         } else {
@@ -47,10 +47,10 @@ public class CommentController {
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{orderCommodityId}", method = RequestMethod.DELETE)
     public @ResponseBody
-    StatusModel<CommentModel> deleteComment(@RequestBody CommentModel c) {
-        CommentModel commentModel = commentService.findCommentByOrderCommodityId(c.getOrderCommodityId());
+    StatusModel<CommentModel> deleteComment(@PathVariable Integer orderCommodityId) {
+        CommentModel commentModel = commentService.findCommentByOrderCommodityId(orderCommodityId);
         if (commentModel != null) {
             commentService.deleteComment(commentModel.getId());
             return new StatusModel<>("删除评论成功", StatusModel.OK);
@@ -60,10 +60,10 @@ public class CommentController {
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{orderCommodityId}", method = RequestMethod.GET)
     public @ResponseBody
-    StatusModel<CommentModel> findCommentByOrderCommodityID(@RequestBody CommentModel c) {
-        CommentModel commentModel = commentService.findCommentByOrderCommodityId(c.getOrderCommodityId());
+    StatusModel<CommentModel> findCommentByOrderCommodityId(@PathVariable Integer orderCommodityId) {
+        CommentModel commentModel = commentService.findCommentByOrderCommodityId(orderCommodityId);
         if (commentModel != null) {
             return new StatusModel<>("获取评论成功", StatusModel.OK, commentModel);
         } else {
@@ -75,7 +75,7 @@ public class CommentController {
     @RequestMapping(value = "/praise", method = RequestMethod.POST)
     public @ResponseBody
     StatusModel<CommentModel> addPraiseByCommentIdAndUserId(@RequestBody CommentModel c) {
-        Boolean flag = commentPraiseService.addPraise(c.getUserId(), c.getCommentId());
+        Boolean flag = commentPraiseService.addPraise(c.getUserId(), c.getId());
         if (flag) {
             return new StatusModel<>("点赞成功", StatusModel.OK);
         } else {
@@ -86,7 +86,7 @@ public class CommentController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/praise", method = RequestMethod.DELETE)
     public @ResponseBody StatusModel<CommentModel> deletePraiseByCommentIdAndUserId(@RequestBody CommentModel c) {
-        Boolean flag = commentPraiseService.deletePraise(c.getUserId(), c.getCommentId());
+        Boolean flag = commentPraiseService.deletePraise(c.getUserId(), c.getId());
         if (flag) {
             return new StatusModel<>("取消点赞成功", StatusModel.OK);
         } else {
@@ -97,13 +97,6 @@ public class CommentController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/{commodityId}/count", method = RequestMethod.GET)
     public @ResponseBody StatusModel<CommentInfoModel> getCommentInfoByCommodityId(@PathVariable Integer commodityId) {
-        CommentInfoModel cim = commentService.getCommentInfoByCommodityId(commodityId);
-        return new StatusModel<>("获取评论信息成功", StatusModel.OK, cim);
-    }
-
-    @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/{commodityId}/withImage", method = RequestMethod.GET)
-    public @ResponseBody StatusModel<CommentInfoModel> getCommentWithImageByCommodityId(@PathVariable Integer commodityId) {
         CommentInfoModel cim = commentService.getCommentInfoByCommodityId(commodityId);
         return new StatusModel<>("获取评论信息成功", StatusModel.OK, cim);
     }

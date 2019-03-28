@@ -12,11 +12,13 @@ public class OrderModel {
 
     private String tradeNo; // 交易号
 
-    private String payStatus; // 订单状态
+    private Integer status; // 订单状态
 
     private String postScript; // 订单留言
 
     private Float orderAmount; // 订单金额
+
+    private Date addTime; //添加时间
 
     private Date payTime; // 支付时间
 
@@ -58,12 +60,20 @@ public class OrderModel {
         this.tradeNo = tradeNo;
     }
 
-    public String getPayStatus() {
-        return payStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setPayStatus(String payStatus) {
-        this.payStatus = payStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     public String getPostScript() {

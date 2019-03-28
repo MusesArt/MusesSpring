@@ -43,11 +43,11 @@ public interface AddressService {
      */
     List<AddressModel> findAllAddressByUserId(int id);
 
-    /**
-     * 设置默认地址
-     * @return
-     */
-    Boolean setDefaultAddress(AddressModel addressModel);
+//    /**
+//     * 设置默认地址
+//     * @return
+//     */
+//    Boolean setDefaultAddress(AddressModel addressModel);
 
     /**
      * 获取用户默认收货地址

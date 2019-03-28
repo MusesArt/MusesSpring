@@ -15,15 +15,13 @@
     <!-- 对模型视图名称的解析,在请求时模型视图名称添加前后缀 -->
     <context:component-scan base-package="muses.art"/>
 
-    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
-        <!--<property name="prefix" value="view/"/>      &lt;!&ndash; 前缀 &ndash;&gt;-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="view/"/>      <!-- 前缀 -->
         <!--<property name="suffix" value=".jsp"/>   &lt;!&ndash; 后缀 &ndash;&gt;-->
-    <!--</bean>-->
+    </bean>
 
     <!--这里是对静态资源的映射-->
-    <!--<mvc:resources mapping="/js/**" location="/resources/js/"/>-->
-    <!--<mvc:resources mapping="/css/**" location="/resources/css/"/>-->
-    <!--<mvc:resources mapping="/img/**" location="/resources/image/"/>-->
+    <mvc:resources mapping="/img/**" location="/image/"/>
 
 </beans>

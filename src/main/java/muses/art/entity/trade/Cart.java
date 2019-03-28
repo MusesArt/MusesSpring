@@ -1,6 +1,7 @@
 package muses.art.entity.trade;
 
 
+import lombok.extern.apachecommons.CommonsLog;
 import muses.art.entity.commodity.Commodity;
 import muses.art.entity.user.User;
 
@@ -39,6 +40,17 @@ public class Cart { // 购物车
 
     @Column(name = "image")
     private String image; // 冗余图像地址
+
+    @Column(name = "parameter")
+    private String parameter;
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
+    }
 
     public String getImage() {
         return image;

@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface CommodityService {
 
-
     /**
-     * 添加商品
-     * @param commodityDetailModel 商品传输类
+     *
+     * @param userId
+     * @param filename
      */
-    void addCommodity(CommodityDetailModel commodityDetailModel);
+    Integer addCommodity(int userId, String filename);
 
     /**
      * 更新商品信息
