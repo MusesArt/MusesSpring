@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("api/filter")
@@ -36,6 +39,18 @@ public class FilterController {
         } else {
             return new PageModel<>();
         }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PageModel> findFilters() {
+        List<PageModel> lists = new ArrayList<>();
+        for (int i = 1; i <=10 ; i++) {
+            PageModel page = filterService.findFiltersByCategoryId(i, 1, 6);
+            lists.add(page);
+        }
+        return lists;
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
