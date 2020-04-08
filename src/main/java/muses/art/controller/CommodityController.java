@@ -145,7 +145,7 @@ public class CommodityController {
     public StatusModel<Integer> addCommodity(HttpServletRequest request) throws IOException {
         MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
-        MultipartFile file = multipartRequest.getFile("photo");
+        MultipartFile file = multipartRequest.getFile("file");
         String filename = file.getOriginalFilename();
         filename = new Date().getTime() + filename;
         System.out.println(filename);
@@ -153,6 +153,7 @@ public class CommodityController {
         File source = new File(filePath);
         file.transferTo(source); // 保存用户上传的图片
         int userId = Integer.parseInt(multipartRequest.getParameter("userId"));
+        System.out.println(userId);
         Integer commodityId = commodityService.addCommodity(userId, filename);
         if (commodityId != null) {
             return new StatusModel<>("添加商品成功", StatusModel.OK, commodityId);

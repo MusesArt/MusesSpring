@@ -23,5 +23,7 @@
 
     <!--这里是对静态资源的映射-->
     <mvc:resources mapping="/img/**" location="/image/"/>
+    <mvc:resources mapping="/apk/**" location="/apk/"/>
+
 
 </beans>

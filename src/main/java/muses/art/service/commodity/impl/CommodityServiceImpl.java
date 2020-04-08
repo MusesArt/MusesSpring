@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -88,15 +90,13 @@ public class CommodityServiceImpl implements CommodityService {
             parameterDao.save(parameter);
         }
 
-        // 创建商品带图参数
         String[] pictures = {"木纹框", "黑色框", "白色框"};
-        String[] imagePath = {"mwk.png", "sk.png", "bsk.png"};
+        String[] imagePath = {"mwk.jpg", "hsk.jpg", "bsk.jpg"};
         for (int i = 0; i < pictures.length; i++) {
             Parameter parameter = new Parameter();
             parameter.setAttributeId(attrColorId);
             parameter.setValue(pictures[i]);
-            // 生成图像，并设置图像地址
-            parameter.setImage("http://muses.deepicecream.com:7010/img/commodity/"+imagePath[i]);
+            parameter.setImage("http://muses.deepicecream.com:7010/img/create/"+filename);
             parameterDao.save(parameter);
         }
         // 添加商品主图
