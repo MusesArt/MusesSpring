@@ -27,7 +27,7 @@ public class UserFavCommodityServiceImpl implements UserFavCommodityService {
         UserFavCommodity userFavCommodity = new UserFavCommodity();
         userFavCommodity.setUserId(userId);
         userFavCommodity.setCommodityId(commodityId);
-        userFavCommodity.setPrice(commodityDao.get(Commodity.class, Integer.valueOf(1)).getDiscountPrice());
+        userFavCommodity.setPrice(commodityDao.get(Commodity.class, commodityId).getDiscountPrice());
         userFavCommodity.setAddTime(new Date(System.currentTimeMillis()));
         userFavCommodityDao.save(userFavCommodity);
         return true;

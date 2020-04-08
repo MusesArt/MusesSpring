@@ -36,11 +36,22 @@ public class OrderCommodity { // 订购的商品
     @Column(name = "price")
     private Float price; // 成交价
 
-    @Column(name = "brief")
-    private String brief; // 简介
+    @Column(name = "detail")
+    private String detail; // 简介
+
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "image")
     private String image;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getImage() {
         return image;
@@ -70,12 +81,12 @@ public class OrderCommodity { // 订购的商品
         this.price = price;
     }
 
-    public String getBrief() {
-        return brief;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setBrief(String brief) {
-        this.brief = brief;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public void setOrderId(Integer orderId) {

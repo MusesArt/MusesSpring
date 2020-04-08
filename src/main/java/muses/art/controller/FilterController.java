@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("api/filter")
@@ -25,10 +28,10 @@ public class FilterController {
         PageModel<FilterInfoModel> pageModel = null;
         switch (key) {
             case "category":
-                pageModel = filterService.findFiltersByCategoryId(id, page, 10);
+                pageModel = filterService.findFiltersByCategoryId(id, page, 15);
                 break;
             case "user":
-                pageModel = filterService.findFiltersByUserId(id, page, 10);
+                pageModel = filterService.findFiltersByUserId(id, page, 15);
                 break;
         }
         if (pageModel != null) {
@@ -36,6 +39,18 @@ public class FilterController {
         } else {
             return new PageModel<>();
         }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PageModel> findFilters() {
+        List<PageModel> lists = new ArrayList<>();
+        for (int i = 1; i <=10 ; i++) {
+            PageModel page = filterService.findFiltersByCategoryId(i, 1, 6);
+            lists.add(page);
+        }
+        return lists;
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -95,6 +110,18 @@ public class FilterController {
             return pageModel;
         } else {
             return new PageModel<>();
+        }
+    }
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/use/{uploadId}", method = RequestMethod.GET)
+    @ResponseBody
+    public StatusModel useFilter(@PathVariable Integer uploadId) {
+        boolean state = filterService.useFilter(uploadId);
+        if (state) {
+            return new StatusModel("使用记录添加成功", StatusModel.OK);
+        } else {
+            return new StatusModel("该滤镜不存在", StatusModel.ERROR);
         }
     }
 

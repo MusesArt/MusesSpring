@@ -7,15 +7,21 @@ import java.util.Date;
 
 public class OrderCommodityModel {
     private Integer id;
-    private Date addTime;
-    private Order order;
     private Integer number;
-    private Commodity commodity;
     private Integer orderId;
     private Integer commodityId;
     private Float price;
-    private String brief;
+    private String title;
+    private String detail;
     private String image;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Integer getNumber() {
         return number;
@@ -39,30 +45,6 @@ public class OrderCommodityModel {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Commodity getCommodity() {
-        return commodity;
-    }
-
-    public void setCommodity(Commodity commodity) {
-        this.commodity = commodity;
     }
 
     public Integer getOrderId() {
@@ -89,11 +71,11 @@ public class OrderCommodityModel {
         this.price = price;
     }
 
-    public String getBrief() {
-        return brief;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setBrief(String brief) {
-        this.brief = brief;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

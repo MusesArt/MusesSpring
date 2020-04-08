@@ -1,11 +1,7 @@
 package muses.art.model.trade;
 
-import muses.art.entity.commodity.Commodity;
-import muses.art.entity.user.User;
 import muses.art.model.commodity.CommodityListModel;
-
 import java.io.Serializable;
-import java.util.Date;
 
 public class CartModel implements Serializable {
     private Integer id;
@@ -14,14 +10,23 @@ public class CartModel implements Serializable {
     private CommodityListModel commodity;
     private Integer commodityId;
     private String detail;
-    private Integer parameterId;
+    private String parameter;
+    private String image;
 
-    public Integer getParameterId() {
-        return parameterId;
+    public String getImage() {
+        return image;
     }
 
-    public void setParameterId(Integer parameterId) {
-        this.parameterId = parameterId;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
     }
 
     public String getDetail() {

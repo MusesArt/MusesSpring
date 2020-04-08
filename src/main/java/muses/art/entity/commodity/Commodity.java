@@ -39,7 +39,7 @@ public class Commodity {
     private String description; // 商品详情webview地址
 
     @Column(name = "ship_free")
-    private Integer shipFree; // 是否包邮
+    private Boolean shipFree; // 是否包邮
 
     @Column(name = "is_hot")
     private Boolean isHot; // 是否热门
@@ -56,6 +56,9 @@ public class Commodity {
     @Column(name = "information", length = 1024)
     private String information; // 商品具体信息
 
+    @Column(name = "show_flag")
+    private Boolean showFlag;
+
     // 若商品删除，则其所属的所有图片可以删除
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity", cascade = CascadeType.REMOVE)
     private List<Image> images; // 商品图片列表 一对多
@@ -70,6 +73,14 @@ public class Commodity {
     // 若商品删除，则其所属的所有参数可以删除
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "commodity", cascade = CascadeType.REMOVE)
     private List<Attribute> attributes;
+
+    public Boolean getShowFlag() {
+        return showFlag;
+    }
+
+    public void setShowFlag(Boolean showFlag) {
+        this.showFlag = showFlag;
+    }
 
     public Integer getCategoryId() {
         return categoryId;
@@ -159,11 +170,11 @@ public class Commodity {
         this.description = description;
     }
 
-    public Integer getShipFree() {
+    public Boolean getShipFree() {
         return shipFree;
     }
 
-    public void setShipFree(Integer shipFree) {
+    public void setShipFree(Boolean shipFree) {
         this.shipFree = shipFree;
     }
 

@@ -1,8 +1,11 @@
 package muses.art.controller;
 
+import muses.art.model.base.PageModel;
 import muses.art.model.base.StatusModel;
 import muses.art.model.trade.OrderFromCartModel;
+import muses.art.model.trade.OrderFromCommodityModel;
 import muses.art.model.trade.OrderModel;
+import muses.art.model.trade.SimpleOrderModel;
 import muses.art.service.trade.CartService;
 import muses.art.service.trade.OrderCommodityService;
 import muses.art.service.trade.OrderService;
@@ -24,66 +27,81 @@ public class OrderController {
     @Autowired
     private OrderCommodityService orderCommodityService;
 
+    @ResponseBody
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
-    public @ResponseBody
-    StatusModel<List<OrderModel>> listOrder(@PathVariable int user_id) {
-        StatusModel<List<OrderModel>> statusModel;
-        List<OrderModel> orderModels = orderService.listOrders(user_id);
-        if (orderModels == null) {
-            statusModel = new StatusModel<>("没有订单");
+    @RequestMapping(value = "/list/{user_id}/{status}/{page}", method = RequestMethod.GET)
+    public StatusModel<PageModel<OrderModel>> listOrder(@PathVariable int user_id, @PathVariable int status, @PathVariable int page) {
+        PageModel<OrderModel> pageModel = orderService.listOrders(user_id, status, page);
+        if (pageModel != null) {
+            return new StatusModel<>(pageModel);
         } else {
-            statusModel = new StatusModel<>(orderModels);
+            return new StatusModel<>("无此类订单");
         }
-        return statusModel;
+
     }
 
+    @ResponseBody
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/{order_id}", method = RequestMethod.PUT)
-    public @ResponseBody
-    StatusModel updateOrder(@RequestBody OrderModel orderModel, @PathVariable int order_id) {
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
+    public StatusModel updateOrder(@RequestBody OrderModel orderModel, @PathVariable int orderId) {
         StatusModel statusModel;
-        Boolean status = orderService.updateOrder(order_id, orderModel.getPayStatus());
+        Boolean status = orderService.updateOrder(orderId, orderModel.getStatus());
         if (!status) {
             statusModel = new StatusModel<>("订单数据更新失败");
         } else {
-            statusModel = new StatusModel<>("订单数据更新成功", "0");
+            statusModel = new StatusModel<>("订单数据更新成功", StatusModel.OK);
         }
         return statusModel;
     }
 
+    @ResponseBody
     @CrossOrigin(origins = "*", maxAge = 3600)
-    @RequestMapping(value = "/{order_id}", method = RequestMethod.DELETE)
-    public @ResponseBody
-    StatusModel deleteOrder(@PathVariable int order_id) {
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.DELETE)
+    public StatusModel deleteOrder(@PathVariable int orderId) {
         StatusModel statusModel;
-        Boolean status = orderService.deleteOrder(order_id);
-        orderCommodityService.delete(order_id);
+        Boolean status = orderService.deleteOrder(orderId);
+        orderCommodityService.delete(orderId);
         if (!status) {
             statusModel = new StatusModel<>("无此订单");
         } else {
-            statusModel = new StatusModel<>("删除成功", "0");
+            statusModel = new StatusModel<>("删除成功", StatusModel.OK);
         }
         return statusModel;
     }
 
+    @ResponseBody
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public @ResponseBody
-    StatusModel addOrder(@RequestBody OrderFromCartModel orderFromCartModel) {
-        StatusModel statusModel;
+    public StatusModel addOrder(@RequestBody OrderFromCartModel orderFromCartModel) {
         // 根据cardIds将商品从购物车添加至订单中
-        Integer orderId = orderService.createOrderFromCart(orderFromCartModel, orderFromCartModel.getUserId());
-        if (orderId == null) {
-            statusModel = new StatusModel<>("订单创建失败");
+        List<Integer> cartIds = orderFromCartModel.getCartIds();
+        for (int i = 0 ;i < cartIds.size(); i++) {
+            if (cartService.getCart(cartIds.get(i)) == null) {
+                return new StatusModel<>("请勿重复提交订单", StatusModel.ERROR);
+            }
+        }
+        SimpleOrderModel model = orderService.createOrderFromCart(orderFromCartModel, orderFromCartModel.getUserId());
+        if (model == null) {
+            return new StatusModel<>("订单创建失败");
         } else { // 若订单创建成功
-            List<Integer> cartIds = orderFromCartModel.getCartIds();
-            orderCommodityService.add(cartIds, orderId); // 复制商品快照
+            orderCommodityService.add(cartIds, model.getId()); // 复制商品快照
             cartIds.forEach(cartId -> {
                 cartService.deleteFromCart(cartId); // 从购物车中移除商品
             });
-            statusModel = new StatusModel<>("订单创建成功", "0");
+            return new StatusModel<>("订单创建成功", StatusModel.OK, model);
         }
-        return statusModel;
+    }
+
+    @ResponseBody
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @RequestMapping(value = "/addDirectly", method = RequestMethod.POST)
+    public StatusModel addOrderDirectly(@RequestBody OrderFromCommodityModel orderFromCommodityModel) {
+        SimpleOrderModel model = orderService.createOrderFromCommodity(orderFromCommodityModel);
+        if (model == null) {
+            return new StatusModel<>("订单创建失败");
+        } else { // 若订单创建成功
+            orderCommodityService.copy(orderFromCommodityModel, model.getId()); // 复制商品快照
+            return new StatusModel<>("订单创建成功", StatusModel.OK, model);
+        }
     }
 }

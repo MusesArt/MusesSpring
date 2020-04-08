@@ -10,8 +10,18 @@ public class FilterInfoModel {
     private Integer brushSize;          // 笔刷大小
     private Integer brushIntensity;     // 风格强度
     private Integer smooth;             // 平滑度
-    private Date publishData;           // 发布日期
+    private Date publishDate;           // 发布日期
     private Boolean VipOnly;
+    private String base64Image;
+
+    public String getBase64Image() {
+        return base64Image;
+    }
+
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
+
     private String description; // 滤镜描述
 
     public String getDescription() {
@@ -86,12 +96,11 @@ public class FilterInfoModel {
         this.smooth = smooth;
     }
 
-    public Date getPublishData() {
-        return publishData;
+    public Date getPublishDate() {
+        return publishDate;
     }
 
-    public void setPublishData(Date publishData) {
-        this.publishData = publishData;
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
     }
-
 }
