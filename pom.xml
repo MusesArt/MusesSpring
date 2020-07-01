@@ -22,7 +22,7 @@
         <servletVersion>3.0-alpha-1</servletVersion>
         <jsonVersion>1.9.13</jsonVersion>
         <jacksonVersion>2.5.0</jacksonVersion>
-        <mysqlVersion>5.1.38</mysqlVersion>
+        <mysqlVersion>8.0.16</mysqlVersion>
         <c3p0Version>0.9.1.2</c3p0Version>
         <log4jVersion>1.2.17</log4jVersion>
         <slslf4jSimpleVersion>1.6.6</slslf4jSimpleVersion>
